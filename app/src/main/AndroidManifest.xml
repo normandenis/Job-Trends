@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="io.jobtrends.jobtrends">
+
+    <application
+        android:icon="@drawable/logo_android"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_android"
+        android:supportsRtl="true"
+        android:theme="@style/JobTrends.Theme"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/JobTrends.Theme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.BoardingActivity"
+            android:theme="@style/JobTrends.Theme.NoActionBar" />
+        <activity
+            android:name=".activities.HomeActivity"
+            android:icon="@drawable/logo_android"
+            android:label="@string/activity_home_label" />
+    </application>
+
+</manifest>

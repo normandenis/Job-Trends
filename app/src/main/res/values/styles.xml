@@ -1,0 +1,116 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="JobTrends" />
+
+    <style name="JobTrends.Theme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+
+        <item name="android:windowBackground">@drawable/banner</item>
+
+        <item name="android:textColorPrimary">?attr/colorSecondary</item>
+        <item name="android:textColorSecondary">?attr/colorAccent</item>
+        <item name="android:textColorTertiary">@android:color/darker_gray</item>
+    </style>
+
+    <style name="JobTrends.Theme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+
+        <item name="android:windowBackground">@drawable/banner</item>
+
+        <item name="android:textColorPrimary">?attr/colorSecondary</item>
+        <item name="android:textColorSecondary">?attr/colorAccent</item>
+        <item name="android:textColorTertiary">@android:color/darker_gray</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance" parent="android:TextAppearance" tools:ignore="PrivateResource">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textColorHint">?android:textColorHint</item>
+        <item name="android:textColorHighlight">?android:textColorHighlight</item>
+        <item name="android:textColorLink">?android:textColorLink</item>
+        <item name="android:textSize">@dimen/abc_text_size_body_1_material</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Display4" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_display_4_material</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Display3" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_display_3_material</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Display2" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_display_2_material</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Display1" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_display_1_material</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Headline" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_headline_material</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Title" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_title_material</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Title.Inverse" tools:ignore="PrivateResource">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textColorHint">?android:attr/textColorHintInverse</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Subhead" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_subhead_material</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Subhead.Inverse" tools:ignore="PrivateResource">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textColorHint">?android:attr/textColorHintInverse</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Body2" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_body_2_material</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Body1" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_body_1_material</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Caption" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_caption_material</item>
+        <item name="android:textColor">?android:textColorTertiary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Menu" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_menu_material</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Button" tools:ignore="PrivateResource">
+        <item name="android:textSize">@dimen/abc_text_size_button_material</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Widget.Button" parent="TextAppearance.AppCompat.Button" tools:ignore="PrivateResource" />
+
+    <style name="JobTrends.TextAppearance.Widget.Button.Inverse" parent="TextAppearance.AppCompat.Button" tools:ignore="PrivateResource">
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
+
+</resources>
