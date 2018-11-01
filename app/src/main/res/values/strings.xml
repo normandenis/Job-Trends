@@ -1,4 +1,8 @@
 <resources>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</string>
     <string name="app_name">Job Trends</string>
     <string name="activity_home_label">Recherche</string>
+    <string name="following">Suivant</string>
+    <string name="skip">Passer</string>
+    <string name="start">Commencer</string>
 </resources>

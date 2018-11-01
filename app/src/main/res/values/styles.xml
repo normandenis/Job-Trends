@@ -28,6 +28,11 @@
         <item name="android:textColorTertiary">@android:color/darker_gray</item>
     </style>
 
+
+    <style name="JobTrends.Button" parent="Base.Widget.AppCompat.Button.Borderless" />
+
+    <!--region TextAppearance-->
+
     <style name="JobTrends.TextAppearance" parent="android:TextAppearance" tools:ignore="PrivateResource">
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textColorHint">?android:textColorHint</item>
@@ -112,5 +117,7 @@
     <style name="JobTrends.TextAppearance.Widget.Button.Inverse" parent="TextAppearance.AppCompat.Button" tools:ignore="PrivateResource">
         <item name="android:textColor">?android:textColorPrimaryInverse</item>
     </style>
+
+    <!--endregion-->
 
 </resources>
