@@ -1,12 +1,19 @@
 package io.jobtrends.jobtrends.activities
 
 import android.content.Context
+import android.databinding.DataBindingUtil
+import android.databinding.ObservableField
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.v7.app.ActionBar.LayoutParams
+import android.support.v7.app.ActionBar.LayoutParams.MATCH_PARENT
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.dagger.App
+import io.jobtrends.jobtrends.databinding.ActionbarHomeBinding
 import javax.inject.Inject
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -17,8 +24,11 @@ class HomeActivity : AppCompatActivity() {
     @Inject
     lateinit var context: Context
 
+    val jobSought: ObservableField<String>
+
     init {
         App.component.inject(this)
+        jobSought = ObservableField("")
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val editor = sharedPreferences.edit()
         editor.putBoolean(BOARDING, false)
@@ -29,8 +39,15 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setIcon(R.drawable.logo_android)
+        val inflater = LayoutInflater.from(this)
+        val binding: ActionbarHomeBinding = DataBindingUtil.inflate(inflater, R.layout.actionbar_home, null, false)
+        binding.homeActivity = this
+
+        val layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setCustomView(binding.root, layoutParams)
+        supportActionBar?.setDisplayShowCustomEnabled(true)
     }
 
     override fun onBackPressed() {}

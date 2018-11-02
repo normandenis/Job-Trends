@@ -37,7 +37,7 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_0"
-            style="@style/JobTrends.Button"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:gravity="center"
-            app:dotsColor="?attr/colorSecondary"
+            app:dotsColor="?attr/colorAccent"
             app:dotsCornerRadius="8dp"
             app:dotsSize="16dp"
             app:dotsSpacing="4dp"
@@ -65,7 +65,7 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_1"
-            style="@style/JobTrends.Button"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
