@@ -1,5 +1,3 @@
 package io.jobtrends.jobtrends.models
 
-class BoardingModel {
-    var title: String? = null
-}
+data class BoardingModel(var title: String?)

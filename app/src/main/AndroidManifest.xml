@@ -27,6 +27,7 @@
             android:name=".activities.HomeActivity"
             android:icon="@drawable/logo_android"
             android:label="@string/activity_home_label" />
+        <activity android:name=".activities.JobActivity"></activity>
     </application>
 
 </manifest>

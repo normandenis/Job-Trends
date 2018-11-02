@@ -6,16 +6,36 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import io.jobtrends.jobtrends.managers.BoardingManager
+import io.jobtrends.jobtrends.managers.HomeManager
 import io.jobtrends.jobtrends.managers.JsonManager
 import io.jobtrends.jobtrends.managers.RawManager
+import io.jobtrends.jobtrends.models.JobModel
+import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Singleton
 
 @Module
 class AppModule {
 
+    private val jobModelWrapper: Wrapper<JobModel>
+
+    init {
+        jobModelWrapper = Wrapper()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSingletonWrapperJobModel(): Wrapper<JobModel> = jobModelWrapper
+
+    @Provides
+    fun provideJobModel(): JobModel = jobModelWrapper.obj ?: JobModel()
+
     @Provides
     @Singleton
     fun provideBoardingManager(): BoardingManager = BoardingManager()
+
+    @Provides
+    @Singleton
+    fun provideHomeManager(): HomeManager = HomeManager()
 
     @Provides
     @Singleton

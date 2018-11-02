@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,18 +8,66 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.HomeActivity">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_0"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:layout_margin="@dimen/margin"
+            android:gravity="bottom"
+            android:text="@string/last_searches"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/picker_0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/picker_0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:dsv_orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/text_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_0" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:gravity="bottom"
+            android:text="@string/most_sought_after"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintBottom_toTopOf="@id/picker_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/picker_0" />
+
+        <com.yarolegovich.discretescrollview.DiscreteScrollView
+            android:id="@+id/picker_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:dsv_orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/button_0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_1" />
+
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/button_0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="TOTO"
+            app:layout_constraintTop_toBottomOf="@id/picker_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

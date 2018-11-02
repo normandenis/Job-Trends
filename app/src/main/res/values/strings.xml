@@ -6,4 +6,6 @@
     <string name="skip">Passer</string>
     <string name="start">Commencer</string>
     <string name="search">Architecte, boulanger, etc...</string>
+    <string name="last_searches">Dernière recherches</string>
+    <string name="most_sought_after">Les plus recherché</string>
 </resources>
