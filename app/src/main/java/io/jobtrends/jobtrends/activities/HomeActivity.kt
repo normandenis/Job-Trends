@@ -10,7 +10,7 @@ import android.support.v7.app.ActionBar.LayoutParams.MATCH_PARENT
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.adapters.HomeAdapter
+import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActionbarHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
@@ -50,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setCustomView(binding.root, layoutParams)
         supportActionBar?.setDisplayShowCustomEnabled(true)
-        picker_0.adapter = HomeAdapter()
+        picker_0.adapter = RecyclerAdapter(R.layout.fragment_home)
         picker_0.scrollToPosition(1)
     }
 

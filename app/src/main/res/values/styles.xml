@@ -7,10 +7,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
-        <item name="android:windowBackground">@drawable/banner</item>
+        <item name="android:windowBackground">@drawable/window_background</item>
 
         <item name="android:textColorPrimary">?attr/colorAccent</item>
         <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:textColorTertiary">@color/textColorTertiary</item>
+
+        <item name="actionBarStyle">@style/JobTrends.Theme.ActionBar</item>
     </style>
 
     <style name="JobTrends.Theme.NoActionBar" parent="Theme.AppCompat.NoActionBar">
@@ -18,10 +21,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
-        <item name="android:windowBackground">@drawable/banner</item>
+        <item name="android:windowBackground">@drawable/window_background</item>
 
         <item name="android:textColorPrimary">?attr/colorAccent</item>
         <item name="android:textColorSecondary">@android:color/darker_gray</item>
+        <item name="android:textColorTertiary">@color/textColorTertiary</item>
+    </style>
+
+    <style name="JobTrends.Theme.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="background">?attr/colorPrimaryDark</item>
     </style>
 
 </resources>

@@ -6,12 +6,9 @@ import io.jobtrends.jobtrends.activities.HomeActivity
 import io.jobtrends.jobtrends.activities.JobActivity
 import io.jobtrends.jobtrends.activities.SplashActivity
 import io.jobtrends.jobtrends.adapters.BoardingAdapter
-import io.jobtrends.jobtrends.adapters.HomeAdapter
+import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.fragments.BoardingFragment
-import io.jobtrends.jobtrends.managers.BoardingManager
-import io.jobtrends.jobtrends.managers.HomeManager
-import io.jobtrends.jobtrends.managers.JsonManager
-import io.jobtrends.jobtrends.managers.RawManager
+import io.jobtrends.jobtrends.managers.*
 import javax.inject.Singleton
 
 @Component(modules = [AppModule::class])
@@ -36,7 +33,7 @@ interface AppComponent {
 
     fun inject(boardingAdapter: BoardingAdapter)
 
-    fun inject(homeAdapter: HomeAdapter)
+    fun inject(recyclerAdapter: RecyclerAdapter)
 
     // Managers
 
@@ -47,4 +44,6 @@ interface AppComponent {
     fun inject(boardingManager: BoardingManager)
 
     fun inject(homeManager: HomeManager)
+
+    fun inject(jobManager: JobManager)
 }

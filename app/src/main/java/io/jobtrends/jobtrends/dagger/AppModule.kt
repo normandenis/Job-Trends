@@ -5,10 +5,7 @@ import android.content.res.Resources
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import io.jobtrends.jobtrends.managers.BoardingManager
-import io.jobtrends.jobtrends.managers.HomeManager
-import io.jobtrends.jobtrends.managers.JsonManager
-import io.jobtrends.jobtrends.managers.RawManager
+import io.jobtrends.jobtrends.managers.*
 import io.jobtrends.jobtrends.models.JobModel
 import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Singleton
@@ -28,6 +25,10 @@ class AppModule {
 
     @Provides
     fun provideJobModel(): JobModel = jobModelWrapper.obj ?: JobModel()
+
+    @Provides
+    @Singleton
+    fun provideJobManager(): JobManager = JobManager()
 
     @Provides
     @Singleton
