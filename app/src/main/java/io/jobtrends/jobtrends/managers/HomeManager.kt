@@ -9,7 +9,7 @@ import io.jobtrends.jobtrends.models.JobModel
 import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Inject
 
-class HomeManager {
+class HomeManager : RecyclerManager {
 
     @Inject
     lateinit var rawManager: RawManager
@@ -31,11 +31,11 @@ class HomeManager {
         jobModelArray = jsonManager.deserialize(data)
     }
 
-    fun getItem(index: Int): JobModel {
+    override fun getItem(index: Int): Any {
         return jobModelArray[index]
     }
 
-    fun getCount(): Int {
+    override fun getCount(): Int {
         return jobModelArray.size
     }
 

@@ -1,0 +1,3 @@
+lane :beta do
+json_key_file("D:\\Downloads\\api-5027477296424190381-545568-e548e8276750.json")
+package_name("io.jobtrends.jobtrends")

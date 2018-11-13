@@ -13,6 +13,7 @@ import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActionbarHomeBinding
+import io.jobtrends.jobtrends.managers.HomeManager
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
@@ -22,6 +23,9 @@ class HomeActivity : AppCompatActivity() {
     companion object {
         private const val BOARDING = "BOARDING"
     }
+
+    @Inject
+    lateinit var homeManager: HomeManager
 
     @Inject
     lateinit var context: Context
@@ -50,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setCustomView(binding.root, layoutParams)
         supportActionBar?.setDisplayShowCustomEnabled(true)
-        picker_0.adapter = RecyclerAdapter(R.layout.fragment_home)
+        picker_0.adapter = RecyclerAdapter(homeManager, R.layout.fragment_home)
         picker_0.scrollToPosition(1)
     }
 

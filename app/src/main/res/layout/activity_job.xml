@@ -1,75 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="jobModel"
             type="io.jobtrends.jobtrends.models.JobModel" />
+
+        <variable
+            name="jobManager"
+            type="io.jobtrends.jobtrends.managers.JobManager" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/margin">
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/layout_0"
+            android:id="@+id/layout_2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/picker_0"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_0"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
+                android:layout_margin="@dimen/marginSmall"
+                android:padding="@dimen/marginSmall"
+                app:layout_constraintBottom_toTopOf="@id/picker_0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/text_0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginSmall"
+                    android:gravity="center"
+                    android:text="12.0%"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    app:layout_constraintBottom_toTopOf="@id/text_1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/divider_0" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/text_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginSmall"
+                    android:gravity="center"
+                    android:text="Pourcentage des Recherches"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/divider_0"
+                    app:layout_constraintTop_toBottomOf="@id/text_0" />
+
+                <View
+                    android:id="@+id/divider_0"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/darker_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/text_1"
+                    app:layout_constraintLeft_toRightOf="@id/text_0"
+                    app:layout_constraintRight_toLeftOf="@id/text_5"
+                    app:layout_constraintTop_toTopOf="@id/text_0" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/text_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginSmall"
+                    android:gravity="center"
+                    android:text="12.0%"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    app:layout_constraintBottom_toTopOf="@id/text_4"
+                    app:layout_constraintLeft_toRightOf="@id/divider_0"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/text_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/marginSmall"
+                    android:gravity="center"
+                    android:text="Pourcentage des Recherches"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintLeft_toRightOf="@id/divider_0"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_5" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <com.yarolegovich.discretescrollview.DiscreteScrollView
+                android:id="@+id/picker_0"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:dsv_orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/text_2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_0" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/text_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/marginMedium"
+                android:text="Recherche journalière"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintBottom_toTopOf="@id/image_0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/picker_0" />
+
+            <TextView
+                android:id="@+id/image_0"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/marginMedium"
+                android:background="@android:color/darker_gray"
                 android:gravity="center"
-                android:text="12.0% Pourcentage des Recherches"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:text="Graphique"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/divider_0"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/divider_0"
-                android:layout_width="1dp"
-                android:layout_height="0dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintBottom_toBottomOf="@id/text_0"
-                app:layout_constraintLeft_toRightOf="@id/text_0"
-                app:layout_constraintRight_toLeftOf="@id/text_1"
-                app:layout_constraintTop_toTopOf="@id/text_0" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/text_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin"
-                android:gravity="center"
-                android:text="12.0% Pourcentage des Recherches"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/divider_0"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/text_2" />
 
         </android.support.constraint.ConstraintLayout>
 
-        <com.yarolegovich.discretescrollview.DiscreteScrollView
-            android:id="@+id/picker_0"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_1"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:dsv_orientation="horizontal"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimaryDark"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="@dimen/marginMedium"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_0" />
+            app:layout_constraintTop_toBottomOf="@id/layout_2">
+
+            <ImageView
+                android:id="@+id/image_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/person"
+                android:tint="?attr/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/text_3"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/text_3"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@string/do_custom_analysis"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.AppCompat.Button"
+                app:layout_constraintBottom_toBottomOf="@id/image_1"
+                app:layout_constraintLeft_toRightOf="@id/image_1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_1" />
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
+
 </layout>
