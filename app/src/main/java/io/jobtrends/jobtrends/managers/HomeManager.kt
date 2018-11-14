@@ -39,7 +39,7 @@ class HomeManager : RecyclerManager {
         return jobModelArray.size
     }
 
-    fun onClickJob(jobModel: JobModel) {
+    fun onClickJob(context: Context, jobModel: JobModel) {
         wrapper.obj = jobModel
         val intent = Intent(context, JobActivity::class.java)
         context.startActivity(intent)

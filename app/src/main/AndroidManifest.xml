@@ -27,6 +27,10 @@
             android:name=".activities.HomeActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name=".activities.JobActivity" />
+
+        <activity
+            android:name=".activities.TrainingActivity"
+            android:label="Formations" />
     </application>
 
 </manifest>

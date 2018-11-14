@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="context"
+            type="android.content.Context" />
+
+        <variable
             name="jobModel"
             type="io.jobtrends.jobtrends.models.JobModel" />
 
@@ -21,12 +25,12 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/marginSmall"
+            android:layout_margin="@dimen/small"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> homeManager.onClickJob(jobModel)}"
-            app:cardBackgroundColor="?attr/colorAccent"
-            app:cardCornerRadius="8dp"
+            android:onClick="@{() -> homeManager.onClickJob(context, jobModel)}"
+            app:cardBackgroundColor="@color/surface"
+            app:cardCornerRadius="@dimen/small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -36,15 +40,14 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/marginSmall">
+                android:padding="@dimen/large">
 
                 <TextView
                     android:id="@+id/text_0"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:text="@{jobModel.title}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="?android:attr/textColorTertiary"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintBottom_toTopOf="@id/text_1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -58,7 +61,6 @@
                     android:gravity="end|bottom"
                     android:text="@{jobModel.value}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="?attr/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

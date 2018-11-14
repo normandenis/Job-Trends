@@ -54,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setCustomView(binding.root, layoutParams)
         supportActionBar?.setDisplayShowCustomEnabled(true)
-        picker_0.adapter = RecyclerAdapter(homeManager, R.layout.fragment_home)
+        picker_0.adapter = RecyclerAdapter(this, homeManager, R.layout.fragment_home)
         picker_0.scrollToPosition(1)
     }
 

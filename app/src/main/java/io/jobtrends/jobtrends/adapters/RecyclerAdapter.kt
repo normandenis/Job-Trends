@@ -1,5 +1,6 @@
 package io.jobtrends.jobtrends.adapters
 
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView.Adapter
@@ -16,16 +17,13 @@ import io.jobtrends.jobtrends.managers.RecyclerManager
 import io.jobtrends.jobtrends.models.JobModel
 import io.jobtrends.jobtrends.models.JobStatisticModel
 
-class RecyclerAdapter(val recyclerManager: RecyclerManager,
+class RecyclerAdapter(val context: Context,
+                      val recyclerManager: RecyclerManager,
                       val layoutId: Int) : Adapter<ViewHolder>() {
 
-    init {
-        App.component.inject(this)
-    }
-
     override fun onCreateViewHolder(group: ViewGroup, itemViewType: Int): ViewHolder {
-        var height: Int? = null
-        var width: Int? = null
+        val height: Int
+        val width: Int
         val inflater = LayoutInflater.from(group.context)
         val binding: Any = when (layoutId) {
             R.layout.fragment_home -> {
@@ -34,8 +32,8 @@ class RecyclerAdapter(val recyclerManager: RecyclerManager,
                 DataBindingUtil.inflate(inflater, R.layout.fragment_home, null, false)
             }
             else -> {
-                width = (group.measuredWidth * 0.65).toInt()
-                height = (group.measuredHeight * 0.8).toInt()
+                width = (group.measuredWidth * 0.7).toInt()
+                height = (group.measuredHeight * 0.6).toInt()
                 DataBindingUtil.inflate(inflater, R.layout.fragment_job, null, false)
             }
         }
@@ -52,6 +50,7 @@ class RecyclerAdapter(val recyclerManager: RecyclerManager,
                 val tmpHolder = (holder as HolderAdapter<FragmentHomeBinding>)
                 tmpHolder.binding.homeManager = recyclerManager as HomeManager
                 tmpHolder.binding.jobModel = recyclerManager.getItem(index) as JobModel
+                tmpHolder.binding.context = context
             }
             else -> {
                 val tmpHolder = (holder as HolderAdapter<FragmentJobBinding>)

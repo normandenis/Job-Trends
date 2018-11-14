@@ -33,7 +33,7 @@ class JobActivity : AppCompatActivity() {
 
         supportActionBar?.title = jobModel.title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        picker_0.adapter = RecyclerAdapter(jobManager, R.layout.fragment_job)
+        picker_0.adapter = RecyclerAdapter(this, jobManager, R.layout.fragment_job)
         picker_0.scrollToPosition(1)
         layout_1.setOnClickListener {
             jobManager.onClick(this)

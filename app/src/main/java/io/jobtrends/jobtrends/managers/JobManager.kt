@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.dagger.App
-import io.jobtrends.jobtrends.databinding.DialogFormationBinding
+import io.jobtrends.jobtrends.databinding.DialogTrainingBinding
 import io.jobtrends.jobtrends.models.JobStatisticModel
 import javax.inject.Inject
 
@@ -42,14 +42,14 @@ class JobManager : RecyclerManager {
 
     fun onClick(context: Context) {
 
-        val dialog = Dialog(context)
+        val dialog = Dialog(context, R.style.JobTrends_Theme_Dailog_Alert)
         val inflater = LayoutInflater.from(context)
         val viewGroup: ViewGroup = (context as Activity).findViewById(android.R.id.content)
-        val binding: DialogFormationBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_formation, viewGroup, false)
+        val binding: DialogTrainingBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_training, viewGroup, false)
 
         val lp = WindowManager.LayoutParams()
         lp.copyFrom(dialog.window?.attributes)
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT
 
         dialog.setContentView(binding.root)

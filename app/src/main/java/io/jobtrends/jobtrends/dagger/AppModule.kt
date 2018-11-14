@@ -13,11 +13,10 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
-    private val jobModelWrapper: Wrapper<JobModel>
+    private val jobModelWrapper: Wrapper<JobModel> = Wrapper()
 
-    init {
-        jobModelWrapper = Wrapper()
-    }
+    // TODO: Context Wrapper
+    private val contextWrapper: Wrapper<Context> = Wrapper()
 
     @Provides
     @Singleton
