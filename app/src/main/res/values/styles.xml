@@ -1,49 +1,223 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="JobTrends" />
 
     <style name="JobTrends.Theme" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
 
         <item name="android:windowBackground">@drawable/window_background</item>
 
         <item name="android:textColorPrimary">@color/onBackground</item>
-        <item name="android:textColorSecondary">@color/onSurface</item>
-        <item name="android:textColorTertiary">@color/onError</item>
+        <item name="android:textColorSecondary">@color/onBackground</item>
+        <item name="android:textColorTertiary">@color/onBackground</item>
 
-        <item name="actionBarStyle">@style/JobTrends.Theme.ActionBar</item>
         <item name="dialogTheme">@style/JobTrends.Theme.Dailog.Alert</item>
         <item name="alertDialogTheme">@style/JobTrends.Theme.Dailog.Alert</item>
     </style>
 
     <style name="JobTrends.Theme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
 
         <item name="android:windowBackground">@drawable/window_background</item>
 
         <item name="android:textColorPrimary">@color/onBackground</item>
-        <item name="android:textColorSecondary">@color/onSurface</item>
-        <item name="android:textColorTertiary">@color/onError</item>
+        <item name="android:textColorSecondary">@color/onBackground</item>
+        <item name="android:textColorTertiary">@color/onBackground</item>
     </style>
 
     <style name="JobTrends.Theme.Dailog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/onSurface</item>
+        <item name="colorPrimary">@color/onSurface</item>
+        <item name="colorPrimaryDark">@color/onSurface</item>
 
         <item name="android:windowBackground">@color/surface</item>
 
-        <item name="android:textColorPrimary">@color/onBackground</item>
+        <item name="android:textColorPrimary">@color/onSurface</item>
         <item name="android:textColorSecondary">@color/onSurface</item>
-        <item name="android:textColorTertiary">@color/onError</item>
+        <item name="android:textColorTertiary">@color/onSurface</item>
     </style>
 
-    <style name="JobTrends.Theme.ActionBar" parent="Widget.AppCompat.ActionBar">
-        <item name="background">?attr/colorPrimaryDark</item>
+    <!--region Button-->
+
+    <style name="JobTrends.Widget.Button" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/shape_round</item>
+        <item name="android:stateListAnimator">@animator/button_state_list_anim_material</item>
     </style>
+
+    <style name="JobTrends.Widget.Button.Primary">
+        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Primary</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Secondary">
+        <item name="android:backgroundTint">@color/secondary</item>
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Secondary</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Background">
+        <item name="android:backgroundTint">@color/background</item>
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Background</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Surface">
+        <item name="android:backgroundTint">@color/surface</item>
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Surface</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Error">
+        <item name="android:backgroundTint">@color/error</item>
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Error</item>
+    </style>
+
+    <!--endregion-->
+
+    <!--region Button Borderless-->
+
+    <style name="JobTrends.Widget.Button.Borderless" parent="Widget.AppCompat.Button.Borderless" />
+
+    <style name="JobTrends.Widget.Button.Borderless.Primary">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Primary</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Borderless.Secondary">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Secondary</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Borderless.Background">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Background</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Borderless.Surface">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Surface</item>
+    </style>
+
+    <style name="JobTrends.Widget.Button.Borderless.Error">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Error</item>
+    </style>
+
+    <!--endregion-->
+
+    <style name="JobTrends.Widget.TextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColorHint">@color/accentDark</item>
+        <item name="android:drawablePadding">@dimen/small</item>
+    </style>
+
+    <style name="JobTrends.Widget.TextInputLayout.Primary">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Primary</item>
+        <item name="android:backgroundTint">@color/onPrimary</item>
+        <item name="android:drawableTint" tools:ignore="NewApi">@color/onPrimary</item>
+    </style>
+
+    <style name="JobTrends.Widget.TextInputLayout.Secondary">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Secondary</item>
+        <item name="android:backgroundTint">@color/onSecondary</item>
+        <item name="android:drawableTint" tools:ignore="NewApi">@color/onSecondary</item>
+    </style>
+
+    <style name="JobTrends.Widget.TextInputLayout.Background">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Background</item>
+        <item name="android:backgroundTint">@color/onBackground</item>
+        <item name="android:drawableTint" tools:ignore="NewApi">@color/onBackground</item>
+    </style>
+
+    <style name="JobTrends.Widget.TextInputLayout.Surface">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Surface</item>
+        <item name="android:backgroundTint">@color/onSurface</item>
+        <item name="android:drawableTint" tools:ignore="NewApi">@color/onSurface</item>
+    </style>
+
+    <style name="JobTrends.Widget.TextInputLayout.Error">
+        <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Error</item>
+        <item name="android:backgroundTint">@color/onError</item>
+        <item name="android:drawableTint" tools:ignore="NewApi">@color/onError</item>
+    </style>
+
+    <!--region Title-->
+
+    <style name="JobTrends.TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="fontPath">fonts/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Title.Primary">
+        <item name="android:textColor">@color/onPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Title.Secondary">
+        <item name="android:textColor">@color/onSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Title.Background">
+        <item name="android:textColor">@color/onBackground</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Title.Surface">
+        <item name="android:textColor">@color/onSurface</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Title.Error">
+        <item name="android:textColor">@color/onError</item>
+    </style>
+
+    <!--endregion-->
+
+    <!--region Body-->
+
+    <style name="JobTrends.TextAppearance.Body" parent="TextAppearance.AppCompat.Body1">
+        <item name="fontPath">fonts/Lato-Light.ttf</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Body.Primary">
+        <item name="android:textColor">@color/onPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Body.Secondary">
+        <item name="android:textColor">@color/onSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Body.Background">
+        <item name="android:textColor">@color/onBackground</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Body.Surface">
+        <item name="android:textColor">@color/onSurface</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Body.Error">
+        <item name="android:textColor">@color/onError</item>
+    </style>
+
+    <!--endregion-->
+
+    <!--region Button-->
+
+    <style name="JobTrends.TextAppearance.Button" parent="TextAppearance.AppCompat.Button">
+        <item name="fontPath">fonts/Lato-Regular.ttf</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Button.Primary">
+        <item name="android:textColor">@color/onPrimary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Button.Secondary">
+        <item name="android:textColor">@color/onSecondary</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Button.Background">
+        <item name="android:textColor">@color/onBackground</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Button.Surface">
+        <item name="android:textColor">@color/onSurface</item>
+    </style>
+
+    <style name="JobTrends.TextAppearance.Button.Error">
+        <item name="android:textColor">@color/onError</item>
+    </style>
+
+    <!--endregion-->
 
 </resources>

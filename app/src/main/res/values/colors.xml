@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">#FFFFFF</color>
-    <color name="colorAccentDark">#CCCCCC</color>
-    <color name="colorPrimary">#144C60</color>
-    <color name="colorPrimaryDark">#002436</color>
-    <color name="colorSecondary">#FFD700</color>
-    <color name="colorSecondaryDark">#C7A600</color>
+
+    <color name="accentLight">#FFFFFF</color>
+    <color name="accent">#CCCCCC</color>
+    <color name="accentDark">#9B9B9B</color>
+
+    <color name="primaryLight">#47788D</color>
+    <color name="primary">#144C60</color>
+    <color name="primaryDark">#002436</color>
+
+    <color name="secondaryLight">#FFED53</color>
+    <color name="secondary">#EDBB13</color>
+    <color name="secondaryDark">#B68B00</color>
 
     <color name="background">#144C60</color>
-    <color name="surface">#002436</color>
+    <color name="surface">#F5F5F6</color>
     <color name="error">#B71C1C</color>
     
     <color name="onPrimary">#FFFFFF</color>
-    <color name="onSecondary">#484848</color>
+    <color name="onSecondary">#000000</color>
 
     <color name="onBackground">#FFFFFF</color>
-    <color name="onSurface">#FFFFFF</color>
+    <color name="onSurface">#000000</color>
     <color name="onError">#FFFFFF</color>
 
 </resources>

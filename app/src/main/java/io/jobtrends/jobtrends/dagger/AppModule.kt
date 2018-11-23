@@ -13,17 +13,18 @@ import javax.inject.Singleton
 @Module
 class AppModule {
 
-    private val jobModelWrapper: Wrapper<JobModel> = Wrapper()
-
-    // TODO: Context Wrapper
-    private val contextWrapper: Wrapper<Context> = Wrapper()
+    private val wrapper = Wrapper()
 
     @Provides
     @Singleton
-    fun provideSingletonWrapperJobModel(): Wrapper<JobModel> = jobModelWrapper
+    fun provideWrapper(): Wrapper = wrapper
 
     @Provides
-    fun provideJobModel(): JobModel = jobModelWrapper.obj ?: JobModel()
+    fun provideJobModel(): JobModel = wrapper.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideTrainingManager(): TrainingManager = TrainingManager()
 
     @Provides
     @Singleton

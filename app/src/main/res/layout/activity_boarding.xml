@@ -18,29 +18,30 @@
             android:id="@+id/image_0"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/small"
             android:src="@drawable/logo_landscape_white"
             app:layout_constraintBottom_toTopOf="@id/pager_0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager_0"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/small"
-            app:layout_constraintBottom_toTopOf="@id/indicator_0"
+            android:layout_marginLeft="@dimen/small"
+            android:layout_marginRight="@dimen/small"
+            app:layout_constraintBottom_toTopOf="@id/button_0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_0" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_0"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/JobTrends.Widget.Button.Borderless.Background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small"
+            android:layout_margin="@dimen/medium"
             android:onClick="@{() -> boardingActivity.navTo()}"
             android:text="@string/skip"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,24 +52,24 @@
             android:id="@+id/indicator_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small"
+            android:layout_margin="@dimen/medium"
             android:gravity="center"
-            app:dotsColor="?attr/colorAccent"
+            app:dotsColor="@color/onBackground"
             app:dotsCornerRadius="8dp"
             app:dotsSize="16dp"
             app:dotsSpacing="4dp"
             app:dotsWidthFactor="2.5"
-            app:layout_constraintBottom_toBottomOf="@id/button_1"
+            app:layout_constraintBottom_toBottomOf="@id/button_0"
             app:layout_constraintLeft_toRightOf="@id/button_0"
             app:layout_constraintRight_toLeftOf="@id/button_1"
-            app:layout_constraintTop_toBottomOf="@id/pager_0" />
+            app:layout_constraintTop_toTopOf="@id/button_0" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_1"
-            style="@style/Widget.AppCompat.Button.Borderless"
+            style="@style/JobTrends.Widget.Button.Borderless.Background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small"
+            android:layout_margin="@dimen/medium"
             android:onClick="@{() -> boardingActivity.onNavForward()}"
             android:text="@{boardingActivity.following}"
             app:layout_constraintBottom_toBottomOf="parent"

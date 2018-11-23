@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar.LayoutParams
 import android.support.v7.app.ActionBar.LayoutParams.MATCH_PARENT
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
@@ -41,6 +42,10 @@ class HomeActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -54,8 +59,8 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setCustomView(binding.root, layoutParams)
         supportActionBar?.setDisplayShowCustomEnabled(true)
-        picker_0.adapter = RecyclerAdapter(this, homeManager, R.layout.fragment_home)
-        picker_0.scrollToPosition(1)
+        picker_0.adapter = RecyclerAdapter(this, homeManager, R.layout.surface_home)
+        picker_1.adapter = RecyclerAdapter(this, homeManager, R.layout.surface_home)
     }
 
     override fun onBackPressed() {}

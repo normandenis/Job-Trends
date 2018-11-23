@@ -1,12 +1,10 @@
 package io.jobtrends.jobtrends.dagger
 
 import dagger.Component
-import io.jobtrends.jobtrends.activities.BoardingActivity
-import io.jobtrends.jobtrends.activities.HomeActivity
-import io.jobtrends.jobtrends.activities.JobActivity
-import io.jobtrends.jobtrends.activities.SplashActivity
+import io.jobtrends.jobtrends.activities.*
 import io.jobtrends.jobtrends.adapters.BoardingAdapter
 import io.jobtrends.jobtrends.fragments.BoardingFragment
+import io.jobtrends.jobtrends.fragments.TrainingFragment
 import io.jobtrends.jobtrends.managers.*
 import javax.inject.Singleton
 
@@ -24,9 +22,13 @@ interface AppComponent {
 
     fun inject(jobActivity: JobActivity)
 
+    fun inject(trainingActivity: TrainingActivity)
+
     // Fragments
 
     fun inject(boardingFragment: BoardingFragment)
+
+    fun inject(trainingFragment: TrainingFragment)
 
     // Adapters
 
@@ -43,4 +45,6 @@ interface AppComponent {
     fun inject(homeManager: HomeManager)
 
     fun inject(jobManager: JobManager)
+
+    fun inject(trainingManager: TrainingManager)
 }

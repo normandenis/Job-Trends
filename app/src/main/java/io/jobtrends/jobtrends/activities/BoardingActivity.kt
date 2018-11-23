@@ -1,21 +1,28 @@
 package io.jobtrends.jobtrends.activities
 
+import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableField
 import android.os.Bundle
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v7.app.AppCompatActivity
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.adapters.BoardingAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityBoardingBinding
 import kotlinx.android.synthetic.main.activity_boarding.*
 
+
 class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
 
     private val boardingAdapter: BoardingAdapter
     val following: ObservableField<String>
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+    }
 
     init {
         App.component.inject(this)

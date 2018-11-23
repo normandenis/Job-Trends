@@ -18,7 +18,7 @@ class HomeManager : RecyclerManager {
     lateinit var jsonManager: JsonManager
 
     @Inject
-    lateinit var wrapper: Wrapper<JobModel>
+    lateinit var wrapper: Wrapper
 
     @Inject
     lateinit var context: Context
@@ -40,7 +40,7 @@ class HomeManager : RecyclerManager {
     }
 
     fun onClickJob(context: Context, jobModel: JobModel) {
-        wrapper.obj = jobModel
+        wrapper.register(jobModel, true)
         val intent = Intent(context, JobActivity::class.java)
         context.startActivity(intent)
     }

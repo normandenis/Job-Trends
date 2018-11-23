@@ -1,9 +1,11 @@
 package io.jobtrends.jobtrends.activities
 
+import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
@@ -25,6 +27,10 @@ class JobActivity : AppCompatActivity() {
         App.component.inject(this)
     }
 
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityJobBinding = DataBindingUtil.setContentView(this, R.layout.activity_job)
@@ -33,7 +39,7 @@ class JobActivity : AppCompatActivity() {
 
         supportActionBar?.title = jobModel.title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        picker_0.adapter = RecyclerAdapter(this, jobManager, R.layout.fragment_job)
+        picker_0.adapter = RecyclerAdapter(this, jobManager, R.layout.surface_job)
         picker_0.scrollToPosition(1)
         layout_1.setOnClickListener {
             jobManager.onClick(this)

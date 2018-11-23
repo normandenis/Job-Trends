@@ -46,7 +46,7 @@
                     android:layout_margin="@dimen/small"
                     android:gravity="center"
                     android:text="12.0%"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
                     app:layout_constraintBottom_toTopOf="@id/text_1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/divider_0" />
@@ -58,7 +58,7 @@
                     android:layout_margin="@dimen/small"
                     android:gravity="center"
                     android:text="Pourcentage des Recherches"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="@style/JobTrends.TextAppearance.Body.Background"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/divider_0"
                     app:layout_constraintTop_toBottomOf="@id/text_0" />
@@ -80,7 +80,7 @@
                     android:layout_margin="@dimen/small"
                     android:gravity="center"
                     android:text="12.0%"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
                     app:layout_constraintBottom_toTopOf="@id/text_4"
                     app:layout_constraintLeft_toRightOf="@id/divider_0"
                     app:layout_constraintRight_toRightOf="parent" />
@@ -92,7 +92,7 @@
                     android:layout_margin="@dimen/small"
                     android:gravity="center"
                     android:text="Pourcentage des Recherches"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textAppearance="@style/JobTrends.TextAppearance.Body.Background"
                     app:layout_constraintLeft_toRightOf="@id/divider_0"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_5" />
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/small"
                 android:text="Recherche journalière"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
                 app:layout_constraintBottom_toTopOf="@id/image_0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -140,7 +140,7 @@
             android:id="@+id/layout_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark"
+            android:background="@color/primaryLight"
             android:clickable="true"
             android:focusable="true"
             android:padding="@dimen/medium"
@@ -154,8 +154,10 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/person"
-                android:tint="?attr/colorAccent"
+                android:tint="@color/onPrimary"
+                android:layout_marginEnd="@dimen/medium"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/text_3"
                 app:layout_constraintTop_toTopOf="parent"
@@ -165,14 +167,20 @@
                 android:id="@+id/text_3"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:gravity="center"
-                android:text="@string/do_custom_analysis"
-                android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Button"
-                app:layout_constraintBottom_toBottomOf="@id/image_1"
+                android:text="@string/do_analysis"
+                android:layout_marginEnd="@dimen/large"
+                android:textAppearance="@style/JobTrends.TextAppearance.Body.Background"
                 app:layout_constraintLeft_toRightOf="@id/image_1"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/image_1" />
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/text_6"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Personnalisée"
+                android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
+                app:layout_constraintLeft_toLeftOf="@id/text_3"
+                app:layout_constraintTop_toBottomOf="@id/text_3" />
 
         </android.support.constraint.ConstraintLayout>
 
