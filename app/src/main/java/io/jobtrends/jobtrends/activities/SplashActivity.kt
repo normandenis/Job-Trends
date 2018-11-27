@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.dagger.App
+import io.jobtrends.jobtrends.wrappers.Wrapper
+import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
 
@@ -17,8 +19,12 @@ class SplashActivity : AppCompatActivity() {
         private const val DELAY_MILLIS: Long = 1000
     }
 
+    @Inject
+    lateinit var wrapper: Wrapper
+
     init {
         App.component.inject(this)
+        wrapper.register(this as Context, true)
     }
 
     override fun attachBaseContext(newBase: Context) {

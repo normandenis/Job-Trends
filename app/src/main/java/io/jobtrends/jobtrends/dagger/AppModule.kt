@@ -23,6 +23,9 @@ class AppModule {
     fun provideJobModel(): JobModel = wrapper.getInstance()
 
     @Provides
+    fun provideContext(): Context = wrapper.getInstance()
+
+    @Provides
     @Singleton
     fun provideTrainingManager(): TrainingManager = TrainingManager()
 
@@ -43,12 +46,7 @@ class AppModule {
     fun provideRawManager(): RawManager = RawManager()
 
     @Provides
-    @Singleton
     fun provideJsonManager(): JsonManager = JsonManager()
-
-    @Provides
-    @Singleton
-    fun provideContext(): Context = App.app.applicationContext
 
     @Provides
     @Singleton

@@ -3,6 +3,7 @@ package io.jobtrends.jobtrends.activities
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -12,6 +13,7 @@ import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityJobBinding
 import io.jobtrends.jobtrends.managers.JobManager
 import io.jobtrends.jobtrends.models.JobModel
+import io.jobtrends.jobtrends.wrappers.Wrapper
 import kotlinx.android.synthetic.main.activity_job.*
 import javax.inject.Inject
 
@@ -23,8 +25,12 @@ class JobActivity : AppCompatActivity() {
     @Inject
     lateinit var jobModel: JobModel
 
+    @Inject
+    lateinit var wrapper: Wrapper
+
     init {
         App.component.inject(this)
+        wrapper.register(this as Context, true)
     }
 
     override fun attachBaseContext(newBase: Context) {

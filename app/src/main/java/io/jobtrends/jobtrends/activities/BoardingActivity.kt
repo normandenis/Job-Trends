@@ -12,10 +12,15 @@ import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.adapters.BoardingAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityBoardingBinding
+import io.jobtrends.jobtrends.wrappers.Wrapper
 import kotlinx.android.synthetic.main.activity_boarding.*
+import javax.inject.Inject
 
 
 class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
+
+    @Inject
+    lateinit var wrapper: Wrapper
 
     private val boardingAdapter: BoardingAdapter
     val following: ObservableField<String>
@@ -26,6 +31,7 @@ class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
 
     init {
         App.component.inject(this)
+        wrapper.register(this as Context, true)
         boardingAdapter = BoardingAdapter(supportFragmentManager)
         following = ObservableField()
     }

@@ -11,6 +11,7 @@ import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.fragments.TrainingEmptyFragment
 import io.jobtrends.jobtrends.fragments.TrainingFragment
 import io.jobtrends.jobtrends.managers.TrainingManager
+import io.jobtrends.jobtrends.wrappers.Wrapper
 import kotlinx.android.synthetic.main.activity_training.*
 import javax.inject.Inject
 
@@ -19,11 +20,16 @@ class TrainingActivity : AppCompatActivity() {
     @Inject
     lateinit var trainingManager: TrainingManager
 
+    @Inject
+    lateinit var wrapper: Wrapper
+
     private lateinit var fragment: Fragment
 
     init {
         App.component.inject(this)
+        wrapper.register(this as Context, true)
     }
+
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))

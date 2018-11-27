@@ -41,8 +41,8 @@ class RecyclerAdapter(val context: Context,
                 DataBindingUtil.inflate(inflater, layoutId, null, false)
             }
             else -> {
-                height = group.measuredHeight / 2
-                width = height * 2
+                height = MATCH_PARENT
+                width = WRAP_CONTENT
                 DataBindingUtil.inflate(inflater, layoutId, null, false)
             }
         }

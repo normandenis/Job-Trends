@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <variable
+            name="trainingManager"
+            type="io.jobtrends.jobtrends.managers.TrainingManager" />
 
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="@dimen/large">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/large"
+            android:gravity="center"
+            android:text="Vous n’avez pas entré de formations, cliquez ici pour en ajouter une"
+            android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
+            app:layout_constraintBottom_toTopOf="@id/image_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/image_0"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_margin="@dimen/large"
+            android:background="@drawable/shape_circle"
+            android:backgroundTint="@color/primaryDark"
+            android:onClick="@{() -> trainingManager.startDialog()}"
+            android:padding="@dimen/medium"
+            android:scaleType="fitXY"
+            android:src="@drawable/add"
+            android:stateListAnimator="@animator/button_state_list_anim_material"
+            android:tint="@color/onPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_0" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

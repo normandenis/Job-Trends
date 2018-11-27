@@ -15,6 +15,7 @@ import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActionbarHomeBinding
 import io.jobtrends.jobtrends.managers.HomeManager
+import io.jobtrends.jobtrends.wrappers.Wrapper
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
@@ -29,14 +30,15 @@ class HomeActivity : AppCompatActivity() {
     lateinit var homeManager: HomeManager
 
     @Inject
-    lateinit var context: Context
+    lateinit var wrapper: Wrapper
 
     val jobSought: ObservableField<String>
 
     init {
         App.component.inject(this)
         jobSought = ObservableField("")
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        wrapper.register(this as Context, true)
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.app.applicationContext)
         val editor = sharedPreferences.edit()
         editor.putBoolean(BOARDING, false)
         editor.apply()

@@ -36,15 +36,7 @@ class JobManager : RecyclerManager {
     }
 
     fun onClick(context: Context) {
-
         val intent = Intent(context, TrainingActivity::class.java)
         context.startActivity(intent)
-
-//        val dialog = Dialog(context, R.style.JobTrends_Theme_Dailog_Alert)
-//        val inflater = LayoutInflater.from(context)
-//        val viewGroup: ViewGroup = (context as Activity).findViewById(android.R.id.content)
-//        val binding: DialogTrainingBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_training, viewGroup, false)
-//        dialog.setContentView(binding.root)
-//        dialog.show()
     }
 }
