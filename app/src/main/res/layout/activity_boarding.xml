@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="boardingViewModel"
+            type="io.jobtrends.jobtrends.viewmodels.BoardingViewModel"/>
+
+        <variable
             name="boardingActivity"
             type="io.jobtrends.jobtrends.activities.BoardingActivity" />
     </data>
@@ -42,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium"
-            android:onClick="@{() -> boardingActivity.navTo()}"
+            android:onClick="@{() -> boardingViewModel.onClickSkip()}"
             android:text="@string/skip"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -70,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium"
-            android:onClick="@{() -> boardingActivity.onNavForward()}"
+            android:onClick="@{() -> boardingViewModel.onClickNext()}"
             android:text="@{boardingActivity.following}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"

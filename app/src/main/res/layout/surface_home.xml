@@ -10,8 +10,8 @@
             type="io.jobtrends.jobtrends.models.JobModel" />
 
         <variable
-            name="homeManager"
-            type="io.jobtrends.jobtrends.managers.HomeManager" />
+            name="homeViewModel"
+            type="io.jobtrends.jobtrends.viewmodels.HomeViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -24,7 +24,7 @@
             android:layout_margin="@dimen/small"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> homeManager.onClickJob(jobModel)}"
+            android:onClick="@{() -> homeViewModel.onClickJob(jobModel)}"
             app:cardCornerRadius="@dimen/small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

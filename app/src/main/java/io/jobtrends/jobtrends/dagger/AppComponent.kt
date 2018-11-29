@@ -2,52 +2,47 @@ package io.jobtrends.jobtrends.dagger
 
 import dagger.Component
 import io.jobtrends.jobtrends.activities.*
-import io.jobtrends.jobtrends.adapters.PagerAdapter
-import io.jobtrends.jobtrends.fragments.BoardingFragment
-import io.jobtrends.jobtrends.fragments.TrainingEmptyFragment
-import io.jobtrends.jobtrends.fragments.TrainingFragment
+import io.jobtrends.jobtrends.fragments.*
 import io.jobtrends.jobtrends.managers.*
+import io.jobtrends.jobtrends.viewmodels.*
 import javax.inject.Singleton
 
 @Component(modules = [AppModule::class])
 @Singleton
 interface AppComponent {
 
-    // Activities
+    // region Activities
 
     fun inject(boardingActivity: BoardingActivity)
-
-    fun inject(boardingActivity: HomeActivity)
-
-    fun inject(boardingActivity: SplashActivity)
-
+    fun inject(curriculumActivity: CurriculumActivity)
+    fun inject(homeActivity: HomeActivity)
     fun inject(jobActivity: JobActivity)
+    fun inject(splashActivity: SplashActivity)
 
-    fun inject(trainingActivity: TrainingActivity)
+    // endregion
 
-    // Fragments
+    // region Fragments
 
     fun inject(boardingFragment: BoardingFragment)
-
+    fun inject(experienceEmptyFragment: ExperienceEmptyFragment)
+    fun inject(experienceFragment: ExperienceFragment)
+    fun inject(passionEmptyFragment: PassionEmptyFragment)
+    fun inject(passionFragment: PassionFragment)
+    fun inject(trainingEmptyFragment: TrainingEmptyFragment)
     fun inject(trainingFragment: TrainingFragment)
 
-    fun inject(trainingEmptyFragment: TrainingEmptyFragment)
+    // endregion
 
-    // Adapters
+    // region Managers
 
-    fun inject(pagerAdapter: PagerAdapter)
-
-    // Managers
-
+    fun inject(boardingViewModel: BoardingViewModel)
+    fun inject(experienceViewModel: ExperienceViewModel)
+    fun inject(homeViewModel: HomeViewModel)
+    fun inject(jobViewModel: JobViewModel)
     fun inject(jsonManager: JsonManager)
-
+    fun inject(passionManager: PassionViewModel)
     fun inject(rawManager: RawManager)
+    fun inject(trainingManager: TrainingViewModel)
 
-    fun inject(boardingManager: BoardingManager)
-
-    fun inject(homeManager: HomeManager)
-
-    fun inject(jobManager: JobManager)
-
-    fun inject(trainingManager: TrainingManager)
+    // endregion
 }

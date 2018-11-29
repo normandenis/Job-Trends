@@ -1,45 +1,38 @@
 package io.jobtrends.jobtrends.dagger
 
-import android.content.Context
 import android.content.res.Resources
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import io.jobtrends.jobtrends.managers.*
+import io.jobtrends.jobtrends.managers.JsonManager
+import io.jobtrends.jobtrends.managers.RawManager
 import io.jobtrends.jobtrends.models.JobModel
+import io.jobtrends.jobtrends.viewmodels.*
 import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Singleton
 
 @Module
 class AppModule {
 
+    // region App Tools
+
     private val wrapper = Wrapper()
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson = Gson()
 
     @Provides
     @Singleton
     fun provideWrapper(): Wrapper = wrapper
 
     @Provides
-    fun provideJobModel(): JobModel = wrapper.getInstance()
-
-    @Provides
-    fun provideContext(): Context = wrapper.getInstance()
-
-    @Provides
     @Singleton
-    fun provideTrainingManager(): TrainingManager = TrainingManager()
+    fun provideResources(): Resources = App.app.resources
 
-    @Provides
-    @Singleton
-    fun provideJobManager(): JobManager = JobManager()
+    // endregion
 
-    @Provides
-    @Singleton
-    fun provideBoardingManager(): BoardingManager = BoardingManager()
-
-    @Provides
-    @Singleton
-    fun provideHomeManager(): HomeManager = HomeManager()
+    // region Managers
 
     @Provides
     @Singleton
@@ -48,11 +41,40 @@ class AppModule {
     @Provides
     fun provideJsonManager(): JsonManager = JsonManager()
 
+    // endregion
+
+    // region Models
+
     @Provides
-    @Singleton
-    fun provideGson(): Gson = Gson()
+    fun provideJobModel(): JobModel = wrapper.getInstance()
+
+    // endregion
+
+    // region ViewModels
 
     @Provides
     @Singleton
-    fun provideResources(): Resources = App.app.resources
+    fun provideBoardingViewModel(): BoardingViewModel = BoardingViewModel()
+
+    @Provides
+    @Singleton
+    fun provideExperienceViewModel(): ExperienceViewModel = ExperienceViewModel()
+
+    @Provides
+    @Singleton
+    fun provideHomeViewModel(): HomeViewModel = HomeViewModel()
+
+    @Provides
+    @Singleton
+    fun provideJobViewModel(): JobViewModel = JobViewModel()
+
+    @Provides
+    @Singleton
+    fun providePassionViewModel(): PassionViewModel = PassionViewModel()
+
+    @Provides
+    @Singleton
+    fun provideTrainingViewModel(): TrainingViewModel = TrainingViewModel()
+
+    // endregion
 }

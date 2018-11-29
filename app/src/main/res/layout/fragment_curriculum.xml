@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="trainingManager"
-            type="io.jobtrends.jobtrends.managers.TrainingManager" />
+            name="curriculumManager"
+            type="io.jobtrends.jobtrends.viewmodels.CurriculumViewModel"/>
     </data>
 
     <ScrollView
@@ -39,7 +39,7 @@
                 android:layout_margin="@dimen/large"
                 android:background="@drawable/shape_circle"
                 android:backgroundTint="@color/primaryDark"
-                android:onClick="@{() -> trainingManager.startDialog()}"
+                android:onClick="@{() -> curriculumManager.startDialog()}"
                 android:padding="@dimen/medium"
                 android:scaleType="fitXY"
                 android:src="@drawable/add"
@@ -56,6 +56,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/large"
+                android:onClick="@{() -> curriculumManager.onNextStep()}"
                 android:text="Suivant"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

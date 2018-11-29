@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="trainingManager"
-            type="io.jobtrends.jobtrends.managers.TrainingManager" />
+            name="curriculumManager"
+            type="io.jobtrends.jobtrends.viewmodels.CurriculumViewModel"/>
 
     </data>
 
@@ -36,7 +36,7 @@
             android:layout_margin="@dimen/large"
             android:background="@drawable/shape_circle"
             android:backgroundTint="@color/primaryDark"
-            android:onClick="@{() -> trainingManager.startDialog()}"
+            android:onClick="@{() -> curriculumManager.startDialog()}"
             android:padding="@dimen/medium"
             android:scaleType="fitXY"
             android:src="@drawable/add"

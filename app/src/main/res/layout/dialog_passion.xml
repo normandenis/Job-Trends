@@ -5,12 +5,12 @@
     <data>
 
         <variable
-            name="trainingManager"
-            type="io.jobtrends.jobtrends.viewmodels.TrainingViewModel" />
+            name="passionViewModel"
+            type="io.jobtrends.jobtrends.viewmodels.PassionViewModel" />
 
         <variable
-            name="trainingModel"
-            type="io.jobtrends.jobtrends.models.TrainingModel" />
+            name="passionModel"
+            type="io.jobtrends.jobtrends.models.PassionModel" />
     </data>
 
     <ScrollView
@@ -57,7 +57,7 @@
                     android:layout_height="match_parent"
                     android:hint="École"
                     android:maxLines="1"
-                    android:text="@={trainingModel.school}" />
+                    android:text="@={passionModel.school}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -76,7 +76,7 @@
                     android:layout_height="match_parent"
                     android:hint="Diplôme"
                     android:maxLines="1"
-                    android:text="@={trainingModel.diploma}" />
+                    android:text="@={passionModel.diploma}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -95,7 +95,7 @@
                     android:layout_height="match_parent"
                     android:hint="Domaine"
                     android:maxLines="1"
-                    android:text="@={trainingModel.activity}" />
+                    android:text="@={passionModel.activity}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -114,7 +114,7 @@
                     android:layout_height="match_parent"
                     android:hint="De"
                     android:maxLines="1"
-                    android:text="@={trainingModel.start}" />
+                    android:text="@={passionModel.start}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -133,7 +133,7 @@
                     android:layout_height="match_parent"
                     android:hint="À"
                     android:maxLines="1"
-                    android:text="@={trainingModel.end}" />
+                    android:text="@={passionModel.end}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -143,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium"
-                android:onClick="@{() -> trainingManager.addModel(trainingModel)}"
+                android:onClick="@{() -> passionViewModel.addModel(passionModel)}"
                 android:text="Ajouter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

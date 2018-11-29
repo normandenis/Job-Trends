@@ -10,8 +10,8 @@
             type="io.jobtrends.jobtrends.models.JobStatisticModel" />
 
         <variable
-            name="jobManager"
-            type="io.jobtrends.jobtrends.managers.JobManager" />
+            name="jobViewModel"
+            type="io.jobtrends.jobtrends.viewmodels.JobViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout

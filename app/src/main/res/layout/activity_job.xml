@@ -10,8 +10,8 @@
             type="io.jobtrends.jobtrends.models.JobModel" />
 
         <variable
-            name="jobManager"
-            type="io.jobtrends.jobtrends.managers.JobManager" />
+            name="jobViewModel"
+            type="io.jobtrends.jobtrends.viewmodels.JobViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -144,7 +144,7 @@
             android:backgroundTint="@color/primaryLight"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> jobManager.onClick()}"
+            android:onClick="@{() -> jobViewModel.onClick()}"
             android:padding="@dimen/medium"
             android:stateListAnimator="@animator/button_state_list_anim_material"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -6,7 +6,6 @@ import io.jobtrends.jobtrends.dagger.App
 import javax.inject.Inject
 
 class JsonManager {
-
     @Inject
     lateinit var gson: Gson
 

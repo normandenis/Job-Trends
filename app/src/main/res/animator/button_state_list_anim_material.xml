@@ -16,7 +16,7 @@
                 android:valueType="floatType" />
         </set>
     </item>
-    <!-- base state -->
+    <!-- base activityState -->
     <item android:state_enabled="true">
         <set>
             <objectAnimator

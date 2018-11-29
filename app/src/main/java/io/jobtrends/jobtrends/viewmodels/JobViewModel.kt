@@ -1,21 +1,19 @@
-package io.jobtrends.jobtrends.managers
+package io.jobtrends.jobtrends.viewmodels
 
 import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.activities.ActivityListener
+import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.dagger.App
+import io.jobtrends.jobtrends.managers.JsonManager
+import io.jobtrends.jobtrends.managers.RawManager
 import io.jobtrends.jobtrends.models.JobStatisticModel
 import javax.inject.Inject
 
-class JobManager : IManager {
-
+class JobViewModel : ViewModel {
     @Inject
     lateinit var rawManager: RawManager
-
     @Inject
     lateinit var jsonManager: JsonManager
-
-    private var activityListener: ActivityListener? = null
-
+    private var activityManager: ActivityManager? = null
     private val jobStatisticModelArray: Array<JobStatisticModel>
 
     init {
@@ -24,12 +22,12 @@ class JobManager : IManager {
         jobStatisticModelArray = jsonManager.deserialize(data)
     }
 
-    override fun registerActivityListener(activityListener: ActivityListener) {
-        this.activityListener = activityListener
+    override fun registerActivityManager(activityManager: ActivityManager) {
+        this.activityManager = activityManager
     }
 
-    override fun unregisterActivityListener() {
-        activityListener = null
+    override fun unregisterActivityManager() {
+        activityManager = null
     }
 
     override fun getItem(index: Int): Any {
@@ -41,6 +39,6 @@ class JobManager : IManager {
     }
 
     fun onClick() {
-        activityListener?.onNavNext()
+        activityManager?.build()
     }
 }

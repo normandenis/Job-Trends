@@ -5,79 +5,75 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableField
 import android.os.Bundle
-import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v7.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
+import io.jobtrends.jobtrends.activities.BoardingActivity.BoardingState.HOME_STATE
+import io.jobtrends.jobtrends.activities.BoardingActivity.BoardingState.NEXT_STATE
 import io.jobtrends.jobtrends.adapters.PagerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityBoardingBinding
-import io.jobtrends.jobtrends.wrappers.Wrapper
+import io.jobtrends.jobtrends.viewmodels.BoardingViewModel
 import kotlinx.android.synthetic.main.activity_boarding.*
 import javax.inject.Inject
 
 
-class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
+class BoardingActivity : AppCompatActivity(), PagerManager {
+
+    enum class BoardingState : ActivityState {
+        NEXT_STATE,
+        HOME_STATE
+    }
 
     @Inject
-    lateinit var wrapper: Wrapper
-
-    private val pagerAdapter: PagerAdapter
+    lateinit var boardingViewModel: BoardingViewModel
+    override var activityState: ActivityState = TODO()
     val following: ObservableField<String>
-
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
-    }
 
     init {
         App.component.inject(this)
-        wrapper.register(this as Context, true)
-        pagerAdapter = PagerAdapter(supportFragmentManager)
         following = ObservableField()
+        boardingViewModel.registerActivityManager(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityBoardingBinding = DataBindingUtil.setContentView(this, R.layout.activity_boarding)
         binding.boardingActivity = this
-        pager_0.adapter = pagerAdapter
-        pager_0.addOnPageChangeListener(this)
+        pager_0.adapter = PagerAdapter(supportFragmentManager, boardingViewModel)
+        pager_0.addOnPageChangeListener(boardingViewModel)
         indicator_0.setViewPager(pager_0)
-        setFollowing()
+        setButtonText()
     }
 
-    override fun onPageScrollStateChanged(p0: Int) {}
-
-    override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {}
-
-    override fun onPageSelected(p0: Int) {
-        setFollowing()
-    }
-
-    private fun setFollowing() {
-        if (pager_0.currentItem == pagerAdapter.count - 1) {
+    override fun setButtonText() {
+        if (pager_0.currentItem == boardingViewModel.getCount() - 1) {
             following.set(getString(R.string.start))
         } else {
             following.set(getString(R.string.following))
         }
     }
 
-    private fun setCurrentItem(nextIndex: Int) {
-        val index = pager_0.currentItem + nextIndex
-        if (index == pagerAdapter.count) {
-            navTo()
-        } else if (index >= 0 && index < pagerAdapter.count) {
-            pager_0.currentItem = index
-            setFollowing()
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+    }
+
+    override fun build() {
+        when (activityState) {
+            NEXT_STATE -> {
+                pager_0.currentItem++
+                setButtonText()
+            }
+            HOME_STATE -> {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
-    fun navTo() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
+    override fun setState(activityState: ActivityState) {
+        this.activityState = activityState
     }
 
-    fun onNavForward() {
-        setCurrentItem(1)
-    }
+    override fun getState(): ActivityState = activityState
 }

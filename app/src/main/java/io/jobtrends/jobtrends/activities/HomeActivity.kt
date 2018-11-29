@@ -12,47 +12,47 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
+import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.*
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActionbarHomeBinding
-import io.jobtrends.jobtrends.managers.HomeManager
+import io.jobtrends.jobtrends.databinding.ActivityHomeBinding
+import io.jobtrends.jobtrends.viewmodels.HomeViewModel
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 
-class HomeActivity : AppCompatActivity(), ActivityListener {
+class HomeActivity : AppCompatActivity(), ActivityManager {
 
-    enum class HomeState : State {
+    enum class HomeState : ActivityState {
         TRAINING_STATE,
         JOB_STATE
     }
 
     companion object {
-        private const val BOARDING = "BOARDING"
+        private const val BOARDING: String = "BOARDING"
     }
 
     @Inject
-    lateinit var homeManager: HomeManager
-
-    override var state: State = HomeState.TRAINING_STATE
-
+    lateinit var homeViewModel: HomeViewModel
+    override var activityState: ActivityState = TRAINING_STATE
     val jobSought: ObservableField<String>
 
     init {
         App.component.inject(this)
         jobSought = ObservableField("")
-        homeManager.registerActivityListener(this)
+        homeViewModel.registerActivityManager(this)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.app.applicationContext)
         val editor = sharedPreferences.edit()
         editor.putBoolean(BOARDING, false)
         editor.apply()
     }
 
-    override fun onSetState(state: State) {
-        this.state = state
+    override fun setState(activityState: ActivityState) {
+        this.activityState = activityState
     }
 
-    override fun onGetState(): State = state
+    override fun getState(): ActivityState = activityState
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -60,7 +60,9 @@ class HomeActivity : AppCompatActivity(), ActivityListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+
+        val activityHomeBinding: ActivityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+        activityHomeBinding.homeViewModel = homeViewModel
 
         val inflater = LayoutInflater.from(this)
         val binding: ActionbarHomeBinding = DataBindingUtil.inflate(inflater, R.layout.actionbar_home, null, false)
@@ -71,21 +73,19 @@ class HomeActivity : AppCompatActivity(), ActivityListener {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setCustomView(binding.root, layoutParams)
         supportActionBar?.setDisplayShowCustomEnabled(true)
-        picker_0.adapter = RecyclerAdapter(homeManager, R.layout.surface_home)
-        picker_1.adapter = RecyclerAdapter(homeManager, R.layout.surface_home)
+        picker_0.adapter = RecyclerAdapter(homeViewModel, R.layout.surface_home)
+        picker_1.adapter = RecyclerAdapter(homeViewModel, R.layout.surface_home)
     }
 
-    override fun onNavNext() {
-        val cls = when (state) {
-            HomeState.TRAINING_STATE -> TrainingActivity::class.java
-            HomeState.JOB_STATE -> JobActivity::class.java
+    override fun build() {
+        val cls = when (activityState) {
+            TRAINING_STATE -> CurriculumActivity::class.java
+            JOB_STATE -> JobActivity::class.java
             else -> TODO()
         }
         val intent = Intent(this, cls)
         startActivity(intent)
     }
-
-    override fun onNavBack() {}
 
     override fun onBackPressed() {}
 }

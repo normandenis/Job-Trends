@@ -1,27 +1,24 @@
-package io.jobtrends.jobtrends.managers
+package io.jobtrends.jobtrends.viewmodels
 
 import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.activities.ActivityListener
+import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.JOB_STATE
+import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.TRAINING_STATE
 import io.jobtrends.jobtrends.dagger.App
+import io.jobtrends.jobtrends.managers.JsonManager
+import io.jobtrends.jobtrends.managers.RawManager
 import io.jobtrends.jobtrends.models.JobModel
 import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Inject
 
-class HomeManager : IManager {
-
+class HomeViewModel : ViewModel {
     @Inject
     lateinit var rawManager: RawManager
-
     @Inject
     lateinit var jsonManager: JsonManager
-
     @Inject
     lateinit var wrapper: Wrapper
-
-    private var activityListener: ActivityListener? = null
-
-
+    private var activityManager: ActivityManager? = null
     private val jobModelArray: Array<JobModel>
 
     init {
@@ -30,12 +27,12 @@ class HomeManager : IManager {
         jobModelArray = jsonManager.deserialize(data)
     }
 
-    override fun registerActivityListener(activityListener: ActivityListener) {
-        this.activityListener = activityListener
+    override fun registerActivityManager(activityManager: ActivityManager) {
+        this.activityManager = activityManager
     }
 
-    override fun unregisterActivityListener() {
-        activityListener = null
+    override fun unregisterActivityManager() {
+        activityManager = null
     }
 
     override fun getItem(index: Int): Any {
@@ -46,9 +43,14 @@ class HomeManager : IManager {
         return jobModelArray.size
     }
 
+    fun onClickAnalyse() {
+        activityManager?.setState(TRAINING_STATE)
+        activityManager?.build()
+    }
+
     fun onClickJob(jobModel: JobModel) {
         wrapper.register(jobModel, true)
-        activityListener?.onSetState(JOB_STATE)
-        activityListener?.onNavNext()
+        activityManager?.setState(JOB_STATE)
+        activityManager?.build()
     }
 }
