@@ -11,23 +11,28 @@ import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.fragments.TrainingEmptyFragment
 import io.jobtrends.jobtrends.fragments.TrainingFragment
 import io.jobtrends.jobtrends.managers.TrainingManager
-import io.jobtrends.jobtrends.wrappers.Wrapper
 import kotlinx.android.synthetic.main.activity_training.*
 import javax.inject.Inject
 
-class TrainingActivity : AppCompatActivity() {
+class TrainingActivity : AppCompatActivity(), ActivityListener {
+
+    enum class TrainingState : State {
+        BACK_STATE,
+        TRAINING_STATE,
+        EXPERIENCE_STATE,
+        PASSION_STATE
+    }
 
     @Inject
     lateinit var trainingManager: TrainingManager
 
-    @Inject
-    lateinit var wrapper: Wrapper
-
     private lateinit var fragment: Fragment
+
+    override var state: State = TrainingState.TRAINING_STATE
 
     init {
         App.component.inject(this)
-        wrapper.register(this as Context, true)
+        trainingManager.registerActivityListener(this)
     }
 
 
@@ -38,15 +43,39 @@ class TrainingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_training)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        start()
+        onNavNext()
     }
 
-    private fun start() {
-        fragment = when (trainingManager.getCount()) {
-            0 -> TrainingEmptyFragment()
-            else -> TrainingFragment()
+    override fun onNavBack() {
+        state = when (state) {
+            TrainingState.TRAINING_STATE -> TrainingState.BACK_STATE
+            TrainingState.EXPERIENCE_STATE -> TrainingState.TRAINING_STATE
+            TrainingState.PASSION_STATE -> TrainingState.EXPERIENCE_STATE
+            else -> TODO()
+        }
+        if (state == TrainingState.BACK_STATE) {
+            finish()
+        }
+    }
+
+    override fun onSetState(state: State) {
+        this.state = state
+    }
+
+    override fun onGetState(): State = state
+
+    override fun onNavNext() {
+        fragment = when (state) {
+            TrainingState.TRAINING_STATE -> {
+                when (trainingManager.getCount()) {
+                    0 -> TrainingEmptyFragment()
+                    else -> TrainingFragment()
+                }
+            }
+            TrainingState.EXPERIENCE_STATE -> TODO()
+            TrainingState.PASSION_STATE -> TODO()
+            else -> TODO()
         }
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(frame_0.id, fragment)
@@ -54,7 +83,7 @@ class TrainingActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        this.finish()
+        finish()
         return true
     }
 }

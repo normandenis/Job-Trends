@@ -8,7 +8,7 @@ import io.jobtrends.jobtrends.fragments.BoardingFragment
 import io.jobtrends.jobtrends.managers.BoardingManager
 import javax.inject.Inject
 
-class BoardingAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class PagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     @Inject
     lateinit var boardingManager: BoardingManager

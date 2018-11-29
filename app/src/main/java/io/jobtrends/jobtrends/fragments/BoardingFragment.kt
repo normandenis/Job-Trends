@@ -10,19 +10,13 @@ import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.FragmentBoardingBinding
 import io.jobtrends.jobtrends.models.BoardingModel
-import io.jobtrends.jobtrends.wrappers.Wrapper
-import javax.inject.Inject
 
 class BoardingFragment : Fragment() {
-
-    @Inject
-    lateinit var wrapper: Wrapper
 
     lateinit var boardingModel: BoardingModel
 
     init {
         App.component.inject(this)
-        wrapper.register(context, true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

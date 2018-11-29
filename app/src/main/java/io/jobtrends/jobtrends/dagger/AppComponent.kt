@@ -2,7 +2,7 @@ package io.jobtrends.jobtrends.dagger
 
 import dagger.Component
 import io.jobtrends.jobtrends.activities.*
-import io.jobtrends.jobtrends.adapters.BoardingAdapter
+import io.jobtrends.jobtrends.adapters.PagerAdapter
 import io.jobtrends.jobtrends.fragments.BoardingFragment
 import io.jobtrends.jobtrends.fragments.TrainingEmptyFragment
 import io.jobtrends.jobtrends.fragments.TrainingFragment
@@ -35,7 +35,7 @@ interface AppComponent {
 
     // Adapters
 
-    fun inject(boardingAdapter: BoardingAdapter)
+    fun inject(pagerAdapter: PagerAdapter)
 
     // Managers
 

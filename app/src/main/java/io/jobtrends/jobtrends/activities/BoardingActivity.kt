@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v7.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.adapters.BoardingAdapter
+import io.jobtrends.jobtrends.adapters.PagerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityBoardingBinding
 import io.jobtrends.jobtrends.wrappers.Wrapper
@@ -22,7 +22,7 @@ class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
     @Inject
     lateinit var wrapper: Wrapper
 
-    private val boardingAdapter: BoardingAdapter
+    private val pagerAdapter: PagerAdapter
     val following: ObservableField<String>
 
     override fun attachBaseContext(newBase: Context) {
@@ -32,7 +32,7 @@ class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
     init {
         App.component.inject(this)
         wrapper.register(this as Context, true)
-        boardingAdapter = BoardingAdapter(supportFragmentManager)
+        pagerAdapter = PagerAdapter(supportFragmentManager)
         following = ObservableField()
     }
 
@@ -40,7 +40,7 @@ class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
         super.onCreate(savedInstanceState)
         val binding: ActivityBoardingBinding = DataBindingUtil.setContentView(this, R.layout.activity_boarding)
         binding.boardingActivity = this
-        pager_0.adapter = boardingAdapter
+        pager_0.adapter = pagerAdapter
         pager_0.addOnPageChangeListener(this)
         indicator_0.setViewPager(pager_0)
         setFollowing()
@@ -55,7 +55,7 @@ class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
     }
 
     private fun setFollowing() {
-        if (pager_0.currentItem == boardingAdapter.count - 1) {
+        if (pager_0.currentItem == pagerAdapter.count - 1) {
             following.set(getString(R.string.start))
         } else {
             following.set(getString(R.string.following))
@@ -64,9 +64,9 @@ class BoardingActivity : AppCompatActivity(), OnPageChangeListener {
 
     private fun setCurrentItem(nextIndex: Int) {
         val index = pager_0.currentItem + nextIndex
-        if (index == boardingAdapter.count) {
+        if (index == pagerAdapter.count) {
             navTo()
-        } else if (index >= 0 && index < boardingAdapter.count) {
+        } else if (index >= 0 && index < pagerAdapter.count) {
             pager_0.currentItem = index
             setFollowing()
         }

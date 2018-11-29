@@ -1,6 +1,7 @@
 package io.jobtrends.jobtrends.activities
 
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ObservableField
 import android.os.Bundle
@@ -15,12 +16,16 @@ import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActionbarHomeBinding
 import io.jobtrends.jobtrends.managers.HomeManager
-import io.jobtrends.jobtrends.wrappers.Wrapper
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), ActivityListener {
+
+    enum class HomeState : State {
+        TRAINING_STATE,
+        JOB_STATE
+    }
 
     companion object {
         private const val BOARDING = "BOARDING"
@@ -29,20 +34,25 @@ class HomeActivity : AppCompatActivity() {
     @Inject
     lateinit var homeManager: HomeManager
 
-    @Inject
-    lateinit var wrapper: Wrapper
+    override var state: State = HomeState.TRAINING_STATE
 
     val jobSought: ObservableField<String>
 
     init {
         App.component.inject(this)
         jobSought = ObservableField("")
-        wrapper.register(this as Context, true)
+        homeManager.registerActivityListener(this)
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.app.applicationContext)
         val editor = sharedPreferences.edit()
         editor.putBoolean(BOARDING, false)
         editor.apply()
     }
+
+    override fun onSetState(state: State) {
+        this.state = state
+    }
+
+    override fun onGetState(): State = state
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -61,9 +71,21 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setCustomView(binding.root, layoutParams)
         supportActionBar?.setDisplayShowCustomEnabled(true)
-        picker_0.adapter = RecyclerAdapter(this, homeManager, R.layout.surface_home)
-        picker_1.adapter = RecyclerAdapter(this, homeManager, R.layout.surface_home)
+        picker_0.adapter = RecyclerAdapter(homeManager, R.layout.surface_home)
+        picker_1.adapter = RecyclerAdapter(homeManager, R.layout.surface_home)
     }
+
+    override fun onNavNext() {
+        val cls = when (state) {
+            HomeState.TRAINING_STATE -> TrainingActivity::class.java
+            HomeState.JOB_STATE -> JobActivity::class.java
+            else -> TODO()
+        }
+        val intent = Intent(this, cls)
+        startActivity(intent)
+    }
+
+    override fun onNavBack() {}
 
     override fun onBackPressed() {}
 }

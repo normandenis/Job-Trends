@@ -1,15 +1,14 @@
 package io.jobtrends.jobtrends.managers
 
-import android.content.Context
-import android.content.Intent
 import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.activities.JobActivity
+import io.jobtrends.jobtrends.activities.ActivityListener
+import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.JOB_STATE
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.models.JobModel
 import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Inject
 
-class HomeManager : RecyclerManager {
+class HomeManager : IManager {
 
     @Inject
     lateinit var rawManager: RawManager
@@ -20,8 +19,8 @@ class HomeManager : RecyclerManager {
     @Inject
     lateinit var wrapper: Wrapper
 
-    @Inject
-    lateinit var context: Context
+    private var activityListener: ActivityListener? = null
+
 
     private val jobModelArray: Array<JobModel>
 
@@ -29,6 +28,14 @@ class HomeManager : RecyclerManager {
         App.component.inject(this)
         val data = rawManager.readRaw(R.raw.data_home)
         jobModelArray = jsonManager.deserialize(data)
+    }
+
+    override fun registerActivityListener(activityListener: ActivityListener) {
+        this.activityListener = activityListener
+    }
+
+    override fun unregisterActivityListener() {
+        activityListener = null
     }
 
     override fun getItem(index: Int): Any {
@@ -39,9 +46,9 @@ class HomeManager : RecyclerManager {
         return jobModelArray.size
     }
 
-    fun onClickJob(context: Context, jobModel: JobModel) {
+    fun onClickJob(jobModel: JobModel) {
         wrapper.register(jobModel, true)
-        val intent = Intent(context, JobActivity::class.java)
-        context.startActivity(intent)
+        activityListener?.onSetState(JOB_STATE)
+        activityListener?.onNavNext()
     }
 }

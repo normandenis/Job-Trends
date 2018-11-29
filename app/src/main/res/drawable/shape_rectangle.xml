@@ -3,9 +3,8 @@
     android:color="@android:color/darker_gray">
 
     <item>
-        <shape android:shape="oval">
+        <shape android:shape="rectangle">
             <solid android:color="@color/secondary" />
-            <corners android:radius="@dimen/large" />
         </shape>
     </item>
 

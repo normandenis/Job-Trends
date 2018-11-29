@@ -1,9 +1,9 @@
 package io.jobtrends.jobtrends.activities
 
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -13,11 +13,14 @@ import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityJobBinding
 import io.jobtrends.jobtrends.managers.JobManager
 import io.jobtrends.jobtrends.models.JobModel
-import io.jobtrends.jobtrends.wrappers.Wrapper
 import kotlinx.android.synthetic.main.activity_job.*
 import javax.inject.Inject
 
-class JobActivity : AppCompatActivity() {
+class JobActivity : AppCompatActivity(), ActivityListener {
+
+    enum class JobState : State {
+        TRAINING_STATE
+    }
 
     @Inject
     lateinit var jobManager: JobManager
@@ -25,12 +28,11 @@ class JobActivity : AppCompatActivity() {
     @Inject
     lateinit var jobModel: JobModel
 
-    @Inject
-    lateinit var wrapper: Wrapper
+    override var state: State = JobState.TRAINING_STATE
 
     init {
         App.component.inject(this)
-        wrapper.register(this as Context, true)
+        jobManager.registerActivityListener(this)
     }
 
     override fun attachBaseContext(newBase: Context) {
@@ -45,15 +47,31 @@ class JobActivity : AppCompatActivity() {
 
         supportActionBar?.title = jobModel.title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        picker_0.adapter = RecyclerAdapter(this, jobManager, R.layout.surface_job)
+        picker_0.adapter = RecyclerAdapter(jobManager, R.layout.surface_job)
         picker_0.scrollToPosition(1)
-        layout_1.setOnClickListener {
-            jobManager.onClick(this)
+    }
+
+    override fun onNavNext() {
+        val cls = when (state) {
+            JobState.TRAINING_STATE -> TrainingActivity::class.java
+            else -> TODO()
         }
+        val intent = Intent(this, cls)
+        startActivity(intent)
+    }
+
+    override fun onSetState(state: State) {
+        this.state = state
+    }
+
+    override fun onGetState(): State = state
+
+    override fun onNavBack() {
+        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        this.finish()
+        finish()
         return true
     }
 }

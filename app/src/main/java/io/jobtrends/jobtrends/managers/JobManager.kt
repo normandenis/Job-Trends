@@ -1,14 +1,12 @@
 package io.jobtrends.jobtrends.managers
 
-import android.content.Context
-import android.content.Intent
 import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.activities.TrainingActivity
+import io.jobtrends.jobtrends.activities.ActivityListener
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.models.JobStatisticModel
 import javax.inject.Inject
 
-class JobManager : RecyclerManager {
+class JobManager : IManager {
 
     @Inject
     lateinit var rawManager: RawManager
@@ -16,8 +14,7 @@ class JobManager : RecyclerManager {
     @Inject
     lateinit var jsonManager: JsonManager
 
-    @Inject
-    lateinit var context: Context
+    private var activityListener: ActivityListener? = null
 
     private val jobStatisticModelArray: Array<JobStatisticModel>
 
@@ -25,6 +22,14 @@ class JobManager : RecyclerManager {
         App.component.inject(this)
         val data = rawManager.readRaw(R.raw.data_job)
         jobStatisticModelArray = jsonManager.deserialize(data)
+    }
+
+    override fun registerActivityListener(activityListener: ActivityListener) {
+        this.activityListener = activityListener
+    }
+
+    override fun unregisterActivityListener() {
+        activityListener = null
     }
 
     override fun getItem(index: Int): Any {
@@ -35,8 +40,7 @@ class JobManager : RecyclerManager {
         return jobStatisticModelArray.size
     }
 
-    fun onClick(context: Context) {
-        val intent = Intent(context, TrainingActivity::class.java)
-        context.startActivity(intent)
+    fun onClick() {
+        activityListener?.onNavNext()
     }
 }

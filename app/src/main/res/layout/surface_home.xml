@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="context"
-            type="android.content.Context" />
-
-        <variable
             name="jobModel"
             type="io.jobtrends.jobtrends.models.JobModel" />
 
@@ -28,7 +24,7 @@
             android:layout_margin="@dimen/small"
             android:clickable="true"
             android:focusable="true"
-            android:onClick="@{() -> homeManager.onClickJob(context, jobModel)}"
+            android:onClick="@{() -> homeManager.onClickJob(jobModel)}"
             app:cardCornerRadius="@dimen/small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

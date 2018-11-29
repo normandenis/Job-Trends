@@ -7,28 +7,25 @@ import android.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import io.jobtrends.jobtrends.R
+import io.jobtrends.jobtrends.activities.ActivityListener
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.DialogTrainingBinding
 import io.jobtrends.jobtrends.models.TrainingModel
-import javax.inject.Inject
 
-class TrainingManager : RecyclerManager {
-
-    @Inject
-    lateinit var rawManager: RawManager
-
-    @Inject
-    lateinit var jsonManager: JsonManager
-
-    @Inject
-    lateinit var context: Context
+class TrainingManager : IManager {
 
     private val trainings: MutableList<TrainingModel>
 
+    private var dialog: Dialog? = null
+    private lateinit var inflater: LayoutInflater
+    private lateinit var viewGroup: ViewGroup
+    private lateinit var binding: DialogTrainingBinding
+
+    private var activityListener: ActivityListener? = null
+
     init {
         App.component.inject(this)
-        val data = rawManager.readRaw(R.raw.data_training)
-        trainings = mutableListOf(jsonManager.deserialize(data))
+        trainings = mutableListOf()
     }
 
     override fun getItem(index: Int): Any {
@@ -39,18 +36,32 @@ class TrainingManager : RecyclerManager {
         return trainings.size
     }
 
+    override fun registerActivityListener(activityListener: ActivityListener) {
+        this.activityListener = activityListener
+    }
+
+    override fun unregisterActivityListener() {
+        activityListener = null
+    }
+
     fun addModel(training: TrainingModel) {
+        dialog?.dismiss()
         trainings.add(training)
+        activityListener?.onNavNext()
     }
 
     fun startDialog() {
-        val dialog = Dialog(context, R.style.JobTrends_Theme_Dailog_Alert)
-        val inflater = LayoutInflater.from(context)
-        val viewGroup: ViewGroup = (context as Activity).findViewById(android.R.id.content)
-        val binding: DialogTrainingBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_training, viewGroup, false)
-        dialog.setContentView(binding.root)
-        dialog.show()
-
+        if (dialog == null) {
+            dialog = Dialog(activityListener as Context, R.style.JobTrends_Theme_Dailog_Alert)
+            inflater = LayoutInflater.from(activityListener as Context)
+            viewGroup = (activityListener as Activity).findViewById(android.R.id.content)
+            binding = DataBindingUtil.inflate(inflater, R.layout.dialog_training, viewGroup, false)
+            binding.trainingManager = this
+            dialog?.setContentView(binding.root)
+        }
+        val training = TrainingModel()
+        binding.trainingModel = training
+        dialog?.show()
     }
 
     fun removeModel(training: TrainingModel? = null, index: Int? = null): Boolean {
