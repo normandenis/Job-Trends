@@ -14,6 +14,7 @@ import io.jobtrends.jobtrends.adapters.PagerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityBoardingBinding
 import io.jobtrends.jobtrends.viewmodels.BoardingViewModel
+import io.jobtrends.jobtrends.viewmodels.BoardingViewModel.BoardingListKey.BOARDING_LIST_KEY
 import kotlinx.android.synthetic.main.activity_boarding.*
 import javax.inject.Inject
 
@@ -38,16 +39,17 @@ class BoardingActivity : AppCompatActivity(), PagerManager {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityBoardingBinding = DataBindingUtil.setContentView(this, R.layout.activity_boarding)
+        val binding: ActivityBoardingBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_boarding)
         binding.boardingActivity = this
-        pager_0.adapter = PagerAdapter(supportFragmentManager, boardingViewModel)
+        pager_0.adapter = PagerAdapter(supportFragmentManager, boardingViewModel, BOARDING_LIST_KEY)
         pager_0.addOnPageChangeListener(boardingViewModel)
         indicator_0.setViewPager(pager_0)
         setButtonText()
     }
 
     override fun setButtonText() {
-        if (pager_0.currentItem == boardingViewModel.getCount() - 1) {
+        if (pager_0.currentItem == boardingViewModel.getCount(BOARDING_LIST_KEY) - 1) {
             following.set(getString(R.string.start))
         } else {
             following.set(getString(R.string.following))

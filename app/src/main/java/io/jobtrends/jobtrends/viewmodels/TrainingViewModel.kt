@@ -1,22 +1,30 @@
 package io.jobtrends.jobtrends.viewmodels
 
+import android.R.id.content
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.databinding.DataBindingUtil
+import android.databinding.DataBindingUtil.inflate
 import android.view.LayoutInflater
+import android.view.LayoutInflater.from
 import android.view.ViewGroup
-import io.jobtrends.jobtrends.R
+import io.jobtrends.jobtrends.R.layout.dialog_training
+import io.jobtrends.jobtrends.R.style.JobTrends_Theme_Dailog_Alert
 import io.jobtrends.jobtrends.activities.ActivityManager
-import io.jobtrends.jobtrends.activities.CurriculumActivity
-import io.jobtrends.jobtrends.activities.CurriculumActivity.TrainingActivityState.*
+import io.jobtrends.jobtrends.activities.CurriculumActivity.TrainingActivityState.EXPERIENCE_STATE
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.DialogTrainingBinding
-import io.jobtrends.jobtrends.models.IModel
+import io.jobtrends.jobtrends.models.Model
 import io.jobtrends.jobtrends.models.TrainingModel
+import io.jobtrends.jobtrends.viewmodels.TrainingViewModel.TrainingListKey.TRAINING_LIST_KEY
 
 class TrainingViewModel : CurriculumViewModel {
-    private val trainings: MutableList<TrainingModel>
+
+    enum class TrainingListKey : ListKey {
+        TRAINING_LIST_KEY
+    }
+
+    override var container: MutableMap<ListKey, MutableList<Model>> = mutableMapOf()
     private var dialog: Dialog? = null
     private lateinit var inflater: LayoutInflater
     private lateinit var viewGroup: ViewGroup
@@ -25,15 +33,15 @@ class TrainingViewModel : CurriculumViewModel {
 
     init {
         App.component.inject(this)
-        trainings = mutableListOf()
+        container[TRAINING_LIST_KEY] = mutableListOf()
     }
 
-    override fun getItem(index: Int): Any {
-        return trainings[index]
+    override fun getItem(key: ListKey, index: Int): Model {
+        return container[key]!![index]
     }
 
-    override fun getCount(): Int {
-        return trainings.size
+    override fun getCount(key: ListKey): Int {
+        return container[key]!!.size
     }
 
     override fun registerActivityManager(activityManager: ActivityManager) {
@@ -44,18 +52,18 @@ class TrainingViewModel : CurriculumViewModel {
         activityManager = null
     }
 
-    override fun addModel(model: IModel) {
+    override fun addModel(model: Model) {
         dialog?.dismiss()
-        trainings.add(model as TrainingModel)
+        container[TRAINING_LIST_KEY]!!.add(model)
         activityManager?.build()
     }
 
     override fun startDialog() {
         if (dialog == null) {
-            dialog = Dialog(activityManager as Context, R.style.JobTrends_Theme_Dailog_Alert)
-            inflater = LayoutInflater.from(activityManager as Context)
-            viewGroup = (activityManager as Activity).findViewById(android.R.id.content)
-            binding = DataBindingUtil.inflate(inflater, R.layout.dialog_training, viewGroup, false)
+            dialog = Dialog(activityManager as Context, JobTrends_Theme_Dailog_Alert)
+            inflater = from(activityManager as Context)
+            viewGroup = (activityManager as Activity).findViewById(content)
+            binding = inflate(inflater, dialog_training, viewGroup, false)
             binding.trainingManager = this
             dialog?.setContentView(binding.root)
         }
@@ -69,8 +77,8 @@ class TrainingViewModel : CurriculumViewModel {
         activityManager?.build()
     }
 
-    override fun removeModel(model: IModel) {
-        trainings.remove(model)
+    override fun removeModel(model: Model) {
+        container[TRAINING_LIST_KEY]!!.remove(model)
         activityManager?.build()
     }
 }

@@ -11,8 +11,11 @@ import io.jobtrends.jobtrends.activities.CurriculumActivity.TrainingActivityStat
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.fragments.*
 import io.jobtrends.jobtrends.viewmodels.ExperienceViewModel
+import io.jobtrends.jobtrends.viewmodels.ExperienceViewModel.ExperienceListKey.EXPERIENCE_LIST_KEY
 import io.jobtrends.jobtrends.viewmodels.PassionViewModel
+import io.jobtrends.jobtrends.viewmodels.PassionViewModel.PassionListKey.PASSION_LIST_KEY
 import io.jobtrends.jobtrends.viewmodels.TrainingViewModel
+import io.jobtrends.jobtrends.viewmodels.TrainingViewModel.TrainingListKey.TRAINING_LIST_KEY
 import kotlinx.android.synthetic.main.activity_training.*
 import javax.inject.Inject
 
@@ -62,21 +65,21 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
         val fragment = when (activityState) {
             TRAINING_STATE -> {
                 supportActionBar?.title = "Formations"
-                when (trainingViewModel.getCount()) {
+                when (trainingViewModel.getCount(TRAINING_LIST_KEY)) {
                     0 -> TrainingEmptyFragment()
                     else -> TrainingFragment()
                 }
             }
             EXPERIENCE_STATE -> {
                 supportActionBar?.title = "Expériences"
-                when (experienceViewModel.getCount()) {
+                when (experienceViewModel.getCount(EXPERIENCE_LIST_KEY)) {
                     0 -> ExperienceEmptyFragment()
                     else -> ExperienceFragment()
                 }
             }
             PASSION_STATE -> {
-                supportActionBar?.title = "Expériences"
-                when (passionViewModel.getCount()) {
+                supportActionBar?.title = "Passions"
+                when (passionViewModel.getCount(PASSION_LIST_KEY)) {
                     0 -> PassionEmptyFragment()
                     else -> PassionFragment()
                 }

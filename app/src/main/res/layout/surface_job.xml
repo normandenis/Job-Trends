@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="jobStatisticModel"
-            type="io.jobtrends.jobtrends.models.JobStatisticModel" />
+            name="jobModel"
+            type="io.jobtrends.jobtrends.models.JobModel" />
 
         <variable
             name="jobViewModel"
@@ -20,12 +20,11 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginLeft="@dimen/medium"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/medium"
             app:cardBackgroundColor="@color/surface"
             app:cardCornerRadius="@dimen/small"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="2:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -52,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
-                    android:text="@{jobStatisticModel.title}"
+                    android:text="@{jobModel.source.title}"
                     android:textAppearance="@style/JobTrends.TextAppearance.Body.Surface"
                     app:layout_constraintBottom_toTopOf="@id/text_1"
                     app:layout_constraintLeft_toRightOf="@id/image_0"

@@ -4,6 +4,7 @@ import android.content.res.Resources
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import io.jobtrends.jobtrends.managers.ApiManager
 import io.jobtrends.jobtrends.managers.JsonManager
 import io.jobtrends.jobtrends.managers.RawManager
 import io.jobtrends.jobtrends.models.JobModel
@@ -39,7 +40,12 @@ class AppModule {
     fun provideRawManager(): RawManager = RawManager()
 
     @Provides
+    @Singleton
     fun provideJsonManager(): JsonManager = JsonManager()
+
+    @Provides
+    @Singleton
+    fun provideApiManager(): ApiManager = ApiManager()
 
     // endregion
 

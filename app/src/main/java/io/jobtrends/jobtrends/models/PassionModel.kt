@@ -13,4 +13,4 @@ data class PassionModel(@JsonAdapter(ObservableStringAdapter::class)
                         @JsonAdapter(ObservableStringAdapter::class)
                          var start: ObservableField<String> = ObservableField(""),
                         @JsonAdapter(ObservableStringAdapter::class)
-                         var end: ObservableField<String> = ObservableField("")) : IModel
+                         var end: ObservableField<String> = ObservableField("")) : Model

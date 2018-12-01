@@ -1,0 +1,29 @@
+{
+  "_index": "jobs",
+  "_type": "_doc",
+  "_id": "OUqRVWcBrR-LETVXyrLo",
+  "_version": 12,
+  "found": true,
+  "_source": {
+    "last_updated": 1543597219058,
+    "code": "A1301",
+    "count": 9,
+    "projectedGrowth": "0",
+    "searchPercentage": "0",
+    "title": "Technicien / Technicienne de culture maraîchère"
+  },
+  "_statistics": [
+    {
+      "key": "salary",
+      "value": 0
+    },
+    {
+      "key": "searchedCount",
+      "value": 0
+    },
+    {
+      "key": "employeeCount",
+      "value": 0
+    }
+  ]
+}

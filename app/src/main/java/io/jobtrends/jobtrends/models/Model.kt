@@ -1,3 +1,3 @@
 package io.jobtrends.jobtrends.models
 
-interface IModel
+interface Model

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.jobtrends.jobtrends">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".dagger.App"
         android:icon="@mipmap/logo"

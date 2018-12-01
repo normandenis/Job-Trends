@@ -6,12 +6,12 @@
     <data>
 
         <variable
-            name="trainingViewModel"
-            type="io.jobtrends.jobtrends.viewmodels.TrainingViewModel" />
+            name="experienceViewModel"
+            type="io.jobtrends.jobtrends.viewmodels.ExperienceViewModel" />
 
         <variable
-            name="trainingModel"
-            type="io.jobtrends.jobtrends.models.TrainingModel" />
+            name="experienceModel"
+            type="io.jobtrends.jobtrends.models.ExperienceModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
-                    android:text="@{trainingModel.school}"
+                    android:text="@{experienceModel.school}"
                     android:textAppearance="@style/JobTrends.TextAppearance.Title.Surface"
                     app:layout_constraintBottom_toTopOf="@id/text_1"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
-                    android:text="@{trainingModel.start}"
+                    android:text="@{experienceModel.start}"
                     android:textAppearance="@style/JobTrends.TextAppearance.Body.Surface"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -67,7 +67,7 @@
                     android:layout_height="36dp"
                     android:src="@drawable/delete"
                     android:tint="@color/onSurface"
-                    android:onClick="@{() -> trainingViewModel.removeModel(trainingModel)}"
+                    android:onClick="@{() -> experienceViewModel.removeModel(experienceModel)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"

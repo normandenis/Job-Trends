@@ -1,22 +1,30 @@
 package io.jobtrends.jobtrends.viewmodels
 
+import android.R.id.*
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
-import android.databinding.DataBindingUtil
+import android.databinding.DataBindingUtil.inflate
 import android.view.LayoutInflater
+import android.view.LayoutInflater.from
 import android.view.ViewGroup
-import io.jobtrends.jobtrends.R
+import io.jobtrends.jobtrends.R.layout.dialog_experience
+import io.jobtrends.jobtrends.R.style.JobTrends_Theme_Dailog_Alert
 import io.jobtrends.jobtrends.activities.ActivityManager
-import io.jobtrends.jobtrends.activities.CurriculumActivity
-import io.jobtrends.jobtrends.activities.CurriculumActivity.TrainingActivityState.*
+import io.jobtrends.jobtrends.activities.CurriculumActivity.TrainingActivityState.PASSION_STATE
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.DialogExperienceBinding
 import io.jobtrends.jobtrends.models.ExperienceModel
-import io.jobtrends.jobtrends.models.IModel
+import io.jobtrends.jobtrends.models.Model
+import io.jobtrends.jobtrends.viewmodels.ExperienceViewModel.ExperienceListKey.EXPERIENCE_LIST_KEY
 
 class ExperienceViewModel : CurriculumViewModel {
-    private val experiences: MutableList<ExperienceModel>
+
+    enum class ExperienceListKey : ListKey {
+        EXPERIENCE_LIST_KEY
+    }
+
+    override var container: MutableMap<ListKey, MutableList<Model>> = mutableMapOf()
     private var dialog: Dialog? = null
     private lateinit var inflater: LayoutInflater
     private lateinit var viewGroup: ViewGroup
@@ -25,15 +33,14 @@ class ExperienceViewModel : CurriculumViewModel {
 
     init {
         App.component.inject(this)
-        experiences = mutableListOf()
     }
 
-    override fun getItem(index: Int): Any {
-        return experiences[index]
+    override fun getItem(key: ListKey, index: Int): Model {
+        return container[key]!![index]
     }
 
-    override fun getCount(): Int {
-        return experiences.size
+    override fun getCount(key: ListKey): Int {
+        return container[key]!!.size
     }
 
     override fun registerActivityManager(activityManager: ActivityManager) {
@@ -44,19 +51,18 @@ class ExperienceViewModel : CurriculumViewModel {
         activityManager = null
     }
 
-    override fun addModel(model: IModel) {
+    override fun addModel(model: Model) {
         dialog?.dismiss()
-        experiences.add(model as ExperienceModel)
+        container[EXPERIENCE_LIST_KEY]!!.add(model as ExperienceModel)
         activityManager?.build()
     }
 
     override fun startDialog() {
         if (dialog == null) {
-            dialog = Dialog(activityManager as Context, R.style.JobTrends_Theme_Dailog_Alert)
-            inflater = LayoutInflater.from(activityManager as Context)
-            viewGroup = (activityManager as Activity).findViewById(android.R.id.content)
-            binding =
-                    DataBindingUtil.inflate(inflater, R.layout.dialog_experience, viewGroup, false)
+            dialog = Dialog(activityManager as Context, JobTrends_Theme_Dailog_Alert)
+            inflater = from(activityManager as Context)
+            viewGroup = (activityManager as Activity).findViewById(content)
+            binding = inflate(inflater, dialog_experience, viewGroup, false)
             binding.experienceViewModel = this
             dialog?.setContentView(binding.root)
         }
@@ -70,8 +76,8 @@ class ExperienceViewModel : CurriculumViewModel {
         activityManager?.build()
     }
 
-    override fun removeModel(model: IModel) {
-        experiences.remove(model)
+    override fun removeModel(model: Model) {
+        container[EXPERIENCE_LIST_KEY]!!.remove(model)
         activityManager?.build()
     }
 }

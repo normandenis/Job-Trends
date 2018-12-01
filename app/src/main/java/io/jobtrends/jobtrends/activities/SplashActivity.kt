@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.dagger.App
+import io.jobtrends.jobtrends.viewmodels.*
 import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Inject
 
@@ -16,16 +17,21 @@ class SplashActivity : AppCompatActivity() {
 
     companion object {
         private const val BOARDING = "BOARDING"
-        private const val DELAY_MILLIS: Long = 1000
+        private const val DELAY_MILLIS: Long = 3000
     }
 
     @Inject
-    lateinit var wrapper: Wrapper
-
-    init {
-        App.component.inject(this)
-        wrapper.register(this as Context, true)
-    }
+    lateinit var boardingViewModel: BoardingViewModel
+    @Inject
+    lateinit var experienceViewModel: ExperienceViewModel
+    @Inject
+    lateinit var homeViewModel: HomeViewModel
+    @Inject
+    lateinit var jobViewModel: JobViewModel
+    @Inject
+    lateinit var passionViewModel: PassionViewModel
+    @Inject
+    lateinit var trainingViewModel: TrainingViewModel
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -37,6 +43,7 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             navTo()
         }, DELAY_MILLIS)
+        App.component.inject(this)
     }
 
     private fun navTo() {

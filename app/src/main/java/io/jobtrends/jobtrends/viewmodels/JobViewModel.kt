@@ -1,25 +1,26 @@
 package io.jobtrends.jobtrends.viewmodels
 
-import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.dagger.App
-import io.jobtrends.jobtrends.managers.JsonManager
-import io.jobtrends.jobtrends.managers.RawManager
-import io.jobtrends.jobtrends.models.JobStatisticModel
+import io.jobtrends.jobtrends.models.JobModel
+import io.jobtrends.jobtrends.models.Model
+import io.jobtrends.jobtrends.viewmodels.JobViewModel.JobListKey.STATISTICS_LIST_KEY
 import javax.inject.Inject
 
 class JobViewModel : ViewModel {
+
+    enum class JobListKey : ListKey {
+        STATISTICS_LIST_KEY
+    }
+
     @Inject
-    lateinit var rawManager: RawManager
-    @Inject
-    lateinit var jsonManager: JsonManager
+    lateinit var jobModel: JobModel
     private var activityManager: ActivityManager? = null
-    private val jobStatisticModelArray: Array<JobStatisticModel>
+    override var container: MutableMap<ListKey, MutableList<Model>> = mutableMapOf()
 
     init {
         App.component.inject(this)
-        val data = rawManager.readRaw(R.raw.data_job)
-        jobStatisticModelArray = jsonManager.deserialize(data)
+        container[STATISTICS_LIST_KEY] = jobModel.statistics.toMutableList() as MutableList<Model>
     }
 
     override fun registerActivityManager(activityManager: ActivityManager) {
@@ -30,12 +31,12 @@ class JobViewModel : ViewModel {
         activityManager = null
     }
 
-    override fun getItem(index: Int): Any {
-        return jobStatisticModelArray[index]
+    override fun getItem(key: ListKey, index: Int): Model {
+        return container[key]!![index]
     }
 
-    override fun getCount(): Int {
-        return jobStatisticModelArray.size
+    override fun getCount(key: ListKey): Int {
+        return container[key]!!.size
     }
 
     fun onClick() {

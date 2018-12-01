@@ -27,18 +27,18 @@
                 android:layout_margin="@dimen/medium"
                 android:text="@string/last_searches"
                 android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
-                app:layout_constraintBottom_toTopOf="@id/picker_0"
+                app:layout_constraintBottom_toTopOf="@id/recycler_0"
                 app:layout_constraintHeight_percent="1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/picker_0"
+                android:id="@+id/recycler_0"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/text_1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -51,17 +51,17 @@
                 android:layout_margin="@dimen/medium"
                 android:text="@string/most_sought_after"
                 android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
-                app:layout_constraintBottom_toTopOf="@id/picker_1"
+                app:layout_constraintBottom_toTopOf="@id/recycler_1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/picker_0" />
+                app:layout_constraintTop_toBottomOf="@id/recycler_0" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/picker_1"
+                android:id="@+id/recycler_1"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/space_0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -74,22 +74,24 @@
                 app:layout_constraintBottom_toTopOf="@id/layout_0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/picker_1" />
+                app:layout_constraintTop_toBottomOf="@id/recycler_1" />
 
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/layout_0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/primaryLight"
+                android:background="@drawable/shape_rectangle"
+                android:backgroundTint="@color/primaryDark"
                 android:clickable="true"
+                android:focusable="true"
                 android:onClick="@{() -> homeViewModel.onClickAnalyse()}"
                 android:padding="16dp"
+                android:stateListAnimator="@animator/button_state_list_anim_material"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/space_0"
-                android:focusable="true">
+                app:layout_constraintTop_toBottomOf="@id/space_0">
 
                 <ImageView
                     android:id="@+id/image_0"

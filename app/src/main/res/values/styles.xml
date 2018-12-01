@@ -13,8 +13,14 @@
         <item name="android:textColorSecondary">@color/onBackground</item>
         <item name="android:textColorTertiary">@color/onBackground</item>
 
+        <item name="actionBarStyle">@style/JobTrends.Widget.ActionBar</item>
+
         <item name="dialogTheme">@style/JobTrends.Theme.Dailog.Alert</item>
         <item name="alertDialogTheme">@style/JobTrends.Theme.Dailog.Alert</item>
+    </style>
+
+    <style name="JobTrends.Widget.ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="background">@color/primaryDark</item>
     </style>
 
     <style name="JobTrends.Theme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">

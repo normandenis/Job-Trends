@@ -2,18 +2,22 @@ package io.jobtrends.jobtrends.activities
 
 import android.content.Context
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import android.databinding.DataBindingUtil.setContentView
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
-import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.activities.JobActivity.JobState.*
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import io.github.inflationx.viewpump.ViewPumpContextWrapper.wrap
+import io.jobtrends.jobtrends.R.layout.activity_job
+import io.jobtrends.jobtrends.R.layout.surface_job
+import io.jobtrends.jobtrends.activities.JobActivity.JobState.TRAINING_STATE
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActivityJobBinding
-import io.jobtrends.jobtrends.viewmodels.JobViewModel
 import io.jobtrends.jobtrends.models.JobModel
+import io.jobtrends.jobtrends.viewmodels.JobViewModel
+import io.jobtrends.jobtrends.viewmodels.JobViewModel.JobListKey.STATISTICS_LIST_KEY
 import kotlinx.android.synthetic.main.activity_job.*
 import javax.inject.Inject
 
@@ -25,10 +29,8 @@ class JobActivity : AppCompatActivity(), ActivityManager {
 
     @Inject
     lateinit var jobViewModel: JobViewModel
-
     @Inject
     lateinit var jobModel: JobModel
-
     override var activityState: ActivityState = TRAINING_STATE
 
     init {
@@ -37,18 +39,17 @@ class JobActivity : AppCompatActivity(), ActivityManager {
     }
 
     override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
+        super.attachBaseContext(wrap(newBase))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityJobBinding = DataBindingUtil.setContentView(this, R.layout.activity_job)
+        val binding: ActivityJobBinding = setContentView(this, activity_job)
         binding.jobModel = jobModel
         binding.jobViewModel = jobViewModel
-        supportActionBar?.title = jobModel.title
+        supportActionBar?.title = jobModel.source.title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        picker_0.adapter = RecyclerAdapter(jobViewModel, R.layout.surface_job)
-        picker_0.scrollToPosition(1)
+        recycler_0.adapter = RecyclerAdapter(jobViewModel, surface_job, STATISTICS_LIST_KEY)
     }
 
     override fun build() {
