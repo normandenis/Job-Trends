@@ -1,31 +1,37 @@
 package io.jobtrends.jobtrends.viewmodels
 
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableField
+import android.databinding.ObservableList
 import com.android.volley.Request.Method.GET
+import com.orhanobut.logger.Logger.d
+import com.orhanobut.logger.Logger.json
 import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.JOB_STATE
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.TRAINING_STATE
+import io.jobtrends.jobtrends.adapters.AdapterManager
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.managers.ApiManager
 import io.jobtrends.jobtrends.managers.JsonManager
-import io.jobtrends.jobtrends.models.Model
 import io.jobtrends.jobtrends.models.JobModel
-import io.jobtrends.jobtrends.viewmodels.HomeViewModel.HomeListKey.LAST_JOBS_LIST_KEY
-import io.jobtrends.jobtrends.viewmodels.HomeViewModel.HomeListKey.MOST_JOBS_LIST_KEY
-import io.jobtrends.jobtrends.wrappers.Wrapper
+import io.jobtrends.jobtrends.models.Model
+import io.jobtrends.jobtrends.viewmodels.HomeViewModel.HomeListKey.*
 import javax.inject.Inject
 
 
+@Suppress("UNCHECKED_CAST")
 class HomeViewModel : ViewModel {
 
-    companion object {
-        private const val JOBS = "analysis/jobs/"
-        private const val MOST_JOBS = "$JOBS?_type=most"
-        private const val LAST_JOBS = "$JOBS?_type=last"
-    }
-
     enum class HomeListKey : ListKey {
+        SEARCH_JOBS_LIST_KEY,
         MOST_JOBS_LIST_KEY,
         LAST_JOBS_LIST_KEY
+    }
+
+    companion object {
+        private const val JOBS_URL = "analysis/jobs/"
+        private const val MOST_JOBS_URL = "$JOBS_URL?_type=most"
+        private const val LAST_JOBS_URL = "$JOBS_URL?_type=last"
     }
 
     @Inject
@@ -33,52 +39,72 @@ class HomeViewModel : ViewModel {
     @Inject
     lateinit var jsonManager: JsonManager
     @Inject
-    lateinit var wrapper: Wrapper
-    private var activityManager: ActivityManager? = null
-    override var container: MutableMap<ListKey, MutableList<Model>> = mutableMapOf()
+    lateinit var jobViewModel: JobViewModel
+
+    override lateinit var activity: ActivityManager
+    override var adapters: MutableMap<ListKey, AdapterManager> = mutableMapOf()
+    override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
+
+    val jobSought: ObservableField<String> = ObservableField("")
+
 
     init {
         App.component.inject(this)
+        lists[SEARCH_JOBS_LIST_KEY] = ObservableArrayList<JobModel>() as ObservableList<Model>
+        lists[MOST_JOBS_LIST_KEY] = ObservableArrayList<JobModel>() as ObservableList<Model>
+        lists[LAST_JOBS_LIST_KEY] = ObservableArrayList<JobModel>() as ObservableList<Model>
         refresh()
     }
 
-    private fun refresh() {
-        apiManager.request(GET, MOST_JOBS, ::jobsMostCallback)
-        apiManager.request(GET, LAST_JOBS, ::jobsLastCallback)
+    override fun registerActivityManager(activity: ActivityManager) {
+        this.activity = activity
     }
 
-    private fun jobsMostCallback(statusCode: Int, data: String) {
-        container[MOST_JOBS_LIST_KEY] = jsonManager.deserialize<Array<JobModel>>(data).toMutableList() as MutableList<Model>
-    }
-
-    private fun jobsLastCallback(statusCode: Int, data: String) {
-        container[LAST_JOBS_LIST_KEY] = jsonManager.deserialize<Array<JobModel>>(data).toMutableList() as MutableList<Model>
-    }
-
-    override fun registerActivityManager(activityManager: ActivityManager) {
-        this.activityManager = activityManager
-    }
-
-    override fun unregisterActivityManager() {
-        activityManager = null
+    override fun registerAdapterManager(key: ListKey, adapter: AdapterManager) {
+        adapters[key] = adapter
+        lists[key]?.addOnListChangedCallback(adapter as ObservableList.OnListChangedCallback<out ObservableList<Model>>)
     }
 
     override fun getItem(key: ListKey, index: Int): Model {
-        return container[key]!![index]
+        return lists[key]!![index]
     }
 
     override fun getCount(key: ListKey): Int {
-        return container[key]!!.size
+        return lists[key]!!.size
+    }
+
+    private fun refresh() {
+        apiManager.request(GET, MOST_JOBS_URL, { statusCode, data ->
+            jobsCallback(MOST_JOBS_LIST_KEY, statusCode, data)
+        })
+        apiManager.request(GET, LAST_JOBS_URL, { statusCode, data ->
+            jobsCallback(LAST_JOBS_LIST_KEY, statusCode, data)
+        })
+        apiManager.request(GET, MOST_JOBS_URL, { statusCode, data ->
+            jobsCallback(SEARCH_JOBS_LIST_KEY, statusCode, data)
+        })
+    }
+
+    private fun jobsCallback(key: ListKey, statusCode: Int, data: String) {
+        d(statusCode)
+        json(data)
+        val jobs = jsonManager.deserialize<Array<JobModel>>(data)
+        lists[key]?.clear()
+        lists[key]?.addAll(jobs)
     }
 
     fun onClickAnalyse() {
-        activityManager?.setState(TRAINING_STATE)
-        activityManager?.build()
+        activity.setState(TRAINING_STATE)
+        activity.build()
     }
 
     fun onClickJob(jobModel: JobModel) {
-        wrapper.register(jobModel, true)
-        activityManager?.setState(JOB_STATE)
-        activityManager?.build()
+        d("URL: $JOBS_URL${jobModel.id.get()}")
+        apiManager.request(GET, JOBS_URL + jobModel.id.get(),
+            { statusCode, data ->
+                jobViewModel.jobCallback(statusCode, data)
+            })
+        activity.setState(JOB_STATE)
+        activity.build()
     }
 }

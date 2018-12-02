@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.databinding.DataBindingUtil.inflate
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableList
 import android.view.LayoutInflater
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
@@ -12,57 +14,63 @@ import io.jobtrends.jobtrends.R.layout.dialog_training
 import io.jobtrends.jobtrends.R.style.JobTrends_Theme_Dailog_Alert
 import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.activities.CurriculumActivity.TrainingActivityState.EXPERIENCE_STATE
+import io.jobtrends.jobtrends.adapters.AdapterManager
+import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.DialogTrainingBinding
 import io.jobtrends.jobtrends.models.Model
 import io.jobtrends.jobtrends.models.TrainingModel
 import io.jobtrends.jobtrends.viewmodels.TrainingViewModel.TrainingListKey.TRAINING_LIST_KEY
 
+@Suppress("UNCHECKED_CAST")
 class TrainingViewModel : CurriculumViewModel {
 
     enum class TrainingListKey : ListKey {
         TRAINING_LIST_KEY
     }
 
-    override var container: MutableMap<ListKey, MutableList<Model>> = mutableMapOf()
+    override lateinit var activity: ActivityManager
+    override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
+    override var adapters: MutableMap<ListKey, AdapterManager> = mutableMapOf()
+
     private var dialog: Dialog? = null
     private lateinit var inflater: LayoutInflater
     private lateinit var viewGroup: ViewGroup
     private lateinit var binding: DialogTrainingBinding
-    private var activityManager: ActivityManager? = null
 
     init {
         App.component.inject(this)
-        container[TRAINING_LIST_KEY] = mutableListOf()
+        lists[TRAINING_LIST_KEY] = ObservableArrayList<TrainingModel>() as ObservableList<Model>
     }
 
     override fun getItem(key: ListKey, index: Int): Model {
-        return container[key]!![index]
+        return lists[key]!![index]
     }
 
     override fun getCount(key: ListKey): Int {
-        return container[key]!!.size
+        return lists[key]!!.size
     }
 
-    override fun registerActivityManager(activityManager: ActivityManager) {
-        this.activityManager = activityManager
+    override fun registerAdapterManager(key: ListKey, adapter: AdapterManager) {
+        adapters[key] = adapter
+        lists[key]?.addOnListChangedCallback(adapter as ListChangedAdapter)
     }
 
-    override fun unregisterActivityManager() {
-        activityManager = null
+    override fun registerActivityManager(activity: ActivityManager) {
+        this.activity = activity
     }
 
     override fun addModel(model: Model) {
         dialog?.dismiss()
-        container[TRAINING_LIST_KEY]!!.add(model)
-        activityManager?.build()
+        lists[TRAINING_LIST_KEY]!!.add(model)
+        activity.build()
     }
 
     override fun startDialog() {
         if (dialog == null) {
-            dialog = Dialog(activityManager as Context, JobTrends_Theme_Dailog_Alert)
-            inflater = from(activityManager as Context)
-            viewGroup = (activityManager as Activity).findViewById(content)
+            dialog = Dialog(activity as Context, JobTrends_Theme_Dailog_Alert)
+            inflater = from(activity as Context)
+            viewGroup = (activity as Activity).findViewById(content)
             binding = inflate(inflater, dialog_training, viewGroup, false)
             binding.trainingManager = this
             dialog?.setContentView(binding.root)
@@ -73,12 +81,12 @@ class TrainingViewModel : CurriculumViewModel {
     }
 
     override fun onNextStep() {
-        activityManager?.setState(EXPERIENCE_STATE)
-        activityManager?.build()
+        activity.setState(EXPERIENCE_STATE)
+        activity.build()
     }
 
     override fun removeModel(model: Model) {
-        container[TRAINING_LIST_KEY]!!.remove(model)
-        activityManager?.build()
+        lists[TRAINING_LIST_KEY]!!.remove(model)
+        activity.build()
     }
 }

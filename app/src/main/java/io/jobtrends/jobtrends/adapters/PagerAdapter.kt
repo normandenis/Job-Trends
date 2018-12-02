@@ -11,7 +11,7 @@ import io.jobtrends.jobtrends.viewmodels.ListKey
 class PagerAdapter(fm: FragmentManager,
                    private val viewModel: ViewModel,
                    private val key: ListKey
-) : FragmentStatePagerAdapter(fm) {
+) : FragmentStatePagerAdapter(fm), AdapterManager {
 
     override fun getItem(index: Int): Fragment {
         val boardingFragment = BoardingFragment()

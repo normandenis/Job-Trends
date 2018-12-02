@@ -13,6 +13,7 @@ import io.jobtrends.jobtrends.dagger.App
 class ApiManager {
 
     companion object {
+        private const val ERROR_STATUS_CODE = 404
         private const val ERROR_MESSAGE: String =
             "Nous rencontrons des soucis avec nos serveurs, veuillez nous excuser de la gêne occasionnée."
         private val URL_BASE: String = "https://api.dev.jobtrends.io/"
@@ -29,7 +30,7 @@ class ApiManager {
                 callback(statusCode, s)
             },
             ErrorListener { s ->
-                callback(s.networkResponse.statusCode, ERROR_MESSAGE)
+                callback(s?.networkResponse?.statusCode ?: ERROR_STATUS_CODE, ERROR_MESSAGE)
             }) {
 
             override fun parseNetworkResponse(response: NetworkResponse): Response<String> {

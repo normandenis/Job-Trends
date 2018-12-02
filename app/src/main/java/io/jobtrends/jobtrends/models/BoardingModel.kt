@@ -1,3 +1,10 @@
 package io.jobtrends.jobtrends.models
 
-data class BoardingModel(var title: String? = null) : Model
+/**
+ * @param title
+ */
+data class BoardingModel(
+
+    var title: String? = null
+
+) : Model

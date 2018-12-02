@@ -16,18 +16,14 @@ class ObservableStringAdapter : TypeAdapter<ObservableField<String>>() {
     }
 }
 
-class ObservableIntAdapter : TypeAdapter<ObservableField<Int>>() {
+class ObservableLongAdapter : TypeAdapter<ObservableField<Long>>() {
 
-    override fun write(json: JsonWriter, value: ObservableField<Int>) {
+    override fun write(json: JsonWriter, value: ObservableField<Long>) {
         json.value(value.get())
     }
 
-    override fun read(json: JsonReader): ObservableField<Int> {
-        return try {
-            ObservableField(json.nextInt())
-        } catch (exception: Exception) {
-            ObservableField(json.nextDouble().toInt())
-        }
+    override fun read(json: JsonReader): ObservableField<Long> {
+        return ObservableField(json.nextLong())
     }
 }
 

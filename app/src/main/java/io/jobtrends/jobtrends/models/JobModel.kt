@@ -1,11 +1,13 @@
 package io.jobtrends.jobtrends.models
 
-import com.google.gson.annotations.Expose
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableField
+import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
+import io.jobtrends.jobtrends.adapters.ObservableBooleanAdapter
+import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
 
-class JobModel
 /**
- *
  * @param id
  * @param index
  * @param source
@@ -13,20 +15,65 @@ class JobModel
  * @param statistics
  * @param found
  * @param version
- */(
-    @SerializedName("_index")
-    @Expose var index: String = "",
-    @SerializedName("_type")
-    @Expose var type: String = "",
-    @SerializedName("_id")
-    @Expose var id: String = "",
-    @SerializedName("_version")
-    @Expose var version: Long = 0,
-    @SerializedName("found")
-    @Expose var found: Boolean = false,
-    @SerializedName("_source")
-    @Expose var source: Source = Source(),
-    @SerializedName("_statistics")
-    @Expose var statistics: List<Statistic> = arrayListOf()
-) : Model
+ */
+data class JobModel(
 
+    // region index
+
+    @SerializedName("_index")
+    @JsonAdapter(ObservableStringAdapter::class)
+    var index: ObservableField<String> = ObservableField(""),
+
+    // endregion
+
+    // region type
+
+    @SerializedName("_type")
+    @JsonAdapter(ObservableStringAdapter::class)
+    var type: ObservableField<String> = ObservableField(""),
+
+    // endregion
+
+    // region id
+
+    @SerializedName("_id")
+    @JsonAdapter(ObservableStringAdapter::class)
+    var id: ObservableField<String> = ObservableField(""),
+
+    // endregion
+
+    // region version
+
+    @SerializedName("_version")
+    @JsonAdapter(ObservableStringAdapter::class)
+    var version: ObservableField<Long> = ObservableField(0),
+
+    // endregion
+
+    // region found
+
+    @SerializedName("found")
+    @JsonAdapter(ObservableBooleanAdapter::class)
+    var found: ObservableField<Boolean> = ObservableField(false),
+
+    // endregion
+
+    // region source
+
+    @SerializedName("_source")
+    var source: SourceModel = SourceModel(),
+
+    // endregion
+
+    // region statistics
+
+    @SerializedName("_statistics")
+    var statistics: ObservableArrayList<StatisticModel> = ObservableArrayList()
+
+    // endregion
+
+) : Model {
+    override fun toString(): String {
+        return source.title.get() ?: ""
+    }
+}

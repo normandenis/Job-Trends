@@ -9,18 +9,21 @@ import android.os.Bundle
 import android.preference.PreferenceManager.getDefaultSharedPreferences
 import android.support.v7.app.ActionBar.LayoutParams
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
+import android.support.v7.widget.AppCompatAutoCompleteTextView
+import android.view.LayoutInflater.from
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.R.layout.*
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.JOB_STATE
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.TRAINING_STATE
+import io.jobtrends.jobtrends.adapters.AutoCompleteAdapter
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.ActionbarHomeBinding
 import io.jobtrends.jobtrends.databinding.ActivityHomeBinding
 import io.jobtrends.jobtrends.viewmodels.HomeViewModel
-import io.jobtrends.jobtrends.viewmodels.HomeViewModel.HomeListKey.MOST_JOBS_LIST_KEY
+import io.jobtrends.jobtrends.viewmodels.HomeViewModel.HomeListKey.*
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
@@ -39,11 +42,9 @@ class HomeActivity : AppCompatActivity(), ActivityManager {
     @Inject
     lateinit var homeViewModel: HomeViewModel
     override var activityState: ActivityState = TRAINING_STATE
-    val jobSought: ObservableField<String>
 
     init {
         App.component.inject(this)
-        jobSought = ObservableField("")
         homeViewModel.registerActivityManager(this)
         val sharedPreferences = getDefaultSharedPreferences(App.app.applicationContext)
         val editor = sharedPreferences.edit()
@@ -67,17 +68,27 @@ class HomeActivity : AppCompatActivity(), ActivityManager {
         val activityHomeBinding: ActivityHomeBinding = setContentView(this, activity_home)
         activityHomeBinding.homeViewModel = homeViewModel
 
-        val inflater = LayoutInflater.from(this)
-        val binding: ActionbarHomeBinding = inflate(inflater, actionbar_home, null, false)
-        binding.homeActivity = this
+        val inflater = from(this)
+        val actionbarHomeBinding: ActionbarHomeBinding =
+            inflate(inflater, actionbar_home, null, false)
+        val appCompatAutoCompleteTextView =
+            actionbarHomeBinding.root.findViewById<AppCompatAutoCompleteTextView>(R.id.auto_complete_0)
+        appCompatAutoCompleteTextView.setAdapter(
+            AutoCompleteAdapter(
+                this,
+                homeViewModel,
+                SEARCH_JOBS_LIST_KEY
+            )
+        )
+        actionbarHomeBinding.homeActivity = this
 
         val layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
         supportActionBar?.setDisplayShowHomeEnabled(false)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        supportActionBar?.setCustomView(binding.root, layoutParams)
+        supportActionBar?.setCustomView(actionbarHomeBinding.root, layoutParams)
         supportActionBar?.setDisplayShowCustomEnabled(true)
         recycler_0.adapter = RecyclerAdapter(homeViewModel, surface_home, MOST_JOBS_LIST_KEY)
-        recycler_1.adapter = RecyclerAdapter(homeViewModel, surface_home, MOST_JOBS_LIST_KEY)
+        recycler_1.adapter = RecyclerAdapter(homeViewModel, surface_home, LAST_JOBS_LIST_KEY)
     }
 
     override fun build() {

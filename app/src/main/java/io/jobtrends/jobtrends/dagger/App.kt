@@ -1,6 +1,8 @@
 package io.jobtrends.jobtrends.dagger
 
 import android.app.Application
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 import io.github.inflationx.calligraphy3.CalligraphyConfig
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor
 import io.github.inflationx.viewpump.ViewPump
@@ -20,12 +22,18 @@ class App : Application() {
     init {
         component = DaggerAppComponent.create()
         app = this
-        ViewPump.init(ViewPump.builder()
-                .addInterceptor(CalligraphyInterceptor(
+        Logger.addLogAdapter(AndroidLogAdapter())
+        ViewPump.init(
+            ViewPump.builder()
+                .addInterceptor(
+                    CalligraphyInterceptor(
                         CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/Lato-Light.ttf")
-                                .setFontAttrId(R.attr.fontPath)
-                                .build()))
-                .build())
+                            .setDefaultFontPath("fonts/Lato-Light.ttf")
+                            .setFontAttrId(R.attr.fontPath)
+                            .build()
+                    )
+                )
+                .build()
+        )
     }
 }

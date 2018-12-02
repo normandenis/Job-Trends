@@ -11,11 +11,16 @@ import io.jobtrends.jobtrends.databinding.*
 import io.jobtrends.jobtrends.models.*
 import io.jobtrends.jobtrends.viewmodels.*
 
+@Suppress("UNCHECKED_CAST")
 class RecyclerAdapter(
     private val viewModel: ViewModel,
     private val layoutId: Int,
     private val key: ListKey
-) : Adapter<ViewHolder>() {
+) : Adapter<ViewHolder>(), AdapterManager {
+
+    init {
+        viewModel.registerAdapterManager(key, ListChangedAdapter(this))
+    }
 
     override fun onCreateViewHolder(group: ViewGroup, itemViewType: Int): ViewHolder {
         val inflater = from(group.context)
@@ -34,8 +39,7 @@ class RecyclerAdapter(
             }
             surface_job -> {
                 val tmpHolder = (holder as HolderAdapter<SurfaceJobBinding>)
-                tmpHolder.binding.jobViewModel = viewModel as JobViewModel
-                tmpHolder.binding.jobModel = viewModel.getItem(key, index) as JobModel
+                tmpHolder.binding.statisticModel = viewModel.getItem(key, index) as StatisticModel
             }
             surface_training -> {
                 val tmpHolder = (holder as HolderAdapter<SurfaceTrainingBinding>)

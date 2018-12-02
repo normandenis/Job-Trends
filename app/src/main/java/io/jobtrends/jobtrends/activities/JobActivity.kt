@@ -3,11 +3,10 @@ package io.jobtrends.jobtrends.activities
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil.setContentView
+import android.databinding.ObservableField
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import io.github.inflationx.viewpump.ViewPumpContextWrapper.wrap
 import io.jobtrends.jobtrends.R.layout.activity_job
 import io.jobtrends.jobtrends.R.layout.surface_job
@@ -29,8 +28,6 @@ class JobActivity : AppCompatActivity(), ActivityManager {
 
     @Inject
     lateinit var jobViewModel: JobViewModel
-    @Inject
-    lateinit var jobModel: JobModel
     override var activityState: ActivityState = TRAINING_STATE
 
     init {
@@ -45,9 +42,9 @@ class JobActivity : AppCompatActivity(), ActivityManager {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityJobBinding = setContentView(this, activity_job)
-        binding.jobModel = jobModel
+        binding.jobModel = jobViewModel.jobModel
         binding.jobViewModel = jobViewModel
-        supportActionBar?.title = jobModel.source.title
+        supportActionBar?.title = jobViewModel.jobModel.get()?.source?.title?.get()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         recycler_0.adapter = RecyclerAdapter(jobViewModel, surface_job, STATISTICS_LIST_KEY)
     }

@@ -1,18 +1,24 @@
 package io.jobtrends.jobtrends.viewmodels
 
+import android.databinding.ObservableArrayList
+import android.databinding.ObservableList
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import io.jobtrends.jobtrends.R.raw.data_boarding
 import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.activities.BoardingActivity.BoardingState.HOME_STATE
 import io.jobtrends.jobtrends.activities.BoardingActivity.BoardingState.NEXT_STATE
 import io.jobtrends.jobtrends.activities.PagerManager
+import io.jobtrends.jobtrends.adapters.AdapterManager
+import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App.Companion.component
 import io.jobtrends.jobtrends.managers.JsonManager
 import io.jobtrends.jobtrends.managers.RawManager
+import io.jobtrends.jobtrends.models.BoardingModel
 import io.jobtrends.jobtrends.models.Model
 import io.jobtrends.jobtrends.viewmodels.BoardingViewModel.BoardingListKey.BOARDING_LIST_KEY
 import javax.inject.Inject
 
+@Suppress("UNCHECKED_CAST")
 class BoardingViewModel : ViewModel, OnPageChangeListener {
 
     enum class BoardingListKey : ListKey {
@@ -23,15 +29,18 @@ class BoardingViewModel : ViewModel, OnPageChangeListener {
     lateinit var rawManager: RawManager
     @Inject
     lateinit var jsonManager: JsonManager
-    private var activityManager: PagerManager? = null
+
+    override lateinit var activity: ActivityManager
+    override var adapters: MutableMap<ListKey, AdapterManager> = mutableMapOf()
+    override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
+
     private var currentItem: Int
-    override var container: MutableMap<ListKey, MutableList<Model>> = mutableMapOf()
 
     init {
         component.inject(this)
         currentItem = 0
         val data = rawManager.readRaw(data_boarding)
-        container[BOARDING_LIST_KEY] = jsonManager.deserialize(data)
+        lists[BOARDING_LIST_KEY] = jsonManager.deserialize<ObservableArrayList<BoardingModel>>(data) as ObservableList<Model>
     }
 
     override fun onPageScrollStateChanged(index: Int) {
@@ -42,37 +51,38 @@ class BoardingViewModel : ViewModel, OnPageChangeListener {
 
     override fun onPageSelected(index: Int) {
         currentItem = index
-        activityManager?.setButtonText()
+        (activity as PagerManager).setButtonText()
     }
 
     fun onClickSkip() {
-        activityManager?.setState(HOME_STATE)
-        activityManager?.build()
+        activity.setState(HOME_STATE)
+        activity.build()
     }
 
     fun onClickNext() {
         val index = currentItem + 1
         if (index == getCount(BOARDING_LIST_KEY)) {
-            activityManager?.setState(HOME_STATE)
+            activity.setState(HOME_STATE)
         } else if (index >= 0 && index < getCount(BOARDING_LIST_KEY)) {
-            activityManager?.setState(NEXT_STATE)
+            activity.setState(NEXT_STATE)
         }
-        activityManager?.build()
+        activity.build()
     }
 
-    override fun registerActivityManager(activityManager: ActivityManager) {
-        this.activityManager = activityManager as PagerManager
+    override fun registerActivityManager(activity: ActivityManager) {
+        this.activity = activity
     }
 
-    override fun unregisterActivityManager() {
-        activityManager = null
+    override fun registerAdapterManager(key: ListKey, adapter: AdapterManager) {
+        adapters[key] = adapter
+        lists[key]?.addOnListChangedCallback(adapter as ListChangedAdapter)
     }
 
     override fun getItem(key: ListKey, index: Int): Model {
-        return container[key]!![index]
+        return lists[key]!![index]
     }
 
     override fun getCount(key: ListKey): Int {
-        return container[key]!!.size
+        return lists[key]!!.size
     }
 }

@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
 
     companion object {
         private const val BOARDING = "BOARDING"
-        private const val DELAY_MILLIS: Long = 3000
+        private const val DELAY_MILLIS: Long = 1000
     }
 
     @Inject
@@ -33,6 +33,10 @@ class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var trainingViewModel: TrainingViewModel
 
+    init {
+        App.component.inject(this)
+    }
+
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
@@ -43,7 +47,6 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             navTo()
         }, DELAY_MILLIS)
-        App.component.inject(this)
     }
 
     private fun navTo() {

@@ -6,12 +6,9 @@
     <data>
 
         <variable
-            name="jobModel"
-            type="io.jobtrends.jobtrends.models.JobModel" />
+            name="statisticModel"
+            type="io.jobtrends.jobtrends.models.StatisticModel" />
 
-        <variable
-            name="jobViewModel"
-            type="io.jobtrends.jobtrends.viewmodels.JobViewModel" />
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -51,25 +48,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
-                    android:text="@{jobModel.source.title}"
+                    android:text="@{statisticModel.key}"
                     android:textAppearance="@style/JobTrends.TextAppearance.Body.Surface"
                     app:layout_constraintBottom_toTopOf="@id/text_1"
                     app:layout_constraintLeft_toRightOf="@id/image_0"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/image_0"
-                    tools:text="Title" />
+                    tools:text="Salaire" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/text_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/small"
-                    android:text="24 200 €"
+                    android:text="@{String.valueOf(statisticModel.value)}"
                     android:textAppearance="@style/JobTrends.TextAppearance.Title.Surface"
                     app:layout_constraintBottom_toBottomOf="@id/image_0"
                     app:layout_constraintLeft_toRightOf="@id/image_0"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_0" />
+                    app:layout_constraintTop_toBottomOf="@id/text_0"
+                    tools:text="24 000 €" />
 
 
             </android.support.constraint.ConstraintLayout>
