@@ -10,6 +10,7 @@ import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.JOB_STATE
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.TRAINING_STATE
 import io.jobtrends.jobtrends.adapters.AdapterManager
+import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.managers.ApiManager
 import io.jobtrends.jobtrends.managers.JsonManager
@@ -29,9 +30,10 @@ class HomeViewModel : ViewModel {
     }
 
     companion object {
-        private const val JOBS_URL = "analysis/jobs/"
+        private const val JOBS_URL = "jobs/"
         private const val MOST_JOBS_URL = "$JOBS_URL?_type=most"
         private const val LAST_JOBS_URL = "$JOBS_URL?_type=last"
+        private const val SEARCH_JOBS_URL = "list?_type=job&_title="
     }
 
     @Inject
@@ -45,8 +47,7 @@ class HomeViewModel : ViewModel {
     override var adapters: MutableMap<ListKey, AdapterManager> = mutableMapOf()
     override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
 
-    val jobSought: ObservableField<String> = ObservableField("")
-
+    val searchJob: ObservableField<String> = ObservableField("")
 
     init {
         App.component.inject(this)
@@ -62,7 +63,7 @@ class HomeViewModel : ViewModel {
 
     override fun registerAdapterManager(key: ListKey, adapter: AdapterManager) {
         adapters[key] = adapter
-        lists[key]?.addOnListChangedCallback(adapter as ObservableList.OnListChangedCallback<out ObservableList<Model>>)
+        lists[key]?.addOnListChangedCallback(adapter as ListChangedAdapter)
     }
 
     override fun getItem(key: ListKey, index: Int): Model {
@@ -80,7 +81,10 @@ class HomeViewModel : ViewModel {
         apiManager.request(GET, LAST_JOBS_URL, { statusCode, data ->
             jobsCallback(LAST_JOBS_LIST_KEY, statusCode, data)
         })
-        apiManager.request(GET, MOST_JOBS_URL, { statusCode, data ->
+    }
+
+    fun searchJob() {
+        apiManager.request(GET, SEARCH_JOBS_URL + searchJob.get(), { statusCode, data ->
             jobsCallback(SEARCH_JOBS_LIST_KEY, statusCode, data)
         })
     }

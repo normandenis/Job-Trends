@@ -10,8 +10,8 @@
         style="@style/JobTrends.TextAppearance.Body.Surface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium"
+        android:layout_margin="@dimen/small"
         android:singleLine="true"
         tools:text="Job" />
 
-</LinearLayout>
+</LinearLay*out>

@@ -5,6 +5,7 @@ import android.databinding.ObservableField
 import android.databinding.ObservableList
 import com.orhanobut.logger.Logger
 import io.jobtrends.jobtrends.activities.ActivityManager
+import io.jobtrends.jobtrends.activities.JobActivity
 import io.jobtrends.jobtrends.adapters.AdapterManager
 import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
@@ -55,6 +56,7 @@ class JobViewModel : ViewModel {
         this.jobModel.set(jobModel)
         lists[STATISTICS_LIST_KEY]?.clear()
         lists[STATISTICS_LIST_KEY]?.addAll(jobModel.statistics)
+        (activity as JobActivity).supportActionBar?.title = jobModel.source.title.get()
     }
 
     override fun getItem(key: ListKey, index: Int): Model {

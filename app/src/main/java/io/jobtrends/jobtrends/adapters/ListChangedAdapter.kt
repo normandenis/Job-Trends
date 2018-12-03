@@ -2,14 +2,17 @@ package io.jobtrends.jobtrends.adapters
 
 import android.databinding.ObservableList
 import android.databinding.ObservableList.OnListChangedCallback
-import android.widget.BaseAdapter
 import io.jobtrends.jobtrends.models.Model
 
-class ListChangedAdapter(private val adapter: RecyclerAdapter) :
+class ListChangedAdapter(private val adapter: AdapterManager) :
     OnListChangedCallback<ObservableList<Model>>(), AdapterManager {
 
     override fun onChanged(sender: ObservableList<Model>) {
-        adapter.notifyDataSetChanged()
+        if (adapter is RecyclerAdapter) {
+            adapter.notifyDataSetChanged()
+        } else if (adapter is AutoCompleteAdapter) {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     override fun onItemRangeChanged(
@@ -17,7 +20,11 @@ class ListChangedAdapter(private val adapter: RecyclerAdapter) :
         positionStart: Int,
         itemCount: Int
     ) {
-        adapter.notifyItemRangeChanged(positionStart, itemCount)
+        if (adapter is RecyclerAdapter) {
+            adapter.notifyItemRangeChanged(positionStart, itemCount)
+        } else if (adapter is AutoCompleteAdapter) {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     override fun onItemRangeInserted(
@@ -25,7 +32,11 @@ class ListChangedAdapter(private val adapter: RecyclerAdapter) :
         positionStart: Int,
         itemCount: Int
     ) {
-        adapter.notifyItemRangeInserted(positionStart, itemCount)
+        if (adapter is RecyclerAdapter) {
+            adapter.notifyItemRangeInserted(positionStart, itemCount)
+        } else if (adapter is AutoCompleteAdapter) {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     override fun onItemRangeMoved(
@@ -34,7 +45,11 @@ class ListChangedAdapter(private val adapter: RecyclerAdapter) :
         toPosition: Int,
         itemCount: Int
     ) {
-        adapter.notifyItemMoved(fromPosition, toPosition)
+        if (adapter is RecyclerAdapter) {
+            adapter.notifyItemMoved(fromPosition, toPosition)
+        } else if (adapter is AutoCompleteAdapter) {
+            adapter.notifyDataSetChanged()
+        }
     }
 
     override fun onItemRangeRemoved(
@@ -42,6 +57,10 @@ class ListChangedAdapter(private val adapter: RecyclerAdapter) :
         positionStart: Int,
         itemCount: Int
     ) {
-        adapter.notifyItemRangeRemoved(positionStart, itemCount)
+        if (adapter is RecyclerAdapter) {
+            adapter.notifyItemRangeRemoved(positionStart, itemCount)
+        } else if (adapter is AutoCompleteAdapter) {
+            adapter.notifyDataSetChanged()
+        }
     }
 }

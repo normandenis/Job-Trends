@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="searchText"
+            name="searchJob"
             type="android.databinding.ObservableField&lt;String&gt;" />
     </data>
 
@@ -21,10 +21,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small"
             android:layout_marginEnd="@dimen/small"
+            android:backgroundTint="@android:color/transparent"
             android:drawableStart="@drawable/search_24dp"
             android:hint="@string/search"
             android:maxLines="1"
-            android:text="@={searchText}"
+            android:text="@={searchJob}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

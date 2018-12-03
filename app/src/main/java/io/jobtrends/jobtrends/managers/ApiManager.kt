@@ -16,7 +16,7 @@ class ApiManager {
         private const val ERROR_STATUS_CODE = 404
         private const val ERROR_MESSAGE: String =
             "Nous rencontrons des soucis avec nos serveurs, veuillez nous excuser de la gêne occasionnée."
-        private val URL_BASE: String = "https://api.dev.jobtrends.io/"
+        private val URL_BASE: String = "https://api.dev.jobtrends.io/analysis/"
     }
 
     private var statusCode: Int = 0
