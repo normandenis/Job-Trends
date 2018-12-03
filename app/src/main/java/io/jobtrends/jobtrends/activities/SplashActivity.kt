@@ -32,6 +32,8 @@ class SplashActivity : AppCompatActivity() {
     lateinit var passionViewModel: PassionViewModel
     @Inject
     lateinit var trainingViewModel: TrainingViewModel
+    @Inject
+    lateinit var userViewModel: UserViewModel
 
     init {
         App.component.inject(this)

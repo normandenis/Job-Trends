@@ -4,6 +4,7 @@ import dagger.Component
 import io.jobtrends.jobtrends.activities.*
 import io.jobtrends.jobtrends.fragments.*
 import io.jobtrends.jobtrends.managers.*
+import io.jobtrends.jobtrends.models.UserModel
 import io.jobtrends.jobtrends.viewmodels.*
 import javax.inject.Singleton
 
@@ -30,6 +31,7 @@ interface AppComponent {
     fun inject(passionFragment: PassionFragment)
     fun inject(trainingEmptyFragment: TrainingEmptyFragment)
     fun inject(trainingFragment: TrainingFragment)
+    fun inject(userFragment: UserFragment)
 
     // endregion
 

@@ -82,5 +82,9 @@ class AppModule {
     @Singleton
     fun provideTrainingViewModel(): TrainingViewModel = TrainingViewModel()
 
+    @Provides
+    @Singleton
+    fun provideUserViewModel(): UserViewModel = UserViewModel()
+
     // endregion
 }

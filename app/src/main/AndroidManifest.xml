@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.jobtrends.jobtrends">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".dagger.App"
@@ -27,9 +27,11 @@
             android:theme="@style/JobTrends.Theme.NoActionBar" />
         <activity
             android:name=".activities.HomeActivity"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustPan|adjustResize|stateAlwaysHidden" />
         <activity android:name=".activities.JobActivity" />
-        <activity android:name=".activities.CurriculumActivity" />
+        <activity
+            android:name=".activities.CurriculumActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize|stateAlwaysHidden" />
     </application>
 
 </manifest>

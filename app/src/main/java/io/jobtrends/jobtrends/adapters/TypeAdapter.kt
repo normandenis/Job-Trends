@@ -1,9 +1,35 @@
 package io.jobtrends.jobtrends.adapters
 
+import android.databinding.BindingAdapter
+import android.databinding.InverseBindingAdapter
 import android.databinding.ObservableField
+import android.widget.TextView
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+
+
+@BindingAdapter("android:text")
+fun setText(view: TextView, value: Long) {
+    try {
+        view.text = if (value > 0) {
+            value.toString()
+        } else {
+            ""
+        }
+    } catch (exception: Exception) {
+        view.text = ""
+    }
+}
+
+@InverseBindingAdapter(attribute = "android:text")
+fun getText(view: TextView): Long {
+    return try {
+        view.text.toString().toLong()
+    } catch (exception: Exception) {
+        0
+    }
+}
 
 class ObservableStringAdapter : TypeAdapter<ObservableField<String>>() {
 

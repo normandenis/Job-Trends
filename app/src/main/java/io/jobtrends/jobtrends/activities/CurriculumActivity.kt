@@ -16,6 +16,7 @@ import io.jobtrends.jobtrends.viewmodels.PassionViewModel
 import io.jobtrends.jobtrends.viewmodels.PassionViewModel.PassionListKey.PASSION_LIST_KEY
 import io.jobtrends.jobtrends.viewmodels.TrainingViewModel
 import io.jobtrends.jobtrends.viewmodels.TrainingViewModel.TrainingListKey.TRAINING_LIST_KEY
+import io.jobtrends.jobtrends.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_training.*
 import javax.inject.Inject
 
@@ -23,21 +24,25 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
 
     enum class TrainingActivityState : ActivityState {
         HOME_STATE,
+        USER_STATE,
         TRAINING_STATE,
         EXPERIENCE_STATE,
         PASSION_STATE
     }
 
     @Inject
+    lateinit var userViewModel: UserViewModel
+    @Inject
     lateinit var trainingViewModel: TrainingViewModel
     @Inject
     lateinit var experienceViewModel: ExperienceViewModel
     @Inject
     lateinit var passionViewModel: PassionViewModel
-    override var activityState: ActivityState = TRAINING_STATE
+    override var activityState: ActivityState = USER_STATE
 
     init {
         App.component.inject(this)
+        userViewModel.registerActivityManager(this)
         trainingViewModel.registerActivityManager(this)
         experienceViewModel.registerActivityManager(this)
         passionViewModel.registerActivityManager(this)
@@ -62,7 +67,12 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
     override fun getState(): ActivityState = activityState
 
     override fun build() {
-        val fragment = when (activityState) {
+        val fragment: Fragment? = when (activityState) {
+            HOME_STATE -> null
+            USER_STATE -> {
+                supportActionBar?.title = "Informations"
+                UserFragment()
+            }
             TRAINING_STATE -> {
                 supportActionBar?.title = "Formations"
                 when (trainingViewModel.getCount(TRAINING_LIST_KEY)) {
@@ -84,10 +94,11 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
                     else -> PassionFragment()
                 }
             }
-            else -> {
-                finish()
-                Fragment()
-            }
+            else -> TODO()
+        }
+        if (fragment == null) {
+            finish()
+            return
         }
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(frame_0.id, fragment)
@@ -96,7 +107,8 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         activityState = when (activityState) {
-            TRAINING_STATE -> HOME_STATE
+            USER_STATE -> HOME_STATE
+            TRAINING_STATE -> USER_STATE
             EXPERIENCE_STATE -> TRAINING_STATE
             PASSION_STATE -> EXPERIENCE_STATE
             else -> TODO()

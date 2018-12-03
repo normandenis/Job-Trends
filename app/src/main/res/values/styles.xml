@@ -50,12 +50,12 @@
     <!--region Button-->
 
     <style name="JobTrends.Widget.Button" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/shape_round</item>
+        <item name="android:background">@drawable/shape_rectangle</item>
         <item name="android:stateListAnimator">@animator/button_state_list_anim_material</item>
     </style>
 
     <style name="JobTrends.Widget.Button.Primary">
-        <item name="android:backgroundTint">@color/primary</item>
+        <item name="android:backgroundTint">@color/primaryDark</item>
         <item name="android:textAppearance">@style/JobTrends.TextAppearance.Button.Primary</item>
     </style>
 
@@ -108,36 +108,40 @@
     <!--endregion-->
 
     <style name="JobTrends.Widget.TextInputLayout" parent="Widget.Design.TextInputLayout">
-        <item name="android:textColorHint">@color/accentDark</item>
         <item name="android:drawablePadding">@dimen/small</item>
     </style>
 
     <style name="JobTrends.Widget.TextInputLayout.Primary">
         <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Primary</item>
+        <item name="android:textColorHint">@color/onPrimary</item>
         <item name="android:backgroundTint">@color/onPrimary</item>
         <item name="android:drawableTint" tools:ignore="NewApi">@color/onPrimary</item>
     </style>
 
     <style name="JobTrends.Widget.TextInputLayout.Secondary">
         <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Secondary</item>
+        <item name="android:textColorHint">@color/onSecondary</item>
         <item name="android:backgroundTint">@color/onSecondary</item>
         <item name="android:drawableTint" tools:ignore="NewApi">@color/onSecondary</item>
     </style>
 
     <style name="JobTrends.Widget.TextInputLayout.Background">
         <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Background</item>
+        <item name="android:textColorHint">@color/onBackground</item>
         <item name="android:backgroundTint">@color/onBackground</item>
         <item name="android:drawableTint" tools:ignore="NewApi">@color/onBackground</item>
     </style>
 
     <style name="JobTrends.Widget.TextInputLayout.Surface">
         <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Surface</item>
+        <item name="android:textColorHint">@color/onSurface</item>
         <item name="android:backgroundTint">@color/onSurface</item>
         <item name="android:drawableTint" tools:ignore="NewApi">@color/onSurface</item>
     </style>
 
     <style name="JobTrends.Widget.TextInputLayout.Error">
         <item name="android:textAppearance">@style/JobTrends.TextAppearance.Body.Error</item>
+        <item name="android:textColorHint">@color/onError</item>
         <item name="android:backgroundTint">@color/onError</item>
         <item name="android:drawableTint" tools:ignore="NewApi">@color/onError</item>
     </style>
@@ -177,7 +181,7 @@
     </style>
 
     <style name="JobTrends.TextAppearance.Body.Primary">
-        <item name="android:textColor">@color/onPrimary</item>
+        <item name="android:textColor">@color/onSecondary</item>
     </style>
 
     <style name="JobTrends.TextAppearance.Body.Secondary">
