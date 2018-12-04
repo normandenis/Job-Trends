@@ -12,8 +12,8 @@ import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.fragments.*
 import io.jobtrends.jobtrends.viewmodels.ExperienceViewModel
 import io.jobtrends.jobtrends.viewmodels.ExperienceViewModel.ExperienceListKey.EXPERIENCE_LIST_KEY
-import io.jobtrends.jobtrends.viewmodels.PassionViewModel
-import io.jobtrends.jobtrends.viewmodels.PassionViewModel.PassionListKey.PASSION_LIST_KEY
+import io.jobtrends.jobtrends.viewmodels.SkillViewModel
+import io.jobtrends.jobtrends.viewmodels.SkillViewModel.SkillListKey.SKILL_LIST_KEY
 import io.jobtrends.jobtrends.viewmodels.TrainingViewModel
 import io.jobtrends.jobtrends.viewmodels.TrainingViewModel.TrainingListKey.TRAINING_LIST_KEY
 import io.jobtrends.jobtrends.viewmodels.UserViewModel
@@ -37,7 +37,7 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
     @Inject
     lateinit var experienceViewModel: ExperienceViewModel
     @Inject
-    lateinit var passionViewModel: PassionViewModel
+    lateinit var skillViewModel: SkillViewModel
     override var activityState: ActivityState = USER_STATE
 
     init {
@@ -45,7 +45,7 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
         userViewModel.registerActivityManager(this)
         trainingViewModel.registerActivityManager(this)
         experienceViewModel.registerActivityManager(this)
-        passionViewModel.registerActivityManager(this)
+        skillViewModel.registerActivityManager(this)
     }
 
 
@@ -89,9 +89,9 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
             }
             PASSION_STATE -> {
                 supportActionBar?.title = "Passions"
-                when (passionViewModel.getCount(PASSION_LIST_KEY)) {
-                    0 -> PassionEmptyFragment()
-                    else -> PassionFragment()
+                when (skillViewModel.getCount(SKILL_LIST_KEY)) {
+                    0 -> SkillEmptyFragment()
+                    else -> SkillFragment()
                 }
             }
             else -> TODO()

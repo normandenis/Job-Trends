@@ -8,20 +8,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import io.jobtrends.jobtrends.R.layout.fragment_curriculum
-import io.jobtrends.jobtrends.R.layout.surface_passion
+import io.jobtrends.jobtrends.R.layout.surface_skill
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App.Companion.component
 import io.jobtrends.jobtrends.databinding.FragmentCurriculumBinding
-import io.jobtrends.jobtrends.viewmodels.PassionViewModel
-import io.jobtrends.jobtrends.viewmodels.PassionViewModel.PassionListKey.PASSION_LIST_KEY
+import io.jobtrends.jobtrends.viewmodels.SkillViewModel
+import io.jobtrends.jobtrends.viewmodels.SkillViewModel.SkillListKey.SKILL_LIST_KEY
 import kotlinx.android.synthetic.main.fragment_curriculum.*
 import javax.inject.Inject
 
 
-class PassionFragment : Fragment() {
+class SkillFragment : Fragment() {
 
     @Inject
-    lateinit var passionViewModel: PassionViewModel
+    lateinit var skillViewModel: SkillViewModel
 
     init {
         component.inject(this)
@@ -34,12 +34,12 @@ class PassionFragment : Fragment() {
     ): View? {
         val binding: FragmentCurriculumBinding =
             inflate(inflater, fragment_curriculum, container, false)
-        binding.curriculumManager = passionViewModel
+        binding.curriculumManager = skillViewModel
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recycler_0.adapter = RecyclerAdapter(passionViewModel, surface_passion, PASSION_LIST_KEY)
+        recycler_0.adapter = RecyclerAdapter(skillViewModel, surface_skill, SKILL_LIST_KEY)
         super.onViewCreated(view, savedInstanceState)
     }
 }

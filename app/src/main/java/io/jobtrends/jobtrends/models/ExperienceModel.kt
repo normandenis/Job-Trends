@@ -2,30 +2,31 @@ package io.jobtrends.jobtrends.models
 
 import android.databinding.ObservableField
 import com.google.gson.annotations.JsonAdapter
+import io.jobtrends.jobtrends.adapters.ObservableLongAdapter
 import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
 
 /**
- * @param school
- * @param diploma
- * @param activity
- * @param start
- * @param end
+ * @param job
+ * @param company
+ * @param place
+ * @param from
+ * @param to
  */
 data class ExperienceModel(
 
     @JsonAdapter(ObservableStringAdapter::class)
-    var school: ObservableField<String> = ObservableField(""),
+    var job: ObservableField<String> = ObservableField(""),
 
     @JsonAdapter(ObservableStringAdapter::class)
-    var diploma: ObservableField<String> = ObservableField(""),
+    var company: ObservableField<String> = ObservableField(""),
 
     @JsonAdapter(ObservableStringAdapter::class)
-    var activity: ObservableField<String> = ObservableField(""),
+    var place: ObservableField<String> = ObservableField(""),
 
-    @JsonAdapter(ObservableStringAdapter::class)
-    var start: ObservableField<String> = ObservableField(""),
+    @JsonAdapter(ObservableLongAdapter::class)
+    var from: ObservableField<Long> = ObservableField(0),
 
-    @JsonAdapter(ObservableStringAdapter::class)
-    var end: ObservableField<String> = ObservableField("")
+    @JsonAdapter(ObservableLongAdapter::class)
+    var to: ObservableField<Long> = ObservableField(0)
 
 ) : Model

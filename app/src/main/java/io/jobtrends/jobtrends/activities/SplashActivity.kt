@@ -10,7 +10,6 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.viewmodels.*
-import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity() {
@@ -29,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var jobViewModel: JobViewModel
     @Inject
-    lateinit var passionViewModel: PassionViewModel
+    lateinit var skillViewModel: SkillViewModel
     @Inject
     lateinit var trainingViewModel: TrainingViewModel
     @Inject

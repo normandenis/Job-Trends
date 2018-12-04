@@ -62,7 +62,7 @@ class ExperienceViewModel : CurriculumViewModel {
 
     override fun addModel(model: Model) {
         dialog?.dismiss()
-        lists[EXPERIENCE_LIST_KEY]!!.add(model as ExperienceModel)
+        lists[EXPERIENCE_LIST_KEY]!!.add(model)
         activity.build()
     }
 

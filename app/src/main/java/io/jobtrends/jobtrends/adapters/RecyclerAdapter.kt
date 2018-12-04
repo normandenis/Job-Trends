@@ -51,10 +51,10 @@ class RecyclerAdapter(
                 tmpHolder.binding.experienceViewModel = viewModel as ExperienceViewModel
                 tmpHolder.binding.experienceModel = viewModel.getItem(key, index) as ExperienceModel
             }
-            surface_passion -> {
-                val tmpHolder = (holder as HolderAdapter<SurfacePassionBinding>)
-                tmpHolder.binding.passionViewModel = viewModel as PassionViewModel
-                tmpHolder.binding.passionModel = viewModel.getItem(key, index) as PassionModel
+            surface_skill -> {
+                val tmpHolder = (holder as HolderAdapter<SurfaceSkillBinding>)
+                tmpHolder.binding.skillViewModel = viewModel as SkillViewModel
+                tmpHolder.binding.skillModel = viewModel.getItem(key, index) as SkillModel
             }
         }
     }

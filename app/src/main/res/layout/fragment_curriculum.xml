@@ -52,10 +52,9 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_1"
-                style="@style/JobTrends.Widget.Button.Secondary"
+                style="@style/JobTrends.Widget.Button.Background"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/large"
                 android:onClick="@{() -> curriculumManager.onNextStep()}"
                 android:text="Suivant"
                 app:layout_constraintBottom_toBottomOf="parent"

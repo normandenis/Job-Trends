@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="skillViewModel"
+            type="io.jobtrends.jobtrends.viewmodels.SkillViewModel" />
+
+        <variable
+            name="skillModel"
+            type="io.jobtrends.jobtrends.models.SkillModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:theme="@style/JobTrends.Theme.Dailog.Alert">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/medium">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/text_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajout d'une compétence"
+                android:textAppearance="@style/JobTrends.TextAppearance.Title.Surface"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/image_0"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/close_24dp"
+                android:tint="@color/onSurface"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_0"
+                style="@style/JobTrends.Widget.TextInputLayout.Surface"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_0">
+
+                <android.support.design.widget.TextInputEditText
+                    style="@style/JobTrends.Widget.TextInputLayout.Surface"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Nom"
+                    android:maxLines="1"
+                    android:text="@={skillModel.name}" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/text_1"
+                style="@style/JobTrends.TextAppearance.Body.Surface"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:text="Importance"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/input_0" />
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/input_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:clickable="true"
+                android:focusable="true"
+                android:numStars="5"
+                android:isIndicator="false"
+                android:rating="@={skillModel.rating}"
+                android:theme="@style/JobTrends.Theme.RatingBar"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_1"
+                tools:rating="2.5" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/button_0"
+                style="@style/JobTrends.Widget.Button.Background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/medium"
+                android:background="@drawable/shape_round"
+                android:onClick="@{() -> skillViewModel.addModel(skillModel)}"
+                android:text="Ajouter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/input_1" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

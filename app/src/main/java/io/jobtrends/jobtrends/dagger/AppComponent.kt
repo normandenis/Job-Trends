@@ -4,7 +4,6 @@ import dagger.Component
 import io.jobtrends.jobtrends.activities.*
 import io.jobtrends.jobtrends.fragments.*
 import io.jobtrends.jobtrends.managers.*
-import io.jobtrends.jobtrends.models.UserModel
 import io.jobtrends.jobtrends.viewmodels.*
 import javax.inject.Singleton
 
@@ -27,8 +26,8 @@ interface AppComponent {
     fun inject(boardingFragment: BoardingFragment)
     fun inject(experienceEmptyFragment: ExperienceEmptyFragment)
     fun inject(experienceFragment: ExperienceFragment)
-    fun inject(passionEmptyFragment: PassionEmptyFragment)
-    fun inject(passionFragment: PassionFragment)
+    fun inject(skillEmptyFragment: SkillEmptyFragment)
+    fun inject(skillFragment: SkillFragment)
     fun inject(trainingEmptyFragment: TrainingEmptyFragment)
     fun inject(trainingFragment: TrainingFragment)
     fun inject(userFragment: UserFragment)
@@ -42,7 +41,7 @@ interface AppComponent {
     fun inject(homeViewModel: HomeViewModel)
     fun inject(jobViewModel: JobViewModel)
     fun inject(jsonManager: JsonManager)
-    fun inject(passionManager: PassionViewModel)
+    fun inject(skillManager: SkillViewModel)
     fun inject(rawManager: RawManager)
     fun inject(trainingManager: TrainingViewModel)
 

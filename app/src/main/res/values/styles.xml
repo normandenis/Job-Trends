@@ -107,6 +107,13 @@
 
     <!--endregion-->
 
+    <style name="JobTrends.Theme.RatingBar" parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="colorControlNormal">@color/secondary</item>
+        <item name="colorControlActivated">@color/secondary</item>
+        <item name="android:colorControlNormal">@color/secondary</item>
+        <item name="android:colorControlActivated">@color/secondary</item>
+    </style>
+
     <style name="JobTrends.Widget.TextInputLayout" parent="Widget.Design.TextInputLayout">
         <item name="android:drawablePadding">@dimen/small</item>
     </style>

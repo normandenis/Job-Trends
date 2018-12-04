@@ -7,25 +7,28 @@ import android.content.Context
 import android.databinding.DataBindingUtil.inflate
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
+import android.support.v7.widget.AppCompatRatingBar
 import android.view.LayoutInflater
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
-import io.jobtrends.jobtrends.R.layout.dialog_passion
+import android.widget.RatingBar
+import io.jobtrends.jobtrends.R
+import io.jobtrends.jobtrends.R.layout.dialog_skill
 import io.jobtrends.jobtrends.R.style.JobTrends_Theme_Dailog_Alert
 import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.adapters.AdapterManager
 import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
-import io.jobtrends.jobtrends.databinding.DialogPassionBinding
+import io.jobtrends.jobtrends.databinding.DialogSkillBinding
 import io.jobtrends.jobtrends.models.Model
-import io.jobtrends.jobtrends.models.PassionModel
-import io.jobtrends.jobtrends.viewmodels.PassionViewModel.PassionListKey.PASSION_LIST_KEY
+import io.jobtrends.jobtrends.models.SkillModel
+import io.jobtrends.jobtrends.viewmodels.SkillViewModel.SkillListKey.SKILL_LIST_KEY
 
 @Suppress("UNCHECKED_CAST")
-class PassionViewModel : CurriculumViewModel {
+class SkillViewModel : CurriculumViewModel {
 
-    enum class PassionListKey : ListKey {
-        PASSION_LIST_KEY
+    enum class SkillListKey : ListKey {
+        SKILL_LIST_KEY
     }
 
     override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
@@ -35,11 +38,11 @@ class PassionViewModel : CurriculumViewModel {
     private var dialog: Dialog? = null
     private lateinit var inflater: LayoutInflater
     private lateinit var viewGroup: ViewGroup
-    private lateinit var binding: DialogPassionBinding
+    private lateinit var binding: DialogSkillBinding
 
     init {
         App.component.inject(this)
-        lists[PASSION_LIST_KEY] = ObservableArrayList<PassionModel>() as ObservableList<Model>
+        lists[SKILL_LIST_KEY] = ObservableArrayList<SkillModel>() as ObservableList<Model>
     }
 
     override fun getItem(key: ListKey, index: Int): Model {
@@ -60,8 +63,9 @@ class PassionViewModel : CurriculumViewModel {
     }
 
     override fun addModel(model: Model) {
+
         dialog?.dismiss()
-        lists[PASSION_LIST_KEY]!!.add(model as PassionModel)
+        lists[SKILL_LIST_KEY]!!.add(model)
         activity.build()
     }
 
@@ -70,12 +74,12 @@ class PassionViewModel : CurriculumViewModel {
             dialog = Dialog(activity as Context, JobTrends_Theme_Dailog_Alert)
             inflater = from(activity as Context)
             viewGroup = (activity as Activity).findViewById(content)
-            binding = inflate(inflater, dialog_passion, viewGroup, false)
-            binding.passionViewModel = this
+            binding = inflate(inflater, dialog_skill, viewGroup, false)
+            binding.skillViewModel = this
             dialog?.setContentView(binding.root)
         }
-        val passionModel = PassionModel()
-        binding.passionModel = passionModel
+        val passionModel = SkillModel()
+        binding.skillModel = passionModel
         dialog?.show()
     }
 
@@ -83,7 +87,7 @@ class PassionViewModel : CurriculumViewModel {
     }
 
     override fun removeModel(model: Model) {
-        lists[PASSION_LIST_KEY]!!.remove(model)
+        lists[SKILL_LIST_KEY]!!.remove(model)
         activity.build()
     }
 }

@@ -76,7 +76,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun providePassionViewModel(): PassionViewModel = PassionViewModel()
+    fun providePassionViewModel(): SkillViewModel = SkillViewModel()
 
     @Provides
     @Singleton
