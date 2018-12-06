@@ -10,17 +10,22 @@ import android.databinding.ObservableList
 import android.view.LayoutInflater
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
+import com.android.volley.Request.Method.GET
 import com.android.volley.Request.Method.POST
+import com.orhanobut.logger.Logger.d
+import com.orhanobut.logger.Logger.json
 import io.jobtrends.jobtrends.R.layout.dialog_skill
 import io.jobtrends.jobtrends.R.style.JobTrends_Theme_Dailog_Alert
 import io.jobtrends.jobtrends.activities.ActivityManager
+import io.jobtrends.jobtrends.activities.CurriculumActivity
+import io.jobtrends.jobtrends.activities.CurriculumActivity.CurriculumState.*
 import io.jobtrends.jobtrends.adapters.AdapterManager
 import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.DialogSkillBinding
 import io.jobtrends.jobtrends.managers.ApiManager
 import io.jobtrends.jobtrends.managers.JsonManager
-import io.jobtrends.jobtrends.models.AnalaysisModel
+import io.jobtrends.jobtrends.models.AnalysisModel
 import io.jobtrends.jobtrends.models.Model
 import io.jobtrends.jobtrends.models.SkillModel
 import io.jobtrends.jobtrends.viewmodels.SkillViewModel.SkillListKey.SKILL_LIST_KEY
@@ -35,6 +40,7 @@ class SkillViewModel : CurriculumViewModel {
 
     companion object {
         private const val SKILL_URL = "/skill"
+        private const val RESULT_URL = "results/"
     }
 
     override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
@@ -45,8 +51,10 @@ class SkillViewModel : CurriculumViewModel {
     lateinit var apiManager: ApiManager
     @Inject
     lateinit var jsonManager: JsonManager
+    @Inject
+    lateinit var resultViewModel: ResultViewModel
 
-    private lateinit var analaysisModel: AnalaysisModel
+    private lateinit var analysisModel: AnalysisModel
     private var dialog: Dialog? = null
     private lateinit var inflater: LayoutInflater
     private lateinit var viewGroup: ViewGroup
@@ -101,11 +109,12 @@ class SkillViewModel : CurriculumViewModel {
             json = jsonManager.serialize(skillModel)
             apiManager.request(
                 POST,
-                analaysisModel.id.get() + SKILL_URL,
+                analysisModel.id.get() + SKILL_URL,
                 ::addSkillCallback,
                 json
             )
         }
+        apiManager.request(POST, analysisModel.id.get()!!, ::closeAnalysisCallback)
     }
 
     override fun removeModel(model: Model) {
@@ -113,9 +122,31 @@ class SkillViewModel : CurriculumViewModel {
         activity.build()
     }
 
-    private fun addSkillCallback(statusCode: Int, data: String) {}
+    private fun addSkillCallback(statusCode: Int, data: String) {
+        d(statusCode)
+        json(data)
+        if (statusCode != 200) {
+            return
+        }
+    }
+
+    private fun closeAnalysisCallback(statusCode: Int, data: String) {
+        d(statusCode)
+        json(data)
+        if (statusCode != 200) {
+            return
+        }
+        apiManager.request(GET, RESULT_URL + analysisModel.id.get(), { statusCode1, data1 ->
+            resultViewModel.resultCallback(statusCode1, data1)
+        })
+        activity.setState(RESULT_STATE)
+        activity.build()
+    }
 
     fun startAnalysisCallback(statusCode: Int, data: String) {
-        analaysisModel = jsonManager.deserialize(data)
+        if (statusCode != 200) {
+            return
+        }
+        analysisModel = jsonManager.deserialize(data)
     }
 }

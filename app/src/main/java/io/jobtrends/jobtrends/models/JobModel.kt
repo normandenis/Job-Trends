@@ -58,7 +58,7 @@ data class JobModel(
 
     // endregion
 
-    // region source
+    // region resultSourceModel
 
     @SerializedName("_source")
     var source: SourceModel = SourceModel(),

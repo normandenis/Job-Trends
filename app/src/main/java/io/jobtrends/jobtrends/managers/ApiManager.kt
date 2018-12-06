@@ -16,16 +16,17 @@ class ApiManager {
         private const val ERROR_STATUS_CODE = 404
         private const val ERROR_MESSAGE: String =
             "Nous rencontrons des soucis avec nos serveurs, veuillez nous excuser de la gêne occasionnée."
-        private val URL_BASE: String = "https://api.dev.jobtrends.io/analysis/"
+        private const val URL_BASE: String = "https://api.dev.jobtrends.io/analysis/"
     }
 
     private var statusCode: Int = 0
     private val queue: RequestQueue = newRequestQueue(App.app.applicationContext)
 
     fun request(method: Int, url: String, callback: (Int, String) -> Unit,json: String = "") {
+        val concatUrl = "$URL_BASE$url"
         val request: StringRequest = object : StringRequest(
             method,
-            URL_BASE + url,
+            concatUrl,
             Listener<String> { s ->
                 callback(statusCode, s)
             },

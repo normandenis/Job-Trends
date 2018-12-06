@@ -80,7 +80,6 @@ data class SourceModel(
     @JsonAdapter(ObservableDoubleAdapter::class)
     var hired: ObservableField<Double> = ObservableField(0.0)
 
-// endregion
-
+    // endregion
 
 ) : Model

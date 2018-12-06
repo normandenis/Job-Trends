@@ -1,6 +1,7 @@
 package io.jobtrends.jobtrends.adapters
 
 import android.databinding.BindingAdapter
+import android.databinding.BindingConversion
 import android.databinding.InverseBindingAdapter
 import android.databinding.ObservableField
 import android.support.v7.widget.AppCompatRatingBar
@@ -33,9 +34,9 @@ fun getText(appCompatRatingBar: AppCompatRatingBar): Double {
     }
 }
 
-@BindingAdapter("android:text")
-fun setText(view: TextView, value: Double) {
-    view.text = try {
+@BindingConversion
+fun setDouble(value: Double): String {
+    return try {
         val format = DecimalFormat("0.##")
         format.format(value)
     } catch (exception: Exception) {
@@ -44,7 +45,7 @@ fun setText(view: TextView, value: Double) {
 }
 
 @InverseBindingAdapter(attribute = "android:text")
-fun getText(view: TextView): Double {
+fun getDouble(view: TextView): Double {
     return try {
         view.text.toString().toDouble()
     } catch (exception: Exception) {
@@ -64,6 +65,7 @@ class ObservableStringAdapter : TypeAdapter<ObservableField<String>>() {
 }
 
 class ObservableDoubleToStringAdapter : TypeAdapter<ObservableField<Double>>() {
+
     override fun write(jsonWriter: JsonWriter, value: ObservableField<Double>) {
         try {
             jsonWriter.value(value.get().toString())
@@ -79,7 +81,6 @@ class ObservableDoubleToStringAdapter : TypeAdapter<ObservableField<Double>>() {
             ObservableField(0.0)
         }
     }
-
 }
 
 class ObservableDoubleAdapter : TypeAdapter<ObservableField<Double>>() {

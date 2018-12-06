@@ -28,7 +28,7 @@ class BoardingActivity : AppCompatActivity(), PagerManager {
 
     @Inject
     lateinit var boardingViewModel: BoardingViewModel
-    override var activityState: ActivityState = TODO()
+    override var activityState: ActivityState = NEXT_STATE
     val following: ObservableField<String>
 
     init {
@@ -41,6 +41,7 @@ class BoardingActivity : AppCompatActivity(), PagerManager {
         super.onCreate(savedInstanceState)
         val binding: ActivityBoardingBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_boarding)
+        binding.boardingViewModel = boardingViewModel
         binding.boardingActivity = this
         pager_0.adapter = PagerAdapter(supportFragmentManager, boardingViewModel, BOARDING_LIST_KEY)
         pager_0.addOnPageChangeListener(boardingViewModel)

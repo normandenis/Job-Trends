@@ -8,6 +8,7 @@ import io.jobtrends.jobtrends.managers.ApiManager
 import io.jobtrends.jobtrends.managers.JsonManager
 import io.jobtrends.jobtrends.managers.RawManager
 import io.jobtrends.jobtrends.models.JobModel
+import io.jobtrends.jobtrends.models.UserModel
 import io.jobtrends.jobtrends.viewmodels.*
 import io.jobtrends.jobtrends.wrappers.Wrapper
 import javax.inject.Singleton
@@ -54,6 +55,9 @@ class AppModule {
     @Provides
     fun provideJobModel(): JobModel = wrapper.getInstance()
 
+    @Provides
+    fun provideUserModel(): UserModel = wrapper.getInstance()
+
     // endregion
 
     // region ViewModels
@@ -73,6 +77,10 @@ class AppModule {
     @Provides
     @Singleton
     fun provideJobViewModel(): JobViewModel = JobViewModel()
+
+    @Provides
+    @Singleton
+    fun provideResultViewModel(): ResultViewModel = ResultViewModel()
 
     @Provides
     @Singleton

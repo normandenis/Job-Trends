@@ -3,7 +3,9 @@ package io.jobtrends.jobtrends.viewmodels
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
-import com.orhanobut.logger.Logger
+import com.android.volley.Request.Method.POST
+import com.orhanobut.logger.Logger.d
+import com.orhanobut.logger.Logger.json
 import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.activities.JobActivity
 import io.jobtrends.jobtrends.activities.JobActivity.JobState.CURRICULUM_STATE
@@ -25,16 +27,24 @@ class JobViewModel : ViewModel {
         STATISTICS_LIST_KEY
     }
 
-    @Inject
-    lateinit var apiManager: ApiManager
-    @Inject
-    lateinit var jsonManager: JsonManager
-
     override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
     override var adapters: MutableMap<ListKey, AdapterManager> = mutableMapOf()
     override lateinit var activity: ActivityManager
 
-    var jobModel: ObservableField<JobModel> = ObservableField(JobModel())
+    @Inject
+    lateinit var apiManager: ApiManager
+    @Inject
+    lateinit var jsonManager: JsonManager
+    @Inject
+    lateinit var userViewModel: UserViewModel
+    @Inject
+    lateinit var trainingViewModel: TrainingViewModel
+    @Inject
+    lateinit var experienceViewModel: ExperienceViewModel
+    @Inject
+    lateinit var skillViewModel: SkillViewModel
+
+    val jobModel: ObservableField<JobModel> = ObservableField(JobModel())
 
     init {
         App.component.inject(this)
@@ -51,8 +61,11 @@ class JobViewModel : ViewModel {
     }
 
     fun jobCallback(statusCode: Int, data: String) {
-        Logger.d(statusCode)
-        Logger.json(data)
+        d(statusCode)
+        json(data)
+        if (statusCode != 200) {
+            return
+        }
         val jobModel: JobModel = jsonManager.deserialize(data)
         this.jobModel.set(jobModel)
         lists[STATISTICS_LIST_KEY]!!.clear()
@@ -69,6 +82,14 @@ class JobViewModel : ViewModel {
     }
 
     fun onClickAnalyse() {
+        apiManager.request(POST, "", { statusCode, data ->
+            d(statusCode)
+            json(data)
+            userViewModel.startAnalysisCallback(statusCode, data)
+            trainingViewModel.startAnalysisCallback(statusCode, data)
+            experienceViewModel.startAnalysisCallback(statusCode, data)
+            skillViewModel.startAnalysisCallback(statusCode, data)
+        })
         activity.setState(CURRICULUM_STATE)
         activity.build()
     }

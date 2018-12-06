@@ -32,6 +32,7 @@
         <activity
             android:name=".activities.CurriculumActivity"
             android:windowSoftInputMode="adjustPan|adjustResize|stateAlwaysHidden" />
+        <activity android:name=".activities.ResultActivity"></activity>
     </application>
 
 </manifest>

@@ -56,6 +56,10 @@ class RecyclerAdapter(
                 tmpHolder.binding.skillViewModel = viewModel as SkillViewModel
                 tmpHolder.binding.skillModel = viewModel.getItem(key, index) as SkillModel
             }
+            surface_result -> {
+                val tmpHolder = (holder as HolderAdapter<SurfaceResultBinding>)
+                tmpHolder.binding.alternativeModel = viewModel.getItem(key, index) as AlternativeModel
+            }
         }
     }
 

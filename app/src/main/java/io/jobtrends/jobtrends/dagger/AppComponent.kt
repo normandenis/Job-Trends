@@ -17,6 +17,7 @@ interface AppComponent {
     fun inject(curriculumActivity: CurriculumActivity)
     fun inject(homeActivity: HomeActivity)
     fun inject(jobActivity: JobActivity)
+    fun inject(resultActivity: ResultActivity)
     fun inject(splashActivity: SplashActivity)
 
     // endregion
@@ -34,15 +35,21 @@ interface AppComponent {
 
     // endregion
 
+    // region Managers
+
+    fun inject(jsonManager: JsonManager)
+    fun inject(rawManager: RawManager)
+
+    // endregion
+
     // region ViewModels
 
     fun inject(boardingViewModel: BoardingViewModel)
     fun inject(experienceViewModel: ExperienceViewModel)
     fun inject(homeViewModel: HomeViewModel)
     fun inject(jobViewModel: JobViewModel)
-    fun inject(jsonManager: JsonManager)
+    fun inject(resultViewModel: ResultViewModel)
     fun inject(skillManager: SkillViewModel)
-    fun inject(rawManager: RawManager)
     fun inject(trainingManager: TrainingViewModel)
     fun inject(userViewModel: UserViewModel)
 

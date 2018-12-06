@@ -1,29 +1,16 @@
 {
-  "_index": "jobs",
-  "_type": "_doc",
-  "_id": "OUqRVWcBrR-LETVXyrLo",
-  "_version": 12,
-  "found": true,
-  "_source": {
-    "last_updated": 1543597219058,
-    "code": "A1301",
-    "count": 9,
-    "projectedGrowth": "0",
-    "searchPercentage": "0",
-    "title": "Technicien / Technicienne de culture maraîchère"
-  },
-  "_statistics": [
+  "near": [
+  ],
+  "formations": [
     {
-      "key": "salary",
-      "value": 0
-    },
+      "title": "Le montage vidéo avec Lightworks",
+      "link": "https://candidat.pole-emploi.fr/formations/detail/2507134/true"
+    }
+  ],
+  "possible": [
     {
-      "key": "searchedCount",
-      "value": 0
-    },
-    {
-      "key": "employeeCount",
-      "value": 0
+      "title": "Journalisme et information média",
+      "code": "E1106 "
     }
   ]
 }

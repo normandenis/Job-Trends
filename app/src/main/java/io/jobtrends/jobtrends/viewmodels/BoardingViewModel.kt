@@ -40,7 +40,9 @@ class BoardingViewModel : ViewModel, OnPageChangeListener {
         component.inject(this)
         currentItem = 0
         val data = rawManager.readRaw(data_boarding)
-        lists[BOARDING_LIST_KEY] = jsonManager.deserialize<ObservableArrayList<BoardingModel>>(data) as ObservableList<Model>
+        val tmp = jsonManager.deserialize<Array<BoardingModel>>(data)
+        lists[BOARDING_LIST_KEY] = ObservableArrayList()
+        lists[BOARDING_LIST_KEY]!!.addAll(tmp)
     }
 
     override fun onPageScrollStateChanged(index: Int) {

@@ -28,6 +28,8 @@ class SplashActivity : AppCompatActivity() {
     @Inject
     lateinit var jobViewModel: JobViewModel
     @Inject
+    lateinit var resultViewModel: ResultViewModel
+    @Inject
     lateinit var skillViewModel: SkillViewModel
     @Inject
     lateinit var trainingViewModel: TrainingViewModel

@@ -101,6 +101,9 @@ class HomeViewModel : ViewModel {
     private fun jobsCallback(key: ListKey, statusCode: Int, data: String) {
         d(statusCode)
         json(data)
+        if (statusCode != 200) {
+            return
+        }
         val jobs = jsonManager.deserialize<Array<JobModel>>(data)
         lists[key]!!.clear()
         lists[key]!!.addAll(jobs)
@@ -108,6 +111,8 @@ class HomeViewModel : ViewModel {
 
     fun onClickAnalyse() {
         apiManager.request(POST, "", { statusCode, data ->
+            d(statusCode)
+            json(data)
             userViewModel.startAnalysisCallback(statusCode, data)
             trainingViewModel.startAnalysisCallback(statusCode, data)
             experienceViewModel.startAnalysisCallback(statusCode, data)

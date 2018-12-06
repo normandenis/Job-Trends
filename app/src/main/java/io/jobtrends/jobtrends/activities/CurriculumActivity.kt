@@ -1,13 +1,14 @@
 package io.jobtrends.jobtrends.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
-import io.jobtrends.jobtrends.activities.CurriculumActivity.TrainingActivityState.*
+import io.jobtrends.jobtrends.activities.CurriculumActivity.CurriculumState.*
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.fragments.*
 import io.jobtrends.jobtrends.viewmodels.ExperienceViewModel
@@ -22,12 +23,13 @@ import javax.inject.Inject
 
 class CurriculumActivity : AppCompatActivity(), ActivityManager {
 
-    enum class TrainingActivityState : ActivityState {
+    enum class CurriculumState : ActivityState {
         HOME_STATE,
         USER_STATE,
         TRAINING_STATE,
         EXPERIENCE_STATE,
-        PASSION_STATE
+        PASSION_STATE,
+        RESULT_STATE
     }
 
     @Inject
@@ -88,11 +90,16 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
                 }
             }
             PASSION_STATE -> {
-                supportActionBar?.title = "Passions"
+                supportActionBar?.title = "Compétences"
                 when (skillViewModel.getCount(SKILL_LIST_KEY)) {
                     0 -> SkillEmptyFragment()
                     else -> SkillFragment()
                 }
+            }
+            RESULT_STATE -> {
+                val intent = Intent(this, ResultActivity::class.java)
+                startActivity(intent)
+                null
             }
             else -> TODO()
         }
@@ -105,12 +112,25 @@ class CurriculumActivity : AppCompatActivity(), ActivityManager {
         transaction.commit()
     }
 
+    override fun onBackPressed() {
+        activityState = when (activityState) {
+            USER_STATE -> HOME_STATE
+            TRAINING_STATE -> USER_STATE
+            EXPERIENCE_STATE -> TRAINING_STATE
+            PASSION_STATE -> EXPERIENCE_STATE
+            RESULT_STATE -> PASSION_STATE
+            else -> TODO()
+        }
+        build()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         activityState = when (activityState) {
             USER_STATE -> HOME_STATE
             TRAINING_STATE -> USER_STATE
             EXPERIENCE_STATE -> TRAINING_STATE
             PASSION_STATE -> EXPERIENCE_STATE
+            RESULT_STATE -> PASSION_STATE
             else -> TODO()
         }
         build()
