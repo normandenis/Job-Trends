@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.google.gson.TypeAdapter
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+import java.text.DecimalFormat
 
 
 @BindingAdapter("android:rating")
@@ -33,24 +34,21 @@ fun getText(appCompatRatingBar: AppCompatRatingBar): Double {
 }
 
 @BindingAdapter("android:text")
-fun setText(view: TextView, value: Long) {
-    try {
-        view.text = if (value > 0) {
-            value.toString()
-        } else {
-            ""
-        }
+fun setText(view: TextView, value: Double) {
+    view.text = try {
+        val format = DecimalFormat("0.##")
+        format.format(value)
     } catch (exception: Exception) {
-        view.text = ""
+        ""
     }
 }
 
 @InverseBindingAdapter(attribute = "android:text")
-fun getText(view: TextView): Long {
+fun getText(view: TextView): Double {
     return try {
-        view.text.toString().toLong()
+        view.text.toString().toDouble()
     } catch (exception: Exception) {
-        0
+        0.0
     }
 }
 
@@ -84,14 +82,14 @@ class ObservableDoubleToStringAdapter : TypeAdapter<ObservableField<Double>>() {
 
 }
 
-class ObservableLongAdapter : TypeAdapter<ObservableField<Long>>() {
+class ObservableDoubleAdapter : TypeAdapter<ObservableField<Double>>() {
 
-    override fun write(json: JsonWriter, value: ObservableField<Long>) {
-        json.value(value.get())
+    override fun write(jsonWriter: JsonWriter, value: ObservableField<Double>) {
+        jsonWriter.value(value.get())
     }
 
-    override fun read(json: JsonReader): ObservableField<Long> {
-        return ObservableField(json.nextLong())
+    override fun read(jsonReader: JsonReader): ObservableField<Double> {
+        return ObservableField(jsonReader.nextDouble())
     }
 }
 

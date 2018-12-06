@@ -7,12 +7,10 @@ import android.content.Context
 import android.databinding.DataBindingUtil.inflate
 import android.databinding.ObservableArrayList
 import android.databinding.ObservableList
-import android.support.v7.widget.AppCompatRatingBar
 import android.view.LayoutInflater
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
-import android.widget.RatingBar
-import io.jobtrends.jobtrends.R
+import com.android.volley.Request.Method.POST
 import io.jobtrends.jobtrends.R.layout.dialog_skill
 import io.jobtrends.jobtrends.R.style.JobTrends_Theme_Dailog_Alert
 import io.jobtrends.jobtrends.activities.ActivityManager
@@ -20,9 +18,13 @@ import io.jobtrends.jobtrends.adapters.AdapterManager
 import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
 import io.jobtrends.jobtrends.databinding.DialogSkillBinding
+import io.jobtrends.jobtrends.managers.ApiManager
+import io.jobtrends.jobtrends.managers.JsonManager
+import io.jobtrends.jobtrends.models.AnalaysisModel
 import io.jobtrends.jobtrends.models.Model
 import io.jobtrends.jobtrends.models.SkillModel
 import io.jobtrends.jobtrends.viewmodels.SkillViewModel.SkillListKey.SKILL_LIST_KEY
+import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
 class SkillViewModel : CurriculumViewModel {
@@ -31,10 +33,20 @@ class SkillViewModel : CurriculumViewModel {
         SKILL_LIST_KEY
     }
 
+    companion object {
+        private const val SKILL_URL = "/skill"
+    }
+
     override var lists: MutableMap<ListKey, ObservableList<Model>> = mutableMapOf()
     override var adapters: MutableMap<ListKey, AdapterManager> = mutableMapOf()
     override lateinit var activity: ActivityManager
 
+    @Inject
+    lateinit var apiManager: ApiManager
+    @Inject
+    lateinit var jsonManager: JsonManager
+
+    private lateinit var analaysisModel: AnalaysisModel
     private var dialog: Dialog? = null
     private lateinit var inflater: LayoutInflater
     private lateinit var viewGroup: ViewGroup
@@ -84,10 +96,26 @@ class SkillViewModel : CurriculumViewModel {
     }
 
     override fun onNextStep() {
+        var json: String
+        for (skillModel in lists[SKILL_LIST_KEY] as ObservableList<SkillModel>) {
+            json = jsonManager.serialize(skillModel)
+            apiManager.request(
+                POST,
+                analaysisModel.id.get() + SKILL_URL,
+                ::addSkillCallback,
+                json
+            )
+        }
     }
 
     override fun removeModel(model: Model) {
         lists[SKILL_LIST_KEY]!!.remove(model)
         activity.build()
+    }
+
+    private fun addSkillCallback(statusCode: Int, data: String) {}
+
+    fun startAnalysisCallback(statusCode: Int, data: String) {
+        analaysisModel = jsonManager.deserialize(data)
     }
 }

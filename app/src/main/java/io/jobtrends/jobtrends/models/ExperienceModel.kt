@@ -2,7 +2,8 @@ package io.jobtrends.jobtrends.models
 
 import android.databinding.ObservableField
 import com.google.gson.annotations.JsonAdapter
-import io.jobtrends.jobtrends.adapters.ObservableLongAdapter
+import com.google.gson.annotations.SerializedName
+import io.jobtrends.jobtrends.adapters.ObservableDoubleAdapter
 import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
 
 /**
@@ -14,19 +15,24 @@ import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
  */
 data class ExperienceModel(
 
+    @SerializedName("job")
     @JsonAdapter(ObservableStringAdapter::class)
     var job: ObservableField<String> = ObservableField(""),
 
+    @SerializedName("company")
     @JsonAdapter(ObservableStringAdapter::class)
     var company: ObservableField<String> = ObservableField(""),
 
+    @SerializedName("place")
     @JsonAdapter(ObservableStringAdapter::class)
     var place: ObservableField<String> = ObservableField(""),
 
-    @JsonAdapter(ObservableLongAdapter::class)
-    var from: ObservableField<Long> = ObservableField(0),
+    @SerializedName("from")
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var from: ObservableField<Double> = ObservableField(0.0),
 
-    @JsonAdapter(ObservableLongAdapter::class)
-    var to: ObservableField<Long> = ObservableField(0)
+    @SerializedName("to")
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var to: ObservableField<Double> = ObservableField(0.0)
 
 ) : Model

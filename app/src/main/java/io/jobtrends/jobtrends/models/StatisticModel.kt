@@ -3,7 +3,7 @@ package io.jobtrends.jobtrends.models
 import android.databinding.ObservableField
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
-import io.jobtrends.jobtrends.adapters.ObservableLongAdapter
+import io.jobtrends.jobtrends.adapters.ObservableDoubleAdapter
 import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
 
 /**
@@ -17,7 +17,7 @@ data class StatisticModel(
     var key: ObservableField<String> = ObservableField(""),
 
     @SerializedName("value")
-    @JsonAdapter(ObservableLongAdapter::class)
-    var value: ObservableField<Long> = ObservableField(0)
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var value: ObservableField<Double> = ObservableField(0.0)
 
 ) : Model

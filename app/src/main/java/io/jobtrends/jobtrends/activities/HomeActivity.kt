@@ -15,7 +15,7 @@ import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import io.jobtrends.jobtrends.R
 import io.jobtrends.jobtrends.R.layout.*
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.JOB_STATE
-import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.TRAINING_STATE
+import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.CURRICULUM_STATE
 import io.jobtrends.jobtrends.adapters.AutoCompleteAdapter
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
 import io.jobtrends.jobtrends.dagger.App
@@ -31,7 +31,7 @@ import javax.inject.Inject
 class HomeActivity : AppCompatActivity(), ActivityManager {
 
     enum class HomeState : ActivityState {
-        TRAINING_STATE,
+        CURRICULUM_STATE,
         JOB_STATE
     }
 
@@ -42,7 +42,7 @@ class HomeActivity : AppCompatActivity(), ActivityManager {
     @Inject
     lateinit var homeViewModel: HomeViewModel
 
-    override var activityState: ActivityState = TRAINING_STATE
+    override var activityState: ActivityState = CURRICULUM_STATE
 
     init {
         App.component.inject(this)
@@ -59,7 +59,7 @@ class HomeActivity : AppCompatActivity(), ActivityManager {
 
     override fun build() {
         val cls = when (activityState) {
-            TRAINING_STATE -> CurriculumActivity::class.java
+            CURRICULUM_STATE -> CurriculumActivity::class.java
             JOB_STATE -> JobActivity::class.java
             else -> TODO()
         }
@@ -86,8 +86,8 @@ class HomeActivity : AppCompatActivity(), ActivityManager {
     }
 
     private fun buildRecyclers() {
-        recycler_0.adapter = RecyclerAdapter(homeViewModel, surface_home, MOST_JOBS_LIST_KEY)
-        recycler_1.adapter = RecyclerAdapter(homeViewModel, surface_home, LAST_JOBS_LIST_KEY)
+        recycler_0.adapter = RecyclerAdapter(homeViewModel, surface_home, LAST_JOBS_LIST_KEY)
+        recycler_1.adapter = RecyclerAdapter(homeViewModel, surface_home, MOST_JOBS_LIST_KEY)
     }
 
     private fun buildActionBar() {

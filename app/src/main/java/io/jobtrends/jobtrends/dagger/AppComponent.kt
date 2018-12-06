@@ -34,7 +34,7 @@ interface AppComponent {
 
     // endregion
 
-    // region Managers
+    // region ViewModels
 
     fun inject(boardingViewModel: BoardingViewModel)
     fun inject(experienceViewModel: ExperienceViewModel)
@@ -44,6 +44,7 @@ interface AppComponent {
     fun inject(skillManager: SkillViewModel)
     fun inject(rawManager: RawManager)
     fun inject(trainingManager: TrainingViewModel)
+    fun inject(userViewModel: UserViewModel)
 
     // endregion
 }

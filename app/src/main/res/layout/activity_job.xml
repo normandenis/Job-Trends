@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="@dimen/medium"
-                android:text="@{String.valueOf(jobModel.source.searchPercentage)}"
+                android:text="@{jobModel.source.searchPercentage}"
                 android:textAppearance="@style/JobTrends.TextAppearance.Title.Background"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -76,7 +76,7 @@
                     android:layout_height="match_parent"
                     android:hint="Diplôme"
                     android:maxLines="1"
-                    android:text="@={trainingModel.diploma}" />
+                    android:text="@={trainingModel.degree}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -95,7 +95,7 @@
                     android:layout_height="match_parent"
                     android:hint="Domaine"
                     android:maxLines="1"
-                    android:text="@={trainingModel.activity}" />
+                    android:text="@={trainingModel.topic}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -114,7 +114,7 @@
                     android:layout_height="match_parent"
                     android:hint="De"
                     android:maxLines="1"
-                    android:text="@={trainingModel.start}" />
+                    android:text="@={trainingModel.from}" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -133,20 +133,22 @@
                     android:layout_height="match_parent"
                     android:hint="À"
                     android:maxLines="1"
-                    android:text="@={trainingModel.end}" />
+                    android:text="@={trainingModel.to}" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_0"
-                style="@style/JobTrends.Widget.Button.Secondary"
-                android:layout_width="wrap_content"
+                style="@style/JobTrends.Widget.Button.Background"
+                android:background="@drawable/shape_round"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/medium"
                 android:onClick="@{() -> trainingManager.addModel(trainingModel)}"
                 android:text="Ajouter"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="@id/input_4"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/input_4" />
 
         </android.support.constraint.ConstraintLayout>

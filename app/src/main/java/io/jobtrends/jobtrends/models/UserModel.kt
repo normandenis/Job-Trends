@@ -3,14 +3,23 @@ package io.jobtrends.jobtrends.models
 import android.databinding.ObservableField
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
-import io.jobtrends.jobtrends.adapters.ObservableLongAdapter
+import io.jobtrends.jobtrends.adapters.ObservableDoubleAdapter
 import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
 
+/**
+ * @param birthday
+ * @param city
+ * @param country
+ * @param firstName
+ * @param job
+ * @param lastName
+ * @param postalCode
+ */
 data class UserModel(
 
     @SerializedName("birthday")
-    @JsonAdapter(ObservableLongAdapter::class)
-    var birthday: ObservableField<Long> = ObservableField(0),
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var birthday: ObservableField<Double> = ObservableField(0.0),
 
     @SerializedName("city")
     @JsonAdapter(ObservableStringAdapter::class)
@@ -33,6 +42,6 @@ data class UserModel(
     var lastName: ObservableField<String> = ObservableField(""),
 
     @SerializedName("postalCode")
-    @JsonAdapter(ObservableLongAdapter::class)
-    var postalCode: ObservableField<Long> = ObservableField(0)
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var postalCode: ObservableField<Double> = ObservableField(0.0)
 ) : Model

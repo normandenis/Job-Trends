@@ -3,7 +3,7 @@ package io.jobtrends.jobtrends.models
 import android.databinding.ObservableField
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
-import io.jobtrends.jobtrends.adapters.ObservableLongAdapter
+import io.jobtrends.jobtrends.adapters.ObservableDoubleAdapter
 import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
 
 /**
@@ -11,6 +11,8 @@ import io.jobtrends.jobtrends.adapters.ObservableStringAdapter
  * @param count
  * @param lastUpdated
  * @param code
+ * @param hired
+ * @param salary
  * @param projectedGrowth
  * @param searchPercentage
  */
@@ -19,8 +21,8 @@ data class SourceModel(
     // region lastUpdated
 
     @SerializedName("last_updated")
-    @JsonAdapter(ObservableLongAdapter::class)
-    var lastUpdated: ObservableField<Long> = ObservableField(0),
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var lastUpdated: ObservableField<Double> = ObservableField(0.0),
 
     // endregion
 
@@ -35,8 +37,8 @@ data class SourceModel(
     // region count
 
     @SerializedName("count")
-    @JsonAdapter(ObservableLongAdapter::class)
-    var count: ObservableField<Long> = ObservableField(0),
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var count: ObservableField<Double> = ObservableField(0.0),
 
     // endregion
 
@@ -48,20 +50,37 @@ data class SourceModel(
 
     // endregion
 
-    // region count
+    // region projectedGrowth
 
     @SerializedName("projectedGrowth")
-    @JsonAdapter(ObservableLongAdapter::class)
-    var projectedGrowth: ObservableField<Long> = ObservableField(0),
+    @JsonAdapter(ObservableStringAdapter::class)
+    var projectedGrowth: ObservableField<String> = ObservableField(""),
 
     // endregion
 
-    // region count
+    // region searchPercentage
 
     @SerializedName("searchPercentage")
-    @JsonAdapter(ObservableLongAdapter::class)
-    var searchPercentage: ObservableField<Long> = ObservableField(0)
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var searchPercentage: ObservableField<Double> = ObservableField(0.0),
 
     // endregion
+
+    // region searchPercentage
+
+    @SerializedName("msalary")
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var salary: ObservableField<Double> = ObservableField(0.0),
+
+    // endregion
+
+    // region searchPercentage
+
+    @SerializedName("hired")
+    @JsonAdapter(ObservableDoubleAdapter::class)
+    var hired: ObservableField<Double> = ObservableField(0.0)
+
+// endregion
+
 
 ) : Model

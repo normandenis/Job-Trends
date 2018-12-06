@@ -6,6 +6,7 @@ import android.databinding.ObservableList
 import com.orhanobut.logger.Logger
 import io.jobtrends.jobtrends.activities.ActivityManager
 import io.jobtrends.jobtrends.activities.JobActivity
+import io.jobtrends.jobtrends.activities.JobActivity.JobState.CURRICULUM_STATE
 import io.jobtrends.jobtrends.adapters.AdapterManager
 import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
@@ -46,7 +47,7 @@ class JobViewModel : ViewModel {
 
     override fun registerAdapterManager(key: ListKey, adapter: AdapterManager) {
         adapters[key] = adapter
-        lists[key]?.addOnListChangedCallback(adapter as ListChangedAdapter)
+        lists[key]!!.addOnListChangedCallback(adapter as ListChangedAdapter)
     }
 
     fun jobCallback(statusCode: Int, data: String) {
@@ -54,9 +55,9 @@ class JobViewModel : ViewModel {
         Logger.json(data)
         val jobModel: JobModel = jsonManager.deserialize(data)
         this.jobModel.set(jobModel)
-        lists[STATISTICS_LIST_KEY]?.clear()
-        lists[STATISTICS_LIST_KEY]?.addAll(jobModel.statistics)
-        (activity as JobActivity).supportActionBar?.title = jobModel.source.title.get()
+        lists[STATISTICS_LIST_KEY]!!.clear()
+        lists[STATISTICS_LIST_KEY]!!.addAll(jobModel.statistics)
+        (activity as JobActivity).supportActionBar!!.title = jobModel.source.title.get()
     }
 
     override fun getItem(key: ListKey, index: Int): Model {
@@ -64,10 +65,11 @@ class JobViewModel : ViewModel {
     }
 
     override fun getCount(key: ListKey): Int {
-        return lists[key]?.size ?: 0
+        return lists[key]!!.size
     }
 
-    fun onClick() {
+    fun onClickAnalyse() {
+        activity.setState(CURRICULUM_STATE)
         activity.build()
     }
 }

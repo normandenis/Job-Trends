@@ -4,11 +4,12 @@ import android.databinding.ObservableArrayList
 import android.databinding.ObservableField
 import android.databinding.ObservableList
 import com.android.volley.Request.Method.GET
+import com.android.volley.Request.Method.POST
 import com.orhanobut.logger.Logger.d
 import com.orhanobut.logger.Logger.json
 import io.jobtrends.jobtrends.activities.ActivityManager
+import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.CURRICULUM_STATE
 import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.JOB_STATE
-import io.jobtrends.jobtrends.activities.HomeActivity.HomeState.TRAINING_STATE
 import io.jobtrends.jobtrends.adapters.AdapterManager
 import io.jobtrends.jobtrends.adapters.ListChangedAdapter
 import io.jobtrends.jobtrends.dagger.App
@@ -42,6 +43,14 @@ class HomeViewModel : ViewModel {
     lateinit var jsonManager: JsonManager
     @Inject
     lateinit var jobViewModel: JobViewModel
+    @Inject
+    lateinit var userViewModel: UserViewModel
+    @Inject
+    lateinit var trainingViewModel: TrainingViewModel
+    @Inject
+    lateinit var experienceViewModel: ExperienceViewModel
+    @Inject
+    lateinit var skillViewModel: SkillViewModel
 
     override lateinit var activity: ActivityManager
     override var adapters: MutableMap<ListKey, AdapterManager> = mutableMapOf()
@@ -63,7 +72,7 @@ class HomeViewModel : ViewModel {
 
     override fun registerAdapterManager(key: ListKey, adapter: AdapterManager) {
         adapters[key] = adapter
-        lists[key]?.addOnListChangedCallback(adapter as ListChangedAdapter)
+        lists[key]!!.addOnListChangedCallback(adapter as ListChangedAdapter)
     }
 
     override fun getItem(key: ListKey, index: Int): Model {
@@ -93,12 +102,18 @@ class HomeViewModel : ViewModel {
         d(statusCode)
         json(data)
         val jobs = jsonManager.deserialize<Array<JobModel>>(data)
-        lists[key]?.clear()
-        lists[key]?.addAll(jobs)
+        lists[key]!!.clear()
+        lists[key]!!.addAll(jobs)
     }
 
     fun onClickAnalyse() {
-        activity.setState(TRAINING_STATE)
+        apiManager.request(POST, "", { statusCode, data ->
+            userViewModel.startAnalysisCallback(statusCode, data)
+            trainingViewModel.startAnalysisCallback(statusCode, data)
+            experienceViewModel.startAnalysisCallback(statusCode, data)
+            skillViewModel.startAnalysisCallback(statusCode, data)
+        })
+        activity.setState(CURRICULUM_STATE)
         activity.build()
     }
 

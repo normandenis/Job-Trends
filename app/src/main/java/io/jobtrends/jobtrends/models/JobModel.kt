@@ -46,7 +46,7 @@ data class JobModel(
 
     @SerializedName("_version")
     @JsonAdapter(ObservableStringAdapter::class)
-    var version: ObservableField<Long> = ObservableField(0),
+    var version: ObservableField<Double> = ObservableField(0.0),
 
     // endregion
 

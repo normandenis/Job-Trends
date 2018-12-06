@@ -65,8 +65,8 @@
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/image_0"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:onClick="@{() -> skillViewModel.removeModel(skillModel)}"
                     android:src="@drawable/delete"
                     android:tint="@color/onSurface"
