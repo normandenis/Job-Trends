@@ -1,21 +1,21 @@
 package io.jobtrends.jobtrends.adapters
 
+import android.content.Context
 import android.widget.ArrayAdapter
 import android.widget.Filter
 import io.jobtrends.jobtrends.R.id.text_0
 import io.jobtrends.jobtrends.R.layout.custom_item
-import io.jobtrends.jobtrends.activities.HomeActivity
 import io.jobtrends.jobtrends.models.Model
-import io.jobtrends.jobtrends.viewmodels.HomeViewModel
+import io.jobtrends.jobtrends.viewmodels.AutoCompleteListener
 import io.jobtrends.jobtrends.viewmodels.ListKey
 import io.jobtrends.jobtrends.viewmodels.ViewModel
 
 
 class AutoCompleteAdapter(
-    private val homeActivity: HomeActivity,
+    context: Context,
     private val viewModel: ViewModel,
     private val key: ListKey
-) : ArrayAdapter<Model>(homeActivity, custom_item, text_0), AdapterManager {
+) : ArrayAdapter<Model>(context, custom_item, text_0), AdapterManager {
 
     init {
         viewModel.registerAdapterManager(key, ListChangedAdapter(this))
@@ -41,7 +41,7 @@ class AutoCompleteAdapter(
             }
 
             override fun publishResults(contraint: CharSequence?, results: FilterResults?) {
-                (viewModel as HomeViewModel).searchJob()
+                (viewModel as AutoCompleteListener).searchJob()
             }
         }
     }

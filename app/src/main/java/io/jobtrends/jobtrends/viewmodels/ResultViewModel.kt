@@ -73,6 +73,6 @@ class ResultViewModel : ViewModel {
         lists[POSSIBLE_JOBS_LIST_KEY]!!.clear()
         lists[POSSIBLE_JOBS_LIST_KEY]!!.addAll(resultModel.possibles)
         lists[FORMATIONS_LIST_KEY]!!.clear()
-        lists[FORMATIONS_LIST_KEY]!!.addAll(resultModel.possibles)
+        lists[FORMATIONS_LIST_KEY]!!.addAll(resultModel.formations)
     }
 }

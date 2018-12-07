@@ -20,165 +20,173 @@
         tools:context=".fragments.UserFragment">
 
         <LinearLayout
-            android:layout_width="0px"
-            android:layout_height="0px"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             tools:ignore="UselessLeaf" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/layout_0"
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:padding="@dimen/medium"
+            android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@id/button_0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_0"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/layout_0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/medium">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/person_24dp"
-                    android:hint="Prénom"
-                    android:singleLine="true"
-                    android:text="@={userModel.firstName}" />
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </android.support.design.widget.TextInputLayout>
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/person_24dp"
+                        android:hint="Prénom"
+                        android:singleLine="true"
+                        android:text="@={userModel.firstName}" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium"
-                android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_0">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/input_0">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/person_24dp"
-                    android:hint="Nom"
-                    android:singleLine="true"
-                    android:text="@={userModel.lastName}" />
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/person_24dp"
+                        android:hint="Nom"
+                        android:singleLine="true"
+                        android:text="@={userModel.lastName}" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium"
-                android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_1">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/input_1">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/cake_24dp"
-                    android:hint="Année de naissance"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:text="@={userModel.birthday}" />
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/cake_24dp"
+                        android:hint="Année de naissance"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:text="@={userModel.birthday}" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium"
-                android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_2">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/input_2">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/location_city_24dp"
-                    android:hint="Ville"
-                    android:singleLine="true"
-                    android:text="@={userModel.city}" />
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/location_city_24dp"
+                        android:hint="Ville"
+                        android:singleLine="true"
+                        android:text="@={userModel.city}" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium"
-                android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
-                app:layout_constraintEnd_toStartOf="@id/input_5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_3">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
+                    app:layout_constraintEnd_toStartOf="@id/input_5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/input_3">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/local_post_office_24dp"
-                    android:hint="Code Postal"
-                    android:inputType="number"
-                    android:singleLine="true"
-                    android:text="@={userModel.postalCode}" />
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/local_post_office_24dp"
+                        android:hint="Code Postal"
+                        android:inputType="number"
+                        android:singleLine="true"
+                        android:text="@={userModel.postalCode}" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium"
-                android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/input_4"
-                app:layout_constraintTop_toBottomOf="@id/input_3">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/input_4"
+                    app:layout_constraintTop_toBottomOf="@id/input_3">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/map_24dp"
-                    android:hint="Pays"
-                    android:singleLine="true"
-                    android:text="@={userModel.country}" />
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/map_24dp"
+                        android:hint="Pays"
+                        android:singleLine="true"
+                        android:text="@={userModel.country}" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/medium"
-                android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_4">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/medium"
+                    android:theme="@style/JobTrends.Widget.TextInputLayout.Background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/input_4">
 
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:drawableStart="@drawable/business_center_24dp"
-                    android:hint="Métier actuel"
-                    android:singleLine="true"
-                    android:text="@={userModel.job}" />
+                    <android.support.v7.widget.AppCompatAutoCompleteTextView
+                        android:id="@+id/auto_complete_0"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/business_center_24dp"
+                        android:hint="Métier actuel"
+                        android:singleLine="true"
+                        android:text="@={userModel.job}" />
 
-            </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>
 
-        </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+        </ScrollView>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_0"

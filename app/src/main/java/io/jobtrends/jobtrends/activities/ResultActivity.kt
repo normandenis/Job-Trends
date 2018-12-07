@@ -4,7 +4,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil.setContentView
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import io.jobtrends.jobtrends.R
+import io.jobtrends.jobtrends.R.layout.activity_result
 import io.jobtrends.jobtrends.R.layout.surface_result
 import io.jobtrends.jobtrends.activities.ResultActivity.ResultState.HOME_STATE
 import io.jobtrends.jobtrends.adapters.RecyclerAdapter
@@ -52,7 +52,7 @@ class ResultActivity : AppCompatActivity(), ActivityManager {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityResultBinding = setContentView(this, R.layout.activity_result)
+        val binding: ActivityResultBinding = setContentView(this, activity_result)
         buildRecyclers()
     }
 

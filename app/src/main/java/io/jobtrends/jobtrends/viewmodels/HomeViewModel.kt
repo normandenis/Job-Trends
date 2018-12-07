@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 
 @Suppress("UNCHECKED_CAST")
-class HomeViewModel : ViewModel {
+class HomeViewModel : ViewModel, AutoCompleteListener {
 
     enum class HomeListKey : ListKey {
         SEARCH_JOBS_LIST_KEY,
@@ -92,7 +92,7 @@ class HomeViewModel : ViewModel {
         })
     }
 
-    fun searchJob() {
+    override fun searchJob() {
         apiManager.request(GET, SEARCH_JOBS_URL + searchJob.get(), { statusCode, data ->
             jobsCallback(SEARCH_JOBS_LIST_KEY, statusCode, data)
         })
